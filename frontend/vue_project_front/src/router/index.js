@@ -1,0 +1,72 @@
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import QnaView from "@/views/QnaView.vue";
+import QnaList from "@/components/qna/QnaList.vue";
+import QnaDetail from "@/components/qna/QnaDetail.vue";
+import QnaModify from "@/components/qna/QnaModify.vue";
+import QnaWrite from "@/components/qna/QnaWrite.vue";
+import QnaDelete from "@/components/qna/QnaDelete.vue";
+import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
+
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/qna",
+    name: "qna",
+    component: QnaView,
+    redirect: "/qna/list",
+    children: [
+      {
+        path: "list",
+        name: "list",
+        component: QnaList,
+      },
+      {
+        path: "write",
+        name: "write",
+        component: QnaWrite,
+      },
+      {
+        path: "detail/:bno",
+        name: "detail",
+        component: QnaDetail,
+      },
+      {
+        path: "modify/:bno",
+        name: "modify",
+        component: QnaModify,
+      },
+      {
+        path: "delete/:bno",
+        name: "delete",
+        component: QnaDelete,
+      },
+
+      {
+        path: "commentWrite/:bno",
+        name: "commentWrite",
+        component: QnaCommentWrite,
+      },
+    ],
+  },
+  {
+    path: "/house",
+    name: "house",
+    component: () => import("@/views/HouseView.vue"),
+  },
+];
+
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
+
+export default router;

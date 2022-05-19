@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <b-row class="mb-3 mt-2">
+      <b-col cols="11">
+        <b-form-textarea
+          id="comment"
+          placeholder="답변 입력"
+          v-model="comment.ccontent"
+          rows="2"
+        ></b-form-textarea>
+      </b-col>
+      <b-col
+        ><b-button variant="dark" class="h-100" @click="registComment"
+          >등록</b-button
+        ></b-col
+      >
+    </b-row>
+  </div>
+</template>
+
+<script>
+import http from "@/util/http-common.js";
+export default {
+  data() {
+    return {
+      bno: 0,
+      comment: {},
+    };
+  },
+  created() {
+    this.bno = this.$route.params.bno;
+    console.log(this.bno);
+  },
+  methods: {
+    registComment() {
+      console.log(this.bno);
+      http
+        .post("/comment/", {
+          bno: this.bno,
+          ccontent: this.comment.ccontent,
+          comment_no: 0,
+          cwrite_date: "string",
+          user_name: "ssafy",
+        })
+        .then((resp) => {
+          console.log(resp);
+          alert("답변이 등록되었습니다");
+        });
+      this.moveList();
+    },
+    moveList() {
+      this.$router.push({ path: "/qna/detail/" + this.bno });
+    },
+  },
+};
+</script>
+
+<style></style>
