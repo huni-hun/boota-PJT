@@ -14,6 +14,10 @@ export default new Vuex.Store({
     map_sidoName: "",
     map_gugunName: "",
     map_dongName: "",
+    gugun_code: "",
+    foodcommer: [],
+    hospitalcommer: [],
+    studycommer: [],
   },
   getters: {},
   mutations: {
@@ -34,6 +38,9 @@ export default new Vuex.Store({
     SET_GUGUN_NAME(state, gugunName) {
       state.map_gugunName = gugunName;
     },
+    SET_GUGUN_CODE(state, gugunCode) {
+      state.gugun_code = gugunCode;
+    },
     CLEAR_SIDO_LIST(state) {
       state.sidos = [{ value: null, text: "선택하세요" }];
     },
@@ -44,9 +51,20 @@ export default new Vuex.Store({
       state.houses = houses;
     },
     SET_DETAIL_HOUSE(state, house) {
-      console.log("Mutations", house);
       state.house = house;
     },
+
+    /////////////////// 상권
+    SET_FOOD_LIST(state, comm) {
+      state.foodcommer = comm;
+    },
+    SET_HOSPITAL_LIST(state, comm) {
+      state.hospitalcommer = comm;
+    },
+    SET_STUDY_LIST(state, comm) {
+      state.studycommer = comm;
+    },
+
     /////////////////////////////// House end /////////////////////////////////////
   },
   actions: {
@@ -90,14 +108,13 @@ export default new Vuex.Store({
       http
         .get(`/map/guname`, { params })
         .then(({ data }) => {
-          console.log(data[0].gugunName);
-          console.log(data);
           commit("SET_GUGUN_NAME", data[0].gugunName);
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
     getHouseList({ commit }, gugunCode) {
       // vue cli enviroment variables 검색
       //.env.local file 생성.
@@ -116,6 +133,7 @@ export default new Vuex.Store({
         .get(SERVICE_URL, { params })
         .then(({ data }) => {
           // console.log(commit, data);
+          commit("SET_GUGUN_CODE", gugunCode);
           commit("SET_HOUSE_LIST", data.response.body.items.item);
         })
         .catch((error) => {
@@ -128,6 +146,82 @@ export default new Vuex.Store({
       commit("SET_DETAIL_HOUSE", house);
     },
     /////////////////////////////// House end /////////////////////////////////////
+
+    /////////////////////////////// 상권 ////////////////////
+    getFoodList({ commit }, payload) {
+      console.log(payload);
+      const SERVICE_KEY = process.env.VUE_APP_STORE_GUGUN_API_KEY;
+      const SERVICE_URL =
+        "http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
+      const params = {
+        servicekey: decodeURIComponent(SERVICE_KEY),
+        divId: "signguCd",
+        key: payload.gugunCode,
+        type: "json",
+        indsLclsCd: payload.LCD,
+        // indsMclsCd: MCD,
+        // indsSclsCd: "Q12A01",
+      };
+      http
+        .get(SERVICE_URL, { params })
+        .then(({ data }) => {
+          console.log(commit, data.body);
+          commit("SET_FOOD_LIST", data.body.items);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getHospitalList({ commit }, payload) {
+      console.log(payload);
+      const SERVICE_KEY = process.env.VUE_APP_STORE_GUGUN_API_KEY;
+      const SERVICE_URL =
+        "http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
+      const params = {
+        servicekey: decodeURIComponent(SERVICE_KEY),
+        divId: "signguCd",
+        key: payload.gugunCode,
+        type: "json",
+        indsLclsCd: payload.LCD,
+        // indsMclsCd: MCD,
+        // indsSclsCd: "Q12A01",
+      };
+      http
+        .get(SERVICE_URL, { params })
+        .then(({ data }) => {
+          console.log(commit, data.body);
+          commit("SET_HOSPITAL_LIST", data.body.items);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getStudyList({ commit }, payload) {
+      console.log(payload);
+      const SERVICE_KEY = process.env.VUE_APP_STORE_GUGUN_API_KEY;
+      const SERVICE_URL =
+        "http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
+      const params = {
+        servicekey: decodeURIComponent(SERVICE_KEY),
+        divId: "signguCd",
+        key: payload.gugunCode,
+        type: "json",
+        indsLclsCd: payload.LCD,
+        // indsMclsCd: MCD,
+        // indsSclsCd: "Q12A01",
+      };
+      http
+        .get(SERVICE_URL, { params })
+        .then(({ data }) => {
+          console.log(commit, data.body);
+          commit("SET_STUDY_LIST", data.body.items);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   modules: {},
   // plugins: [

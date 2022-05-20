@@ -24,6 +24,7 @@
         @change="searchApt"
       ></b-form-select>
     </b-col>
+
     <!-- <b-col class="sm-3">
       <b-form-select
         v-model="DongCode"
@@ -71,6 +72,13 @@ export default {
     // sidoList() {
     //   this.getSido();
     // },
+
+    //
+    check() {
+      this.$store.dispatch("getStoreList", this.gugunCode);
+    },
+    //
+
     gugunList() {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
