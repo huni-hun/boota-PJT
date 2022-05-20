@@ -49,19 +49,19 @@ public class MemberController {
 		return "logout";
 	}
 	
-	@PostMapping("/login")
-	public String login(String userid, String userpw, HttpSession session) throws SQLException {
-		System.out.println(userid);
-		MemberDto userinfo = mservice.login(userid, userpw); 
-		if(userinfo != null) {
-			System.out.println("ok");
-			session.setAttribute("loginInfo", userinfo);
-			return "loginResult";
-		}else {
-			return "loginFail";
-		}
-	}
-	
+//	@PostMapping("/login")
+//	public String login(String userid, String userpw, HttpSession session) throws SQLException {
+//		System.out.println(userid);
+//		MemberDto userinfo = mservice.login(userid, userpw); 
+//		if(userinfo != null) {
+//			System.out.println("ok");
+//			session.setAttribute("loginInfo", userinfo);
+//			return "loginResult";
+//		}else {
+//			return "loginFail";
+//		}
+//	}
+//	
 	@GetMapping("/memberinfo")
 	public String memberinfo(HttpSession session) {
 		MemberDto userInfo = (MemberDto) session.getAttribute("loginInfo");
