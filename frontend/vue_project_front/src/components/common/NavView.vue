@@ -61,17 +61,4 @@ export default {};
   color: rgba(27, 177, 231, 1);
   text-decoration-line: none;
 }
-.form-white.input-group > .form-control:focus {
-  border-color: #fff;
-  box-shadow: inset 0 0 0 1px #fff;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: #fff;
-}
-
-.navbar-dark .navbar-nav .nav-link:hover,
-.navbar-dark .navbar-nav .nav-link:focus {
-  color: rgba(255, 255, 255, 0.75);
-}
 </style>

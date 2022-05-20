@@ -16,7 +16,7 @@ export default new Vuex.Store({
     map_dongName: "",
     gugun_code: "",
     foodcommer: [],
-    hospitalcommer: [],
+    playcommer: [],
     studycommer: [],
   },
   getters: {},
@@ -58,8 +58,8 @@ export default new Vuex.Store({
     SET_FOOD_LIST(state, comm) {
       state.foodcommer = comm;
     },
-    SET_HOSPITAL_LIST(state, comm) {
-      state.hospitalcommer = comm;
+    SET_PLAY_LIST(state, comm) {
+      state.playcommer = comm;
     },
     SET_STUDY_LIST(state, comm) {
       state.studycommer = comm;
@@ -173,7 +173,7 @@ export default new Vuex.Store({
         });
     },
 
-    getHospitalList({ commit }, payload) {
+    getPlayList({ commit }, payload) {
       console.log(payload);
       const SERVICE_KEY = process.env.VUE_APP_STORE_GUGUN_API_KEY;
       const SERVICE_URL =
@@ -191,7 +191,7 @@ export default new Vuex.Store({
         .get(SERVICE_URL, { params })
         .then(({ data }) => {
           console.log(commit, data.body);
-          commit("SET_HOSPITAL_LIST", data.body.items);
+          commit("SET_PLAY_LIST", data.body.items);
         })
         .catch((error) => {
           console.log(error);

@@ -1,59 +1,98 @@
 <template>
   <div class="around">
     <button @click="foodChange">음식</button>
-    <button @click="hospitalChange">의료</button>
+    <button @click="playChange">여가</button>
     <button @click="studyChange">교육</button>
 
-    <table id="food-list" v-if="foodVisible">
-      <thead>
+    <div v-if="foodVisible">
+      <table id="food-list">
         <tr>
           <th>이름</th>
           <th>업종</th>
           <th>주소</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr class="item" v-for="(food, index) in foods" :key="index">
+        <tr v-for="(food, index) in FPaginatedData" :key="index">
           <td>{{ food.bizesNm }}</td>
           <td>{{ food.indsSclsNm }}</td>
           <td>{{ food.lnoAdr }}</td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+      <div class="btn-cover">
+        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+          이전
+        </button>
+        <span class="page-count"
+          >{{ pageNum + 1 }} / {{ foodPageCount }} 페이지</span
+        >
+        <button
+          :disabled="pageNum >= foodPageCount - 1"
+          @click="nextPage"
+          class="page-btn"
+        >
+          다음
+        </button>
+      </div>
+    </div>
 
-    <table id="hospital-list" v-if="hospitalVisible">
-      <thead>
+    <div v-if="playVisible">
+      <table id="play-list">
         <tr>
           <th>이름</th>
           <th>업종</th>
           <th>주소</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr class="item" v-for="(hospital, index) in hospitals" :key="index">
-          <td>{{ hospital.bizesNm }}</td>
-          <td>{{ hospital.indsSclsNm }}</td>
-          <td>{{ hospital.lnoAdr }}</td>
+        <tr v-for="(play, index) in PPaginatedData" :key="index">
+          <td>{{ play.bizesNm }}</td>
+          <td>{{ play.indsSclsNm }}</td>
+          <td>{{ play.lnoAdr }}</td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+      <div class="btn-cover">
+        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+          이전
+        </button>
+        <span class="page-count"
+          >{{ pageNum + 1 }} / {{ playPageCount }} 페이지</span
+        >
+        <button
+          :disabled="pageNum >= playPageCount - 1"
+          @click="nextPage"
+          class="page-btn"
+        >
+          다음
+        </button>
+      </div>
+    </div>
 
-    <table id="study-list" v-if="studyVisible">
-      <thead>
+    <div v-if="studyVisible">
+      <table id="study-list">
         <tr>
           <th>이름</th>
           <th>업종</th>
           <th>주소</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr class="item" v-for="(study, index) in studys" :key="index">
+        <tr v-for="(study, index) in SPaginatedData" :key="index">
           <td>{{ study.bizesNm }}</td>
           <td>{{ study.indsSclsNm }}</td>
           <td>{{ study.lnoAdr }}</td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+      <div class="btn-cover">
+        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+          이전
+        </button>
+        <span class="page-count"
+          >{{ pageNum + 1 }} / {{ StudyPageCount }} 페이지</span
+        >
+        <button
+          :disabled="pageNum >= StudyPageCount - 1"
+          @click="nextPage"
+          class="page-btn"
+        >
+          다음
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,13 +101,19 @@ export default {
   name: "CommercialView",
   data() {
     return {
-      hospitals: [],
+      plays: [],
       foods: [],
       studys: [],
-      hospitalVisible: true,
-      foodVisible: false,
+      foodVisible: true,
+      playVisible: false,
       studyVisible: false,
       gugun: "",
+      playOn: false,
+      foodOn: false,
+      studyOn: false,
+      //
+      pageNum: 0,
+      pageSize: 10,
     };
   },
   computed: {
@@ -78,26 +123,78 @@ export default {
     checkfood() {
       return this.$store.state.foodcommer;
     },
-    checkhospital() {
-      return this.$store.state.hospitalcommer;
+    checkplay() {
+      return this.$store.state.playcommer;
     },
     checkstudy() {
       return this.$store.state.studycommer;
     },
+    ////////////////////////////
+    foodPageCount() {
+      let listLeng = this.foods.length,
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
+
+      if (listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    FPaginatedData() {
+      const start = this.pageNum * this.pageSize,
+        end = start + this.pageSize;
+
+      return this.foods.slice(start, end);
+    },
+    //////////////////////////
+    playPageCount() {
+      let listLeng = this.plays.length,
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
+
+      if (listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    PPaginatedData() {
+      const start = this.pageNum * this.pageSize,
+        end = start + this.pageSize;
+
+      return this.plays.slice(start, end);
+    },
+    ////////////
+    StudyPageCount() {
+      let listLeng = this.studys.length,
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
+
+      if (listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    SPaginatedData() {
+      const start = this.pageNum * this.pageSize,
+        end = start + this.pageSize;
+
+      return this.studys.slice(start, end);
+    },
   },
   watch: {
     check(val) {
+      this.foodOn = false;
+      this.playOn = false;
+      this.studyOn = false;
       let info = {
         LCD: "Q",
         gugunCode: val,
       };
       (this.gugun = val), this.$store.dispatch("getFoodList", info);
+      this.foodOn = true;
     },
     checkfood(val) {
       this.foods = val;
     },
-    checkhospital(val) {
-      this.hosptials = val;
+    checkplay(val) {
+      this.plays = val;
     },
     checkstudy(val) {
       this.studys = val;
@@ -110,39 +207,80 @@ export default {
         LCD: "Q",
         gugunCode: this.gugun,
       };
-      this.hospitalVisible = false;
+      this.playVisible = false;
       this.studyVisible = false;
       this.foodVisible = true;
-      this.$store.dispatch("getFoodList", info);
+      if (this.foodOn == false) {
+        this.$store.dispatch("getFoodList", info);
+        this.foodOn = true;
+      }
     },
-    hospitalChange() {
+    playChange() {
       let info = {
-        LCD: "S",
+        LCD: "N",
         gugunCode: this.gugun,
       };
-      this.hospitalVisible = true;
+      this.playVisible = true;
       this.studyVisible = false;
       this.foodVisible = false;
-      this.$store.dispatch("getHospitalList", info);
+      if (this.playOn == false) {
+        this.$store.dispatch("getPlayList", info);
+        this.playOn = true;
+      }
     },
     studyChange() {
       let info = {
         LCD: "R",
         gugunCode: this.gugun,
       };
-      this.hospitalVisible = false;
+      this.playVisible = false;
       this.studyVisible = true;
       this.foodVisible = false;
-      this.$store.dispatch("getStudyList", info);
+      if (this.studyOn == false) {
+        this.$store.dispatch("getStudyList", info);
+        this.studyOn = true;
+      }
     },
-
-    //
-    // check() {
-    //   this.$store.dispatch("getStoreList", this.gugunCode);
-    // },
-    //
+    nextPage() {
+      this.pageNum += 1;
+    },
+    prevPage() {
+      this.pageNum -= 1;
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th {
+  font-size: 1.2rem;
+}
+table tr {
+  height: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #505050;
+}
+table tr:first-of-type {
+  border-top: 2px solid #404040;
+}
+table tr td {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+}
+.btn-cover {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.btn-cover .page-btn {
+  width: 5rem;
+  height: 2rem;
+  letter-spacing: 0.5px;
+}
+.btn-cover .page-count {
+  padding: 0 1rem;
+}
+</style>
