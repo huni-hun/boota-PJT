@@ -20,12 +20,6 @@ export default {
     };
   },
 
-  //   props: {
-  //     aptlist: Array,
-  //     si: String,
-  //     gugun: String,
-  //     dong: String,
-  //   },
   computed: {
     checkhouses() {
       return this.$store.state.houses;
@@ -47,13 +41,10 @@ export default {
       this.si = val;
     },
     checkgugun(val) {
-      console.log(val);
       this.gugun = val;
     },
   },
   mounted() {
-    console.log(this.$store.state.houses);
-    console.log(this.$store.state.map_sidoName);
     window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
   },
   updated() {
