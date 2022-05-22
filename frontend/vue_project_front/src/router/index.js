@@ -9,6 +9,8 @@ import QnaWrite from "@/components/qna/QnaWrite.vue";
 import QnaDelete from "@/components/qna/QnaDelete.vue";
 import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
+import MemberLoginView from "@/components/user/MemberLogin.vue";
+import MemberJoinView from "@/components/user/MemberJoinView.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -60,6 +62,16 @@ const routes = [
     path: "/house",
     name: "house",
     component: () => import("@/views/HouseView.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: MemberLoginView,
+  },
+  {
+    path: "/join",
+    name: "join",
+    component: MemberJoinView,
   },
 ];
 

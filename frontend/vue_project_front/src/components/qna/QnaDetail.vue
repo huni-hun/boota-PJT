@@ -1,56 +1,72 @@
 <template>
-  <div class="regist">
-    <div class="regist_form">
-      <label for="articleno" class="boardth">글번호</label>
-      <div class="view boardtd">{{ board.bno }}</div>
-      <label for="subject" class="boardth">제목</label>
-      <div class="view boardtd">{{ board.btitle }}</div>
-      <label for="userid" class="boardth">작성자</label>
-      <div class="view boardtd">{{ board.bwriter }}</div>
-      <label for="price" class="boardth">작성일</label>
-      <div class="view boardtd">{{ board.bwrite_date }}</div>
-      <label for="content" class="boardth">내용</label>
-      <div class="view boardtd">{{ board.bcontent }}</div>
-      <label for="comment" class="boardth">답변</label>
-      <b-row>
-        <b-col v-if="comments.length">
-          <b-table-simple hover responsive>
-            <b-thead head-variant="dark">
-              <b-tr>
-                <b-th>작성자</b-th>
-                <b-th>내용</b-th>
-                <b-th>작성일</b-th>
-              </b-tr>
-            </b-thead>
-            <b-tbody>
-              <b-tr v-for="(comment, index) in comments" :key="index">
-                <b-td>{{ comment.user_name }}</b-td>
-                <b-td>{{ comment.ccontent }}</b-td>
-                <b-td>{{ comment.cwrite_date }}</b-td>
-              </b-tr>
-            </b-tbody>
-            <tbody></tbody>
-          </b-table-simple>
-        </b-col>
-        <b-col v-else class="text-center">등록된 답변이 없습니다</b-col>
-      </b-row>
+  <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="700"
+    max-height="10000"
+  >
+    <v-img height="80" src="@/assets/qnawrite.png"></v-img>
 
-      <div style="padding-top: 30px">
-        <router-link :to="'/qna/modify/' + board.bno" class="userbtn"
+    <v-card-title>제목 : {{ board.btitle }}</v-card-title>
+
+    <v-card-text>
+      <v-row align="center" class="mx-0">
+        <div class="my-4 grey--text">작성일 : {{ board.bwrite_date }}</div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-5">작성자 : {{ board.bwriter }}</div>
+
+      <div class="black--text">
+        {{ board.bcontent }}
+      </div>
+    </v-card-text>
+
+    <v-divider class="mx-4"></v-divider>
+
+    <v-card-title>답변</v-card-title>
+    <v-card-text v-if="comments.length">
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left" width="7%">작성자</th>
+              <th class="text-left" width="50%">내용</th>
+              <th class="text-left" width="20%">작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(comment, index) in comments" :key="index">
+              <td>{{ comment.user_name }}</td>
+              <td>{{ comment.ccontent }}</td>
+              <td>{{ comment.cwrite_date }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card-text>
+    <v-card-text v-else>등록된 답변이 없습니다</v-card-text>
+
+    <v-card-text class="d-flex justify-space-around mb-6">
+      <v-btn color="#eceff1"
+        ><router-link :to="'/qna/modify/' + board.bno" class="btn corbtn"
           >수정</router-link
         >
-        <router-link :to="'/qna/delete/' + board.bno" class="userbtn"
+      </v-btn>
+      <v-btn color="#455A64">
+        <router-link :to="'/qna/delete/' + board.bno" class="btn delbtn"
           >삭제</router-link
-        >
-        <router-link to="/qna/list" class="userbtn">목록</router-link>
-      </div>
-      <div>
-        <router-link :to="'/qna/commentWrite/' + board.bno" class="adminbtn"
+        ></v-btn
+      >
+      <v-btn color="indigo">
+        <router-link to="/qna/list" class="btn listbtn">목록</router-link>
+      </v-btn>
+      <v-btn>
+        <router-link :to="'/qna/commentWrite/' + board.bno" class="btn"
           >답변하기</router-link
         >
-      </div>
-    </div>
-  </div>
+      </v-btn>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -80,34 +96,17 @@ export default {
 };
 </script>
 
-<style>
-.boardth {
-  background-color: antiquewhite;
-  margin: 15px;
-  padding: 7px;
-  border-radius: 7px;
-}
-.boardtd {
-  background-color: #f0f0f0;
-  border-radius: 7px;
-}
-.userbtn {
+<style scoped>
+.btn {
   text-decoration: none;
-  background-color: #7ca3b7;
-  border-radius: 10px;
-  color: #f0f0f0;
-  margin: 10px;
-  padding: 10px;
 }
-
-.adminbtn {
-  text-decoration: none;
-  background-color: #7ca3b7;
-  border-radius: 10px;
-  color: #f0f0f0;
-  margin: 10px;
-  padding: 10px;
-  position: absolute;
-  right: 20px;
+.delbtn {
+  color: #eceff1;
+}
+.corbtn {
+  color: #37473f;
+}
+.listbtn {
+  color: #eceff1;
 }
 </style>

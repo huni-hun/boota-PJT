@@ -1,36 +1,61 @@
 <template>
-  <div>
-    <h1>게시글 수정</h1>
-    <div class="regist_form">
-      <label for="bno" class="boardth">글번호</label>
-      <div class="view boardtd">{{ board.bno }}</div>
-      <label for="subject" class="boardth">제목</label>
-      <input
-        type="text"
-        id="btitle"
-        name="btitle"
-        v-model="board.btitle"
-        ref="title"
-      /><br />
-      <label for="userid" class="boardth">작성자</label>
-      <div class="view boardtd">{{ board.bwriter }}</div>
-      <label for="bwrite_date" class="boardth">작성일</label>
-      <div class="view boardtd">{{ board.bwrite_date }}</div>
-      <label for="content" class="boardth">내용</label>
-      <input
-        type="text"
-        id="bcontent"
-        name="bcontent"
-        v-model="board.bcontent"
-        ref="content"
-      /><br />
-      <div style="padding-top: 15px">
-        <button @click="modifyBoard">수정</button>
-        <button @click="moveList">목록</button>
-        <router-link to="/qna/list" class="btn">목록</router-link>
-      </div>
-    </div>
-  </div>
+  <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="700"
+    max-height="10000"
+  >
+    <v-img height="80" src="@/assets/qnawrite.png"></v-img>
+
+    <v-card-text>
+      <v-row align="center" class="mx-0">
+        <v-col>
+          <div class="black--text">
+            <v-text-field
+              type="text"
+              id="btitle"
+              name="btitle"
+              v-model="board.btitle"
+              ref="btitle"
+              label="제목 "
+              placeholder="질문 제목을 입력하세요"
+            ></v-text-field>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <div class="black--text">
+            <v-textarea
+              label="내용"
+              id="bcontent"
+              name="bcontent"
+              v-model="board.bcontent"
+              ref="bcontent"
+              background-color="amber lighten-4"
+              color="orange orange-darken-4"
+            ></v-textarea>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-row class="d-flex justify-5">
+      <v-card-text class="ml-3">
+        <div class="grey--text">작성일 : {{ board.bwrite_date }}</div>
+
+        <div class="grey--text my-3 text-subtitle-5">
+          작성자 : {{ board.bwriter }}
+        </div>
+      </v-card-text>
+    </v-row>
+    <v-card-text class="d-flex justify-space-around mb-6">
+      <v-btn class="writeFormBtn submit" @click="modifyBoard">수정</v-btn>
+      <v-btn class="writeFormBtn list indigo white--text" @click="moveList"
+        >목록으로</v-btn
+      >
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

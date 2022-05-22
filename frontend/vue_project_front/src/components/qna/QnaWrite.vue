@@ -1,37 +1,52 @@
 <template>
-  <div class="regist">
-    <!-- <h1 class="writeTitle">Question 작성</h1> -->
-    <div class="regist_form">
-      <label class="titleLabel" for="title">제목 : </label>
-      <input
-        type="text"
-        id="btitle"
-        name="btitle"
-        v-model="btitle"
-        ref="btitle"
-      /><br />
-      <!-- <label for="bwriter">저자</label>
-      <input
-        type="text"
-        id="author"
-        name="author"
-        v-model="author"
-        ref="author"
-      /><br /> -->
-      <label for="content">내용</label>
-      <textarea
-        id="bcontent"
-        name="bcontent"
-        v-model="bcontent"
-        ref="bcontent"
-        cols="35"
-        rows="5"
-      ></textarea
-      ><br />
-      <button class="writeFormBtn submit" @click="checkValue">등록하기</button>
-      <button class="writeFormBtn list" @click="moveList">목록으로</button>
-    </div>
-  </div>
+  <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="700"
+    max-height="10000"
+  >
+    <v-img height="80" src="@/assets/qnawrite.png"></v-img>
+
+    <v-card-text>
+      <v-row align="center" class="mx-0">
+        <v-col>
+          <div class="black--text">
+            <v-text-field
+              type="text"
+              id="btitle"
+              name="btitle"
+              v-model="btitle"
+              ref="btitle"
+              label="제목 "
+              placeholder="질문 제목을 입력하세요"
+            ></v-text-field>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div class="black--text">
+            <v-textarea
+              label="내용"
+              id="bcontent"
+              name="bcontent"
+              v-model="bcontent"
+              ref="bcontent"
+              background-color="amber lighten-4"
+              color="orange orange-darken-4"
+            ></v-textarea>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-card-text class="d-flex justify-space-around mb-6">
+      <v-btn class="writeFormBtn submit" @click="checkValue">등록하기</v-btn>
+      <v-btn class="writeFormBtn list indigo white--text" @click="moveList"
+        >목록으로</v-btn
+      >
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -95,30 +110,31 @@ export default {
   border: none;
 }
 
+/* 
 .submit {
   background-color: rgb(158, 186, 236);
-}
+} */
 
-input {
+/* input {
   border: none;
   border-bottom: 1px solid rgb(109, 121, 143);
   margin-top: 30px;
-}
-textarea {
+} */
+/* textarea {
   border: none;
   background-color: rgb(252, 255, 232);
   margin: 30px;
   padding: 20px;
-}
+} */
 label {
   margin-right: 20px;
   font-size: 20px;
 }
 
-.regist_form {
+/* .regist_form {
   display: inline-block;
   padding: 20px;
   justify-content: flex-start;
   align-items: flex-start;
-}
+} */
 </style>

@@ -1,7 +1,7 @@
 <template>
   <!-- 카카오맵 Vue -->
   <div>
-    <div id="map" style="width: 100%; height: 500px"></div>
+    <div id="map" style="margin-top: 20px; width: 100%; height: 600px"></div>
     <div hidden>
       {{ aptlist }}
     </div>

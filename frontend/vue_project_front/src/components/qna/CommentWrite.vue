@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <b-row class="mb-3 mt-2">
-      <b-col cols="11">
-        <b-form-textarea
-          id="comment"
-          placeholder="답변 입력"
-          v-model="comment.ccontent"
-          rows="2"
-        ></b-form-textarea>
-      </b-col>
-      <b-col
-        ><b-button variant="dark" class="h-100" @click="registComment"
-          >등록</b-button
-        ></b-col
-      >
-    </b-row>
-  </div>
+  <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="700"
+    max-height="10000"
+  >
+    <v-img height="80" src="@/assets/qnawrite.png"></v-img>
+
+    <v-card-text>
+      <v-row>
+        <v-col>
+          <div class="black--text">
+            <v-text-field
+              id="comment"
+              placeholder="답변 입력"
+              v-model="comment.ccontent"
+              rows="2"
+            ></v-text-field>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-card-text class="d-flex justify-space-around mb-6">
+      <v-btn class="writeFormBtn submit" @click="registComment">등록하기</v-btn>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

@@ -1,89 +1,107 @@
 <template>
   <div>
-    <div class="star-rating space-x-4 mx-auto">
-      <input
-        type="radio"
-        id="5-stars"
-        name="rating"
-        value="5"
-        v-model="ratings"
-      />
-      <label for="5-stars" class="star pr-4">★</label>
-      <input
-        type="radio"
-        id="4-stars"
-        name="rating"
-        value="4"
-        v-model="ratings"
-      />
-      <label for="4-stars" class="star">★</label>
-      <input
-        type="radio"
-        id="3-stars"
-        name="rating"
-        value="3"
-        v-model="ratings"
-      />
-      <label for="3-stars" class="star">★</label>
-      <input
-        type="radio"
-        id="2-stars"
-        name="rating"
-        value="2"
-        v-model="ratings"
-      />
-      <label for="2-stars" class="star">★</label>
-      <input
-        type="radio"
-        id="1-star"
-        name="rating"
-        value="1"
-        v-model="ratings"
-      />
-      <label for="1-star" class="star">★</label>
-    </div>
-    <b-row style="position: absolute; width: 400px; left: 40%">
-      <b-col>
-        <input
-          type="text"
-          id="reivewTitle"
-          name="reivewTitle"
-          placeholder="제목을 입력하세요."
-          v-model="reivewTitle"
-        />
-        <input
-          type="text"
-          id="reivew"
-          name="reivew"
-          placeholder="리뷰를 입력하세요."
-          v-model="reivew"
-        />
-      </b-col>
-      <b-col>
-        <input type="submit" value="작성" @click="writeReivew" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <table>
-        <tr v-for="(rv, index) in reivews" :key="index">
-          <td>{{ rv.reivew_title }}</td>
-          <td>{{ rv.reivew_content }}</td>
-          <div class="star-ratings">
-            <div
-              class="star-ratings-fill space-x-2 text-lg"
-              :style="{ width: ratingToPercent(rv.reivew_rating) + '%' }"
-            >
-              <span>★</span><span>★</span><span>★</span><span>★</span
-              ><span>★</span>
-            </div>
-            <div class="star-ratings-base space-x-2 text-lg">
-              <span>★</span><span>★</span><span>★</span><span>★</span
-              ><span>★</span>
-            </div>
+    <v-row>
+      <v-col>
+        <v-card height="200px">
+          <div class="star-rating space-x-4 mx-auto">
+            <input
+              type="radio"
+              id="5-stars"
+              name="rating"
+              value="5"
+              v-model="ratings"
+            />
+            <label for="5-stars" class="star pr-4">★</label>
+            <input
+              type="radio"
+              id="4-stars"
+              name="rating"
+              value="4"
+              v-model="ratings"
+            />
+            <label for="4-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="3-stars"
+              name="rating"
+              value="3"
+              v-model="ratings"
+            />
+            <label for="3-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="2-stars"
+              name="rating"
+              value="2"
+              v-model="ratings"
+            />
+            <label for="2-stars" class="star">★</label>
+            <input
+              type="radio"
+              id="1-star"
+              name="rating"
+              value="1"
+              v-model="ratings"
+            />
+            <label for="1-star" class="star">★</label>
           </div>
-        </tr>
-      </table>
-    </b-row>
+
+          <!-- <v-row style="position: absolute; width: 400px; left: 40%"> -->
+          <v-row>
+            <input
+              type="text"
+              id="reivewTitle"
+              name="reivewTitle"
+              placeholder="제목을 입력하세요."
+              v-model="reivewTitle"
+            />
+          </v-row>
+          <v-row>
+            <input
+              type="text"
+              id="reivew"
+              name="reivew"
+              placeholder="리뷰를 입력하세요."
+              v-model="reivew"
+            />
+            <!-- </v-col> -->
+          </v-row>
+          <v-btn
+            class="mx-1"
+            fab
+            dark
+            small
+            color="indigo"
+            @click="writeReivew"
+          >
+            <v-icon dark> mdi-plus </v-icon>
+          </v-btn>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card height="200px">
+          <table>
+            <tr v-for="(rv, index) in reivews" :key="index">
+              <td>{{ rv.reivew_title }}</td>
+              <td>{{ rv.reivew_content }}</td>
+              <div class="star-ratings">
+                <div
+                  class="star-ratings-fill space-x-2 text-lg"
+                  :style="{ width: ratingToPercent(rv.reivew_rating) + '%' }"
+                >
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
+                </div>
+                <div class="star-ratings-base space-x-2 text-lg">
+                  <span>★</span><span>★</span><span>★</span><span>★</span
+                  ><span>★</span>
+                </div>
+              </div>
+            </tr>
+          </table>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

@@ -1,64 +1,78 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">
-        <router-link to="/">
-          <img
-            src="@/assets/happy.png"
-            class="d-inline-block align-middle"
-            width="90px"
-            alt="Kitten"
-          />
-        </router-link>
-      </b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+  <v-toolbar flat height="100px">
+    <v-toolbar-title
+      ><router-link to="/">
+        <img
+          src="@/assets/happy3.png"
+          class="align-middle"
+          width="130px"
+          alt="Kitten"
+        /> </router-link
+    ></v-toolbar-title>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="#"
-            ><router-link to="/" class="link">HOME</router-link></b-nav-item
+    <v-spacer></v-spacer>
+
+    <v-btn text><router-link to="/qna" class="link">Q&A</router-link> </v-btn>
+
+    <v-btn text><router-link to="/house" class="link">MAP</router-link></v-btn>
+
+    <v-btn text
+      ><router-link to="/" class="link">부동산 타임</router-link>
+    </v-btn>
+    <v-menu left bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on">
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item>
+          <v-list-item-title
+            ><router-link to="/login" class="link"
+              >로그인</router-link
+            ></v-list-item-title
           >
-          <b-nav-item href="#"
-            ><router-link to="/qna" class="link">Q&A</router-link></b-nav-item
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-title
+            ><router-link to="/join" class="link"
+              >로그아웃</router-link
+            ></v-list-item-title
           >
-          <b-nav-item href="#"
-            ><router-link to="/" class="link">공지사항</router-link></b-nav-item
-          >
-          <b-nav-item href="#"
-            ><router-link to="/house" class="link">MAP</router-link></b-nav-item
-          >
-          <b-nav-item href="#"
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-title
             ><router-link to="/" class="link"
-              >부동산 타임</router-link
-            ></b-nav-item
+              >회원정보</router-link
+            ></v-list-item-title
           >
-        </b-navbar-nav>
-
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <b-icon icon="person" font-scale="2.5"></b-icon>
-            </template>
-            <b-dropdown-item href="#">회원가입</b-dropdown-item>
-            <b-dropdown-item href="#">로그인</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-  </div>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-title
+            ><router-link to="/join" class="link"
+              >회원가입</router-link
+            ></v-list-item-title
+          >
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </v-toolbar>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      drawer: null,
+    };
+  },
+};
 </script>
 
 <style scoped>
 .link {
-  color: azure;
-}
-
-.link:hover {
-  color: rgba(27, 177, 231, 1);
-  text-decoration-line: none;
+  text-decoration: none;
+  color: #707070;
 }
 </style>

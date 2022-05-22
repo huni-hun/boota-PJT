@@ -1,69 +1,73 @@
 <template>
   <div class="regist">
     <div style="text-align: right">
-      <button class="writeBtn" @click="writePage">질문하러 가기</button>
+      <v-btn
+        color="indigo"
+        @click="writePage"
+        class="white--text writeBtn"
+        rounded
+      >
+        질문하러 가기</v-btn
+      >
     </div>
     <div v-if="boards.length">
-      <table id="board-list">
-        <colgroup>
-          <col style="width: 5%" />
-          <col style="width: 40%" />
-          <col style="width: 25%" />
-          <col style="width: 25%" />
-          <col style="width: 5%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(board, index) in boards" :key="index">
-            <td>{{ board.bno }}</td>
-            <td>
-              <a href="#" @click="movePage(board.bno)">{{ board.btitle }}</a>
-            </td>
-            <td>{{ board.bwriter }}</td>
-            <td>{{ board.bwrite_date }}</td>
-            <td>{{ board.bread_count }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="search">
-        <input type="text" v-model="keyword" placeholder="검색어를 입력" />
-        <button class="searchbtn" @click="searchPage()">검색</button>
-      </div>
-      <div class="pagination">
-        <a
-          v-if="startPage > 1"
-          href="#"
-          class="page-link"
-          @click="movePageLink(startPage - 1)"
-          >[이전]</a
-        >
-        <a
-          v-for="val in endPage"
-          :key="val"
-          href="#"
-          class="page-link"
-          style=""
-          @click="movePageLink(val)"
-          >[{{ val }}]</a
-        >
-        <a
-          v-if="endPage < totalPage"
-          href="#"
-          class="page-link"
-          @click="movePageLink(endPage + 1)"
-          >[다음]</a
-        >
-      </div>
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left" width="7%">글번호</th>
+              <th class="text-left" width="50%">제목</th>
+              <th class="text-left" width="15%">작성자</th>
+              <th class="text-left" width="15%">작성일시</th>
+              <th class="text-left" width="7%">조회수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(board, index) in boards" :key="index">
+              <td>{{ board.bno }}</td>
+              <td class="alink">
+                <a href="#" @click="movePage(board.bno)">{{ board.btitle }}</a>
+              </td>
+              <td>{{ board.bwriter }}</td>
+              <td>{{ board.bwrite_date }}</td>
+              <td>{{ board.bread_count }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
     </div>
+
     <div v-else class="text-center"><img src="@/assets/noboard.png" /></div>
+
+    <div class="pagination">
+      <template>
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="totalPage"
+            :total-visible="7"
+            circle
+            @input="movePageLink(page)"
+          ></v-pagination>
+        </div>
+      </template>
+    </div>
+    <v-container class="d-flex justify-center">
+      <v-form class="d-flex" ref="form">
+        <v-text-field
+          v-model="keyword"
+          placeholder="검색어를 입력하세요"
+        ></v-text-field>
+        <v-btn
+          color="indigo"
+          @click="searchPage()"
+          class="white--text searchBtn"
+          rounded
+        >
+          <v-icon>mdi-magnify</v-icon></v-btn
+        >
+      </v-form>
+    </v-container>
   </div>
 </template>
 
@@ -120,45 +124,24 @@ export default {
 };
 </script>
 
-<style>
-.regist {
-  display: inline;
+<style scoped>
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: none;
 }
-.searchbtn {
-  margin: 10px;
-  background-color: rgb(102, 102, 102);
-  color: #f0f0f0;
-  border-color: rgb(176, 176, 176);
-  border-radius: 5px;
-  border-style: none;
+.alink > a {
+  color: #4e5fbb;
 }
 .writeBtn {
-  margin: 20px;
-  background-color: rgb(219, 219, 219);
-  padding: 7px;
-  border-style: none;
-  border-radius: 7px;
+  margin: 15px;
 }
-.search {
-  margin-top: 20px;
+.v-text-field {
+  width: 400px;
 }
 
-.pagination {
-  display: flex;
-  position: relative;
-  left: 45%;
-  align-content: center;
-  align-items: center;
-}
-th {
-  border-bottom: 0.5px solid rgb(133, 132, 132);
-}
-td {
-  padding: 5px;
-  border-bottom: 0.5px solid rgb(212, 212, 212);
-}
-
-.page-link {
-  text-decoration: none;
+.searchBtn {
+  margin-top: 45px;
+  margin-left: 50px;
 }
 </style>

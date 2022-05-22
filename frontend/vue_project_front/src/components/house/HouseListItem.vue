@@ -1,22 +1,23 @@
 <template>
-  <b-row
-    class="m-2"
-    @click="selectHouse"
-    @mouseover="colorChange(true)"
-    @mouseout="colorChange(false)"
-    :class="{ 'mouse-over-bgcolor': isColor }"
-  >
-    <b-col cols="2" class="text-center align-self-center">
-      <b-img
-        thumbnail
-        src="https://picsum.photos/250/250/?image=58"
-        alt="Image 1"
-      ></b-img>
-    </b-col>
-    <b-col cols="10" class="align-self-center">
-      [{{ house.일련번호 }}] {{ house.아파트 }}
-    </b-col>
-  </b-row>
+  <div>
+    <v-row
+      @click="selectHouse"
+      @mouseover="colorChange(true)"
+      @mouseout="colorChange(false)"
+      :class="{ 'mouse-over-bgcolor': isColor }"
+    >
+      <v-col cols="3" class="text-center align-self-center">
+        <v-img
+          thumbnail
+          src="https://picsum.photos/250/250/?image=58"
+          alt="Image 1"
+        ></v-img>
+      </v-col>
+      <v-col cols="9" class="align-self-center">
+        [{{ house.일련번호 }}] {{ house.아파트 }}
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>

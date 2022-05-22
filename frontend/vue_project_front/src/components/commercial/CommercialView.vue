@@ -1,96 +1,154 @@
 <template>
   <div class="around">
-    <button @click="foodChange">음식</button>
-    <button @click="playChange">여가</button>
-    <button @click="studyChange">교육</button>
+    <div class="d-flex justify-center mb-6">
+      <v-tabs>
+        <v-tab @click="foodChange">음식</v-tab>
+        <v-tab @click="playChange">여가</v-tab>
+        <v-tab @click="studyChange">교육</v-tab>
+      </v-tabs>
+    </div>
 
     <div v-if="foodVisible">
-      <table id="food-list">
-        <tr>
-          <th>이름</th>
-          <th>업종</th>
-          <th>주소</th>
-        </tr>
-        <tr v-for="(food, index) in FPaginatedData" :key="index">
-          <td>{{ food.bizesNm }}</td>
-          <td>{{ food.indsSclsNm }}</td>
-          <td>{{ food.lnoAdr }}</td>
-        </tr>
-      </table>
+      <v-simple-table id="food-list">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-center">이름</th>
+              <th class="text-center">업종</th>
+              <th class="text-center">주소</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(food, index) in FPaginatedData" :key="index">
+              <td>{{ food.bizesNm }}</td>
+              <td>{{ food.indsSclsNm }}</td>
+              <td>{{ food.lnoAdr }}</td>
+            </tr>
+          </tbody></template
+        >
+      </v-simple-table>
       <div class="btn-cover">
-        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <v-btn
+          :disabled="pageNum === 0"
+          @click="prevPage"
+          class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
+        >
           이전
-        </button>
+        </v-btn>
         <span class="page-count"
           >{{ pageNum + 1 }} / {{ foodPageCount }} 페이지</span
         >
-        <button
+        <v-btn
           :disabled="pageNum >= foodPageCount - 1"
           @click="nextPage"
           class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
         >
           다음
-        </button>
+        </v-btn>
       </div>
     </div>
 
     <div v-if="playVisible">
-      <table id="play-list">
-        <tr>
-          <th>이름</th>
-          <th>업종</th>
-          <th>주소</th>
-        </tr>
-        <tr v-for="(play, index) in PPaginatedData" :key="index">
-          <td>{{ play.bizesNm }}</td>
-          <td>{{ play.indsSclsNm }}</td>
-          <td>{{ play.lnoAdr }}</td>
-        </tr>
-      </table>
+      <v-simple-table id="play-list">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>업종</th>
+              <th>주소</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(play, index) in PPaginatedData" :key="index">
+              <td>{{ play.bizesNm }}</td>
+              <td>{{ play.indsSclsNm }}</td>
+              <td>{{ play.lnoAdr }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
       <div class="btn-cover">
-        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <v-btn
+          :disabled="pageNum === 0"
+          @click="prevPage"
+          class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
+        >
           이전
-        </button>
+        </v-btn>
         <span class="page-count"
           >{{ pageNum + 1 }} / {{ playPageCount }} 페이지</span
         >
-        <button
+        <v-btn
           :disabled="pageNum >= playPageCount - 1"
           @click="nextPage"
           class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
         >
           다음
-        </button>
+        </v-btn>
       </div>
     </div>
 
     <div v-if="studyVisible">
-      <table id="study-list">
-        <tr>
-          <th>이름</th>
-          <th>업종</th>
-          <th>주소</th>
-        </tr>
-        <tr v-for="(study, index) in SPaginatedData" :key="index">
-          <td>{{ study.bizesNm }}</td>
-          <td>{{ study.indsSclsNm }}</td>
-          <td>{{ study.lnoAdr }}</td>
-        </tr>
-      </table>
+      <v-simple-table id="study-list">
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>업종</th>
+              <th>주소</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(study, index) in SPaginatedData" :key="index">
+              <td>{{ study.bizesNm }}</td>
+              <td>{{ study.indsSclsNm }}</td>
+              <td>{{ study.lnoAdr }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
       <div class="btn-cover">
-        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <v-btn
+          :disabled="pageNum === 0"
+          @click="prevPage"
+          class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
+        >
           이전
-        </button>
+        </v-btn>
         <span class="page-count"
           >{{ pageNum + 1 }} / {{ StudyPageCount }} 페이지</span
         >
-        <button
+        <v-btn
           :disabled="pageNum >= StudyPageCount - 1"
           @click="nextPage"
           class="page-btn"
+          fab
+          dark
+          small
+          color="primary"
         >
           다음
-        </button>
+        </v-btn>
       </div>
     </div>
   </div>
@@ -252,7 +310,7 @@ export default {
 </script>
 
 <style>
-table {
+/* table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -270,15 +328,15 @@ table tr:first-of-type {
 table tr td {
   padding: 1rem 0;
   font-size: 1.1rem;
-}
+} */
 .btn-cover {
   margin-top: 1.5rem;
   text-align: center;
 }
 .btn-cover .page-btn {
-  width: 5rem;
+  /* width: 5rem;
   height: 2rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5px; */
 }
 .btn-cover .page-count {
   padding: 0 1rem;

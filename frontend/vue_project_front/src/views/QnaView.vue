@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="text-center"><b>Q&A</b> 궁금한 점을 남겨주세요</h2>
+    <h2 class="text-center"><b>Q&A</b></h2>
     <router-view></router-view>
   </div>
 </template>
@@ -9,8 +9,8 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .text-center {
-  padding: 10px;
+  font-size: 50px;
 }
 </style>

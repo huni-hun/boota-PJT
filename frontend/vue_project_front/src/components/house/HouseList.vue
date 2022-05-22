@@ -1,16 +1,21 @@
 <template>
-  <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
-    <house-list-item
-      v-for="(house, index) in houses"
-      :key="index"
-      :house="house"
-    />
-  </b-container>
-  <b-container v-else class="bv-example-row mt-3">
-    <b-row>
-      <b-col><b-alert show>주택 목록이 없습니다.</b-alert></b-col>
-    </b-row>
-  </b-container>
+  <div>
+    <div v-if="houses && houses.length != 0">
+      <v-list style="max-height: 600px" dense class="overflow-y-auto">
+        <house-list-item
+          style="width: 350px"
+          v-for="(house, index) in houses"
+          :key="index"
+          :house="house"
+        />
+      </v-list>
+    </div>
+    <div v-else>
+      <v-alert border="right" colored-border type="error" elevation="2">
+        주택 목록이 없습니다.
+      </v-alert>
+    </div>
+  </div>
 </template>
 
 <script>
