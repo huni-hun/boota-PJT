@@ -2,12 +2,7 @@ import jwt_decode from "jwt-decode";
 import { login } from "@/api/member.js";
 import { findById } from "@/api/member.js";
 
-import Vue from "vue";
-import Vuex from "vuex";
-
-Vue.use(Vuex);
-
-export default memberStore = new Vuex.Store({
+const memberStore = {
   namespaced: true,
   state: {
     isLogin: false,
@@ -46,7 +41,7 @@ export default memberStore = new Vuex.Store({
             commit("SET_IS_LOGIN_ERROR", true);
           }
         },
-        () => {}
+        () => {},
       );
     },
     getUserInfo({ commit }, token) {
@@ -62,8 +57,10 @@ export default memberStore = new Vuex.Store({
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
   },
-});
+};
+
+export default memberStore;

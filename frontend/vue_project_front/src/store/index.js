@@ -5,6 +5,8 @@ import http from "@/util/http-common";
 
 Vue.use(Vuex);
 
+import memberStore from "@/store/modules/memberStore.js";
+
 export default new Vuex.Store({
   state: {
     sidos: [{ value: null, text: "선택하세요" }],
@@ -223,7 +225,7 @@ export default new Vuex.Store({
         });
     },
   },
-  modules: {},
+  modules: { memberStore },
   // plugins: [
   //   createPersistedState({
   //     // 브라우저 종료시 제거하기 위해 localStorage가 아닌 sessionStorage로 변경. (default: localStorage)

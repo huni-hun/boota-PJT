@@ -1,4 +1,12 @@
 package com.ssafy.happyhouse.jwt.service;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ssafy.happyhouse.jwt.dto.TokenIndexResponse;
 import com.ssafy.happyhouse.jwt.dto.TokenResponse;
 import com.ssafy.happyhouse.jwt.dto.UserRequest;
@@ -7,17 +15,10 @@ import com.ssafy.happyhouse.jwt.entity.User;
 import com.ssafy.happyhouse.jwt.jwt.JwtTokenProvider;
 import com.ssafy.happyhouse.jwt.repository.AuthRepository;
 import com.ssafy.happyhouse.jwt.repository.UserRepository;
+
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Slf4j

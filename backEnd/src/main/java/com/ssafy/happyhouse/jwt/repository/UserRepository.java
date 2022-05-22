@@ -1,9 +1,10 @@
 package com.ssafy.happyhouse.jwt.repository;
 
-import com.ssafy.happyhouse.jwt.entity.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.ssafy.happyhouse.jwt.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserId(String userId);
