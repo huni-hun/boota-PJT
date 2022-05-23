@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <hero-view></hero-view>
     <about-view></about-view>
+    <router-view></router-view>
   </v-app>
 </template>
 

@@ -10,13 +10,12 @@ import QnaWrite from "@/components/qna/QnaWrite.vue";
 import QnaDelete from "@/components/qna/QnaDelete.vue";
 import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
+import BootaBoardDetail from "@/components/boota/BootaBoardDetail.vue";
 import MemberLoginView from "@/components/user/MemberLogin.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
-<<<<<<< HEAD
-import MemberPageView from "@/components/user/MemberPageView.vue";
-=======
 
->>>>>>> 5a81ef1bb8c8182cb781ddbaa6153b731fb73514
+import MemberPageView from "@/components/user/MemberPageView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -80,11 +79,11 @@ const routes = [
     component: MemberJoinView,
   },
   {
-<<<<<<< HEAD
     path: "/mypage",
     name: "mypage",
     component: MemberPageView,
-=======
+  },
+  {
     path: "/boota",
     name: "boota",
     component: BootaView,
@@ -99,29 +98,29 @@ const routes = [
         name: "write",
         component: QnaWrite,
       },
+
       {
-        path: "detail/:bno",
-        name: "detail",
-        component: QnaDetail,
-      },
-      {
-        path: "modify/:bno",
+        path: "modify/:btbno",
         name: "modify",
         component: QnaModify,
       },
       {
-        path: "delete/:bno",
+        path: "delete/:btbno",
         name: "delete",
         component: QnaDelete,
       },
 
       {
-        path: "commentWrite/:bno",
+        path: "commentWrite/:btbno",
         name: "commentWrite",
         component: QnaCommentWrite,
       },
     ],
->>>>>>> 5a81ef1bb8c8182cb781ddbaa6153b731fb73514
+  },
+  {
+    path: "/boota/detail/:btbno",
+    name: "detail",
+    component: BootaBoardDetail,
   },
 ];
 

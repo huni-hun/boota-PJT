@@ -11,13 +11,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 
 @Mapper
 public interface BootaBoardMapper {
-	public BootaBoardDto selectOne(int bno);
+	public BootaBoardDto selectOne(int btbno);
 	public List<BootaBoardDto> selectList(@Param("start")int start, @Param("count")int count);
 	public List<BootaBoardDto> searchList(@Param("start")int start, @Param("count")int count, @Param("keyword")String keyword);
 	public int selectTotalCount();
 	public int selectSearchCount(@Param("keyword")String keyword);
-	public int updateReadCount(int bno);
+	public int updateReadCount(int btbno);
 	public int insertBoard(BootaBoardDto board);
 	public int updateBoard(BootaBoardDto board);
-	public int deleteBoard(int bno);
+	public int deleteBoard(int btbno,int btb_pw);
 }

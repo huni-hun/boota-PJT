@@ -68,12 +68,12 @@ public class BootaService {
 		return result;
 	}
 
-	public Map<String, Object> read(int bno) {
-		System.out.println("service read bno:"+bno);
-		BootaBoardDto board = bdao.selectOne(bno);
+	public Map<String, Object> read(int btbno) {
+		System.out.println("service read bno:"+btbno);
+		BootaBoardDto board = bdao.selectOne(btbno);
 		if(board!=null) {
-			bdao.updateReadCount(bno);
-			board = bdao.selectOne(bno);
+			bdao.updateReadCount(btbno);
+			board = bdao.selectOne(btbno);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board); // 현재 읽는 게시글내용
@@ -90,8 +90,8 @@ public class BootaService {
 		return bdao.updateBoard(board) == 1;
 	}
 	
-	public boolean deleteBoard(int bno) {
-		return bdao.deleteBoard(bno) == 1;
+	public boolean deleteBoard(int btbno,int btb_pw) {
+		return bdao.deleteBoard(btbno,btb_pw) == 1;
 	}
 }
 

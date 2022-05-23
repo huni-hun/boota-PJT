@@ -52,21 +52,21 @@
         </div>
       </template>
     </div>
-    <v-container class="d-flex justify-center">
-      <v-form class="d-flex" ref="form">
+    <v-container class="d-flex justify-center align-center">
+      <v-form ref="form">
         <v-text-field
           v-model="keyword"
           placeholder="검색어를 입력하세요"
         ></v-text-field>
-        <v-btn
-          color="indigo"
-          @click="searchPage()"
-          class="white--text searchBtn"
-          rounded
-        >
-          <v-icon>mdi-magnify</v-icon></v-btn
-        >
       </v-form>
+      <v-btn
+        color="indigo"
+        @click="searchPage()"
+        class="white--text searchBtn mb-12"
+        rounded
+      >
+        <v-icon>mdi-magnify</v-icon></v-btn
+      >
     </v-container>
   </div>
 </template>
