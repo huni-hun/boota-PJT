@@ -1,5 +1,5 @@
 <template>
-  <div class="searchBar">
+  <div class="searchBar d-flex justify-end mb-6">
     <v-container>
       <v-row align="center">
         <v-col class="d-flex">

@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <v-container class="pt-15">
-      <v-row>
+    <v-container class="pt-5">
+      <v-row class="mb-15">
         <v-col lg="6">
           <h1 class="intro-text">집, 구하세요?</h1>
-          <h2 class="intro-textsub">HappyHouse가 찾아드릴게요!</h2>
+          <h2 class="intro-textsub">HappyHouse 가 찾아드릴게요!</h2>
+
           <p class="description">
             페어 4팀 유영진(가짜팀장) 김태훈(진짜팀장)의 프로젝트입니다. 부동산
             정보도 볼수잇구요, 뉴스도 볼수있어요 짱임 익명게시판도 있어요 진짜
