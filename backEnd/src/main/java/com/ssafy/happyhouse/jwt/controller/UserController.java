@@ -35,6 +35,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserRequest userRequest) throws Exception {
     	System.out.println("hello");
+    	System.out.println(userRequest);
+    	System.out.println(userRequest.getUserId());
         return ResponseEntity
                 .ok()
                 .body(userService.doLogin(userRequest));

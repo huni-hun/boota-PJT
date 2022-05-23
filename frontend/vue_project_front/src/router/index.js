@@ -11,6 +11,7 @@ import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
 import MemberLoginView from "@/components/user/MemberLogin.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
+import MemberPageView from "@/components/user/MemberPageView.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -72,6 +73,11 @@ const routes = [
     path: "/join",
     name: "join",
     component: MemberJoinView,
+  },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: MemberPageView,
   },
 ];
 

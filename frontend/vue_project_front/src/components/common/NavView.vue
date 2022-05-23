@@ -27,14 +27,14 @@
       </template>
 
       <v-list>
-        <v-list-item>
+        <v-list-item v-if="loginCheck">
           <v-list-item-title
             ><router-link to="/login" class="link"
               >로그인</router-link
             ></v-list-item-title
           >
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click="logout" v-if="logoutCheck">
           <v-list-item-title
             ><router-link to="/join" class="link"
               >로그아웃</router-link
@@ -43,7 +43,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-title
-            ><router-link to="/" class="link"
+            ><router-link to="/mypage" class="link"
               >회원정보</router-link
             ></v-list-item-title
           >
@@ -61,11 +61,41 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+const memberStore = "memberStore";
+
 export default {
   data() {
     return {
+      loginCheck: true,
+      logoutCheck: false,
       drawer: null,
     };
+  },
+  computed: {
+    ...mapState(memberStore, ["isLogin"]),
+    checkLogin() {
+      return this.isLogin;
+    },
+  },
+  watch: {
+    checkLogin(val) {
+      if (val == true) {
+        this.loginCheck = false;
+        this.logoutCheck = true;
+      } else {
+        this.loginCheck = true;
+        this.logoutCheck = false;
+      }
+    },
+  },
+  methods: {
+    ...mapActions(memberStore, ["getLogout"]),
+    logout() {
+      console.log("HAHA");
+      this.getLogout();
+      this.$router.push({ name: "home" });
+    },
   },
 };
 </script>

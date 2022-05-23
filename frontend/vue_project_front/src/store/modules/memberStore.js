@@ -1,6 +1,5 @@
 import jwt_decode from "jwt-decode";
 import { login } from "@/api/member.js";
-import { findById } from "@/api/member.js";
 
 const memberStore = {
   namespaced: true,
@@ -21,6 +20,10 @@ const memberStore = {
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
     },
+    SET_LOGOUT: (state, isNull) => {
+      state.isLogin = false;
+      state.userInfo = isNull;
+    },
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
@@ -28,11 +31,16 @@ const memberStore = {
   },
   actions: {
     async userConfirm({ commit }, user) {
+      console.log(user);
+      let userId = user.userid;
+      let userPw = user.userpwd;
       await login(
-        user,
+        { userId, userPw },
         (response) => {
-          if (response.data.message === "success") {
-            let token = response.data["access-token"];
+          console.log(response);
+          if (response) {
+            console.log("success!!");
+            let token = response.data["access_TOKEN"];
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
             sessionStorage.setItem("access-token", token);
@@ -46,19 +54,13 @@ const memberStore = {
     },
     getUserInfo({ commit }, token) {
       let decode_token = jwt_decode(token);
-      findById(
-        decode_token.userid,
-        (response) => {
-          if (response.data.message === "success") {
-            commit("SET_USER_INFO", response.data.userInfo);
-          } else {
-            console.log("유저 정보 없음!!");
-          }
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
+      console.log(decode_token);
+      commit("SET_USER_INFO", decode_token.userId);
+    },
+    getLogout({ commit }) {
+      sessionStorage.clear;
+      let isNull = null;
+      commit("SET_LOGOUT", isNull);
     },
   },
 };

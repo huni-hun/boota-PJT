@@ -84,8 +84,11 @@ export default {
     async confirm() {
       await this.userConfirm(this.user);
       let token = sessionStorage.getItem("access-token");
+      console.log(token);
       if (this.isLogin) {
+        console.log("hey");
         await this.getUserInfo(token);
+        console.log(token);
         this.$router.push({ name: "home" });
       }
     },
