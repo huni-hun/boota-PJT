@@ -1,98 +1,47 @@
 package com.ssafy.happyhouse.controller;
 
-import java.sql.SQLException;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.happyhouse.model.dto.MemberDto;
+import com.ssafy.happyhouse.model.dto.BoardDto;
 import com.ssafy.happyhouse.model.service.MemberSerivce;
 
-@Controller
+import io.swagger.annotations.ApiOperation;
+
+@RestController
 @RequestMapping("/member")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 public class MemberController {
 	
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+	
 	@Autowired
 	MemberSerivce mservice;
 	
-	@GetMapping("/regist")
-	public String regist() {
-		return "regist";
+	@GetMapping("{userId}")
+	public ResponseEntity<Map<String, Object>> memberinfo(@PathVariable String userId) {
+		return new ResponseEntity<Map<String, Object>>(mservice.select(userId), HttpStatus.OK);
 	}
 
-	@PostMapping("/regist")
-	public String regist(MemberDto member) throws SQLException {
-		System.out.println(member.toString());
-		if(mservice.regist(member) == true) {
-			return "registerResult";
-		}else {
-			return "registFail";
+	@DeleteMapping("{userId}")
+	public ResponseEntity<String> deleteMember(@PathVariable String userId) {
+		if (mservice.deleteMember(userId)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		
-		return "logout";
-	}
-	
-//	@PostMapping("/login")
-//	public String login(String userid, String userpw, HttpSession session) throws SQLException {
-//		System.out.println(userid);
-//		MemberDto userinfo = mservice.login(userid, userpw); 
-//		if(userinfo != null) {
-//			System.out.println("ok");
-//			session.setAttribute("loginInfo", userinfo);
-//			return "loginResult";
-//		}else {
-//			return "loginFail";
-//		}
-//	}
-//	
-	@GetMapping("/memberinfo")
-	public String memberinfo(HttpSession session) {
-		MemberDto userInfo = (MemberDto) session.getAttribute("loginInfo");
-		
-		session.setAttribute("loginInfo", userInfo);
-		System.out.println(userInfo.getName());
-		return "memberInfo";
-	}
-	
-	@PostMapping("/change")
-	public String change(MemberDto member, HttpSession session) throws SQLException {
-		if(mservice.update(member) == true) {
-			System.out.println("ok");
-			session.invalidate();
-			return "changeResult";
-		}else {
-			return "changeFail";
-		}
-	}
-	
-	@GetMapping("/delete")
-	public String delete() {
-		return "delete";
-	}
-	
-	@PostMapping("/delete")
-	public String delete(HttpSession session) throws SQLException {
-		MemberDto userInfo = (MemberDto) session.getAttribute("loginInfo");
-		mservice.delete(userInfo.getId());
-		
-		session.invalidate();
-		return "deleteResult";
-	}
+
 }

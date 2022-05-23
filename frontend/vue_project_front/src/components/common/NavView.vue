@@ -92,10 +92,10 @@ export default {
   methods: {
     ...mapActions(memberStore, ["getLogout"]),
     logout() {
-      console.log("HAHA");
       this.getLogout();
       this.$router.push({ name: "home" });
     },
+    checkNav() {},
   },
 };
 </script>

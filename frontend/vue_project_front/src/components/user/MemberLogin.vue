@@ -18,7 +18,7 @@
                 type="email"
                 class="rounded-0"
                 outlined
-                v-model="user.userid"
+                v-model="user.user_id"
                 @keyup.enter="confirm"
               ></v-text-field>
               <v-text-field
@@ -29,7 +29,7 @@
                 suffix="| Forgot?"
                 class="rounded-0"
                 outlined
-                v-model="user.userpwd"
+                v-model="user.user_pw"
                 @keyup.enter="confirm"
               ></v-text-field>
               <v-btn
@@ -41,6 +41,9 @@
                 @click="confirm"
                 >Login</v-btn
               >
+
+              <div id="naver_id_login"></div>
+
               <v-card-actions class="text--secondary">
                 <v-checkbox color="#000000" label="Remember me"></v-checkbox>
                 <v-spacer></v-spacer>
@@ -71,10 +74,21 @@ export default {
   data() {
     return {
       user: {
-        userid: null,
-        userpwd: null,
+        user_id: null,
+        user_pw: null,
       },
     };
+  },
+  mounted() {
+    const naver_id_login = new window.naver_id_login(
+      "ETE3cgrx1amxAEe0KUxg",
+      "http://localhost:8080/login/naver",
+    );
+    const state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 3, 128);
+    naver_id_login.setState(state);
+    // naver_id_login.setDomain("http://127.0.0.1:8080/");
+    naver_id_login.init_naver_id_login();
   },
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError"]),

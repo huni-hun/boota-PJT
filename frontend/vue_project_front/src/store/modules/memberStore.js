@@ -32,10 +32,10 @@ const memberStore = {
   actions: {
     async userConfirm({ commit }, user) {
       console.log(user);
-      let userId = user.userid;
-      let userPw = user.userpwd;
+      let user_id = user.user_id;
+      let user_pw = user.user_pw;
       await login(
-        { userId, userPw },
+        { user_id, user_pw },
         (response) => {
           console.log(response);
           if (response) {

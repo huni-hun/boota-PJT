@@ -8,23 +8,20 @@
         </tr>
         <tr>
           <td>비밀번호</td>
-          <td></td>
+          <td><input type="text" v-model="myPw" /></td>
         </tr>
         <tr>
           <td>이메일</td>
-          <td>{{ myEmail }}</td>
+          <td><input type="text" v-model="myEmail" /></td>
         </tr>
         <tr>
           <td>관심지역</td>
-          <td>{{ myDong }}</td>
+          <td><input type="text" v-model="myDong" /></td>
         </tr>
       </template>
     </v-simple-table>
 
-    <v-btn color="#eceff1"
-      ><router-link :to="'/modify'" class="btn corbtn">수정</router-link>
-    </v-btn>
-    <v-btn @click="deleteMyData">삭제</v-btn>
+    <v-btn color="#eceff1" @click="modifyMyData"> >수정완료 </v-btn>
   </div>
 </template>
 
@@ -40,6 +37,7 @@ export default {
   components: {},
   data: function () {
     return {
+      myPw: "",
       myEmail: "",
       myDong: "",
     };
@@ -58,12 +56,32 @@ export default {
   },
   methods: {
     ...mapActions(memberStore, ["getLogout"]),
+    async modifyMyData() {
+      let user_id = this.userInfo;
+      let user_pw = this.myPw;
+      let user_email = this.myEmail;
+      //   let my_dong_code = this.myDong;
+      this.deleteMyData();
+      console.log(user_id);
+      await http
+        .post("/join", {
+          user_id: user_id,
+          user_pw: user_pw,
+          user_email: user_email,
+          //   my_dong_code: my_dong_code,
+        })
+        .then(({ data }) => {
+          console.log(data);
+        });
+
+      alert("수정완료. 다시 로그인 하시오");
+      router.push({ name: "home" });
+    },
     deleteMyData() {
       http.delete("/member/" + this.userInfo).then(({ data }) => {
         console.log(data);
-        alert("삭제완료");
-        router.push({ name: "home" });
         this.getLogout();
+        alert("체크");
       });
     },
   },

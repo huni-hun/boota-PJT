@@ -1,45 +1,32 @@
 package com.ssafy.happyhouse.model.service;
 
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.happyhouse.model.dto.MemberDto;
+import com.ssafy.happyhouse.jwt.dto.UserRequest;
 import com.ssafy.happyhouse.model.mapper.MemberMapper;
 
 @Service
 public class MemberSerivce {
 	@Autowired
-	SqlSessionTemplate template;
+	private MemberMapper mdao;
 	
-	public MemberDto login(String userid, String userpw) throws SQLException {
-		MemberDto member = template.getMapper(MemberMapper.class).selectOne(userid, userpw);
-		if(member != null)
-			return member;
-		else
-			return null;
+	public Map<String, Object> select(String userId) {
+		UserRequest Member = mdao.selectOne(userId);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Member", Member); 
+		
+		return map;
 	}
 	
-	public boolean regist(MemberDto member) throws SQLException {
-		if(template.getMapper(MemberMapper.class).insert(member) == 1)
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean delete(String userid) throws SQLException {
-		if(template.getMapper(MemberMapper.class).delete(userid) == 1)
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean update(MemberDto member) throws SQLException {
-		if(template.getMapper(MemberMapper.class).update(member) == 1)
-			return true;
-		else
-			return false;
+	public boolean deleteMember(String userId) {
+		int key = mdao.checkAuth(userId);
+		System.out.println(key);
+		mdao.deleteAuth(key);
+		return mdao.delete(userId) == 1;
 	}
 }

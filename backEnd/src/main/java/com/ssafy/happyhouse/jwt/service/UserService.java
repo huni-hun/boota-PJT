@@ -32,8 +32,10 @@ public class UserService {
 
     public TokenResponse register(UserRequest userRequest){
         User user = User.builder()
-                .userId(userRequest.getUserId())
-                .userPw(passwordEncoder.encode(userRequest.getUserPw()))
+                .userId(userRequest.getUser_id())
+                .userPw(passwordEncoder.encode(userRequest.getUser_pw()))
+                .userEmail(userRequest.getUser_email())
+                .myDongCode(userRequest.getMy_dong_code())
                 .build();
         userRepository.save(user);
 
@@ -53,11 +55,11 @@ public class UserService {
 
     @Transactional
     public TokenResponse doLogin(UserRequest userRequest) throws Exception {
-        User user = userRepository.findByUserId(userRequest.getUserId())
+        User user = userRepository.findByUserId(userRequest.getUser_id())
                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         Auth auth = authRepository.findByUserId(user.getId())
                         .orElseThrow(() -> new IllegalArgumentException("Token 이 존재하지 않습니다."));
-        if (!passwordEncoder.matches(userRequest.getUserPw(), user.getUserPw())) {
+        if (!passwordEncoder.matches(userRequest.getUser_pw(), user.getUserPw())) {
             throw new Exception("비밀번호가 일치하지 않습니다.");
         }
 
@@ -123,8 +125,8 @@ public class UserService {
     //회원 가입하면 refresh 토큰의 데이터베이스 인덱스를 반환
     public TokenIndexResponse registerIndex(UserRequest userRequest){
         User user = User.builder()
-                .userId(userRequest.getUserId())
-                .userPw(passwordEncoder.encode(userRequest.getUserPw()))
+                .userId(userRequest.getUser_id())
+                .userPw(passwordEncoder.encode(userRequest.getUser_pw()))
                 .build();
         userRepository.save(user);
 

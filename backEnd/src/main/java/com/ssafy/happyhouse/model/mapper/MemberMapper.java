@@ -2,13 +2,13 @@ package com.ssafy.happyhouse.model.mapper;
 
 import java.sql.SQLException;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.ssafy.happyhouse.model.dto.MemberDto;
+import com.ssafy.happyhouse.jwt.dto.UserRequest;
 
 public interface MemberMapper {
-	public int insert(MemberDto member) throws SQLException; //회원가입
-	public MemberDto selectOne(@Param("id") String id, @Param("pw") String password) throws SQLException; //로그인, 로그아웃 
-	public int delete(String id) throws SQLException;
-	public int update(MemberDto member) throws SQLException;
+	public int insert(UserRequest member) throws SQLException; //회원가입
+	public UserRequest selectOne(String userId); //로그인, 로그아웃 
+	public int checkAuth(String id);
+	public int deleteAuth(Integer key);
+	public int delete(String id);
+	public int update(UserRequest member) throws SQLException;
 }

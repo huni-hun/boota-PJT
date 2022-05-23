@@ -11,12 +11,11 @@ import QnaDelete from "@/components/qna/QnaDelete.vue";
 import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
 import MemberLoginView from "@/components/user/MemberLogin.vue";
+import LoginAccess from "@/components/user/LoginAccess.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
-<<<<<<< HEAD
 import MemberPageView from "@/components/user/MemberPageView.vue";
-=======
+import MemberModify from "@/components/user/MemberModify.vue";
 
->>>>>>> 5a81ef1bb8c8182cb781ddbaa6153b731fb73514
 Vue.use(VueRouter);
 
 const routes = [
@@ -75,16 +74,26 @@ const routes = [
     component: MemberLoginView,
   },
   {
+    path: "/login/naver",
+    name: "naver",
+    component: LoginAccess,
+  },
+  {
     path: "/join",
     name: "join",
     component: MemberJoinView,
   },
   {
-<<<<<<< HEAD
     path: "/mypage",
     name: "mypage",
     component: MemberPageView,
-=======
+  },
+  {
+    path: "/modify",
+    name: "modify",
+    component: MemberModify,
+  },
+  {
     path: "/boota",
     name: "boota",
     component: BootaView,
@@ -121,7 +130,6 @@ const routes = [
         component: QnaCommentWrite,
       },
     ],
->>>>>>> 5a81ef1bb8c8182cb781ddbaa6153b731fb73514
   },
 ];
 
