@@ -1,53 +1,55 @@
 <template>
   <div>
     <v-row>
-      <v-col>
-        <v-card height="200px">
-          <div class="star-rating space-x-4 mx-auto">
-            <input
-              type="radio"
-              id="5-stars"
-              name="rating"
-              value="5"
-              v-model="ratings"
-            />
-            <label for="5-stars" class="star pr-4">★</label>
-            <input
-              type="radio"
-              id="4-stars"
-              name="rating"
-              value="4"
-              v-model="ratings"
-            />
-            <label for="4-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="3-stars"
-              name="rating"
-              value="3"
-              v-model="ratings"
-            />
-            <label for="3-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="2-stars"
-              name="rating"
-              value="2"
-              v-model="ratings"
-            />
-            <label for="2-stars" class="star">★</label>
-            <input
-              type="radio"
-              id="1-star"
-              name="rating"
-              value="1"
-              v-model="ratings"
-            />
-            <label for="1-star" class="star">★</label>
-          </div>
+      <v-col cols="4">
+        <v-card height="250px">
+          <v-card-title primary-title class="d-flex justify-center mb-1">
+            <div class="star-rating">
+              <input
+                type="radio"
+                id="5-stars"
+                name="rating"
+                value="5"
+                v-model="ratings"
+              />
+              <label for="5-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="4-stars"
+                name="rating"
+                value="4"
+                v-model="ratings"
+              />
+              <label for="4-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="3-stars"
+                name="rating"
+                value="3"
+                v-model="ratings"
+              />
+              <label for="3-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="2-stars"
+                name="rating"
+                value="2"
+                v-model="ratings"
+              />
+              <label for="2-stars" class="star">★</label>
+              <input
+                type="radio"
+                id="1-star"
+                name="rating"
+                value="1"
+                v-model="ratings"
+              />
+              <label for="1-star" class="star">★</label>
+            </div>
+          </v-card-title>
 
           <!-- <v-row style="position: absolute; width: 400px; left: 40%"> -->
-          <v-row>
+          <v-card-text>
             <input
               type="text"
               id="reivewTitle"
@@ -55,8 +57,8 @@
               placeholder="제목을 입력하세요."
               v-model="reivewTitle"
             />
-          </v-row>
-          <v-row>
+          </v-card-text>
+          <v-card-text>
             <input
               type="text"
               id="reivew"
@@ -64,41 +66,58 @@
               placeholder="리뷰를 입력하세요."
               v-model="reivew"
             />
-            <!-- </v-col> -->
-          </v-row>
-          <v-btn
-            class="mx-1"
-            fab
-            dark
-            small
-            color="indigo"
-            @click="writeReivew"
-          >
-            <v-icon dark> mdi-plus </v-icon>
-          </v-btn>
+          </v-card-text>
+          <v-card-actions class="mt-5">
+            <v-spacer></v-spacer>
+            <v-btn
+              class="mx-1"
+              fab
+              dark
+              small
+              color="indigo"
+              @click="writeReivew"
+            >
+              <v-icon dark> mdi-plus </v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col>
-        <v-card height="200px">
-          <table>
-            <tr v-for="(rv, index) in reivews" :key="index">
-              <td>{{ rv.reivew_title }}</td>
-              <td>{{ rv.reivew_content }}</td>
-              <div class="star-ratings">
-                <div
-                  class="star-ratings-fill space-x-2 text-lg"
-                  :style="{ width: ratingToPercent(rv.reivew_rating) + '%' }"
-                >
-                  <span>★</span><span>★</span><span>★</span><span>★</span
-                  ><span>★</span>
-                </div>
-                <div class="star-ratings-base space-x-2 text-lg">
-                  <span>★</span><span>★</span><span>★</span><span>★</span
-                  ><span>★</span>
-                </div>
-              </div>
-            </tr>
-          </table>
+        <v-card height="250px">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-center" width="20%">리뷰제목</th>
+                  <th class="text-center" width="55%">리뷰내용</th>
+                  <th class="text-center" width="15%">별점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(rv, index) in reivews" :key="index">
+                  <td>{{ rv.reivew_title }}</td>
+                  <td>{{ rv.reivew_content }}</td>
+                  <td>
+                    <div class="star-ratings">
+                      <div
+                        class="star-ratings-fill space-x-2 text-lg"
+                        :style="{
+                          width: ratingToPercent(rv.reivew_rating) + '%',
+                        }"
+                      >
+                        <span>★</span><span>★</span><span>★</span><span>★</span
+                        ><span>★</span>
+                      </div>
+                      <div class="star-ratings-base space-x-2 text-lg">
+                        <span>★</span><span>★</span><span>★</span><span>★</span
+                        ><span>★</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
         </v-card>
       </v-col>
     </v-row>
@@ -225,5 +244,9 @@ export default {
 .star-ratings-base {
   z-index: 0;
   padding: 0;
+}
+
+input {
+  border-bottom: #2b2a29;
 }
 </style>

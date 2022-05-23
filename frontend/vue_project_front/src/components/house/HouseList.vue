@@ -11,9 +11,9 @@
       </v-list>
     </div>
     <div v-else>
-      <v-alert border="right" colored-border type="error" elevation="2">
-        주택 목록이 없습니다.
-      </v-alert>
+      <v-alert border="right" color="green" elevation="3" outlined type="info"
+        >지역 선택을 해주세요</v-alert
+      >
     </div>
   </div>
 </template>

@@ -7,7 +7,7 @@
     </v-container>
 
     <v-row :align="align" style="height: 700px">
-      <v-col cols="3" style="margin: 0px 20px"><house-list /></v-col>
+      <v-col cols="3" style="margin: 20px 20px"><house-list /></v-col>
       <v-col cols="8"><KakaoMap /></v-col>
     </v-row>
     <v-row :align="align" style="height: 1000px">

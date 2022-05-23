@@ -7,14 +7,17 @@
   >
     <v-img height="80" src="@/assets/qnawrite.png"></v-img>
 
-    <v-card-title>제목 : {{ board.btitle }}</v-card-title>
+    <v-card-title
+      ><p class="qtext">Q</p>
+      {{ board.btitle }}</v-card-title
+    >
 
     <v-card-text>
       <v-row align="center" class="mx-0">
-        <div class="my-4 grey--text">작성일 : {{ board.bwrite_date }}</div>
+        <div class="my-1 grey--text">작성일 : {{ board.bwrite_date }}</div>
       </v-row>
 
-      <div class="my-4 text-subtitle-5">작성자 : {{ board.bwriter }}</div>
+      <div class="my-1 mb-5 text-subtitle-5">작성자 : {{ board.bwriter }}</div>
 
       <div class="black--text">
         {{ board.bcontent }}
@@ -23,14 +26,14 @@
 
     <v-divider class="mx-4"></v-divider>
 
-    <v-card-title>답변</v-card-title>
+    <v-card-title><p class="atext">A</p></v-card-title>
     <v-card-text v-if="comments.length">
       <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left" width="7%">작성자</th>
-              <th class="text-left" width="50%">내용</th>
+              <th class="text-left" width="50%">답변</th>
               <th class="text-left" width="20%">작성일</th>
             </tr>
           </thead>
@@ -108,5 +111,16 @@ export default {
 }
 .listbtn {
   color: #eceff1;
+}
+.qtext {
+  font-size: 30px;
+  font-weight: bold;
+  color: #6c63ff;
+  margin-right: 10px;
+}
+.atext {
+  font-size: 30px;
+  font-weight: bold;
+  color: #eb5b3a;
 }
 </style>

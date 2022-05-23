@@ -17,9 +17,9 @@
     <v-btn text><router-link to="/house" class="link">MAP</router-link></v-btn>
 
     <v-btn text
-      ><router-link to="/" class="link">부동산 타임</router-link>
+      ><router-link to="/boota" class="link">부동산 타임</router-link>
     </v-btn>
-    <v-menu left bottom>
+    <v-menu bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
           <v-icon>mdi-account</v-icon>
