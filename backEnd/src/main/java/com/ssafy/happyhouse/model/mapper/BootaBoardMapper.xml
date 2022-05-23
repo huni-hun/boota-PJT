@@ -5,9 +5,9 @@
 	<select id="selectOne" parameterType="int"
 		resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
 		SELECT
-		BTBNO,  BTB_TITLE, BTB_CONTENT, BTB_READ_COUNT,BTB_WRITE_DATE,LIKE_COUNT
+		BTBNO,  BTB_TITLE, BTB_CONTENT, BTB_READ_COUNT,BTB_WRITE_DATE,LIKE_COUNT,BTB_PW,GUGUNCODE
 		FROM
-		BOOTABOARD_TB WHERE BTBNO=#{btbno}
+		BOOTABOARDMAIN_TB WHERE BTBNO=#{btbno}
 	</select>
 
 	<select id="selectList"
@@ -15,62 +15,60 @@
 		SELECT
 		*
 		FROM
-		BOOTABOARD_TB ORDER BY BTBNO DESC LIMIT #{start},#{count}
+		BOOTABOARDMAIN_TB ORDER BY BTBNO DESC LIMIT #{start},#{count}
 	</select>
 
 	<select id="searchList"
 		resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
 		SELECT
 		*
-		FROM BOOTABOARD_TB
+		FROM BOOTABOARDMAIN_TB
 		WHERE BTB_TITLE LIKE CONCAT('%',#{keyword},'%')
 		ORDER BY BNO DESC LIMIT #{start},#{count}
 	</select>
 
 	<select id="selectTotalCount" resultType="int">
-		SELECT COUNT(*) FROM BOOTABOARD_TB
+		SELECT COUNT(*) FROM BOOTABOARDMAIN_TB
 	</select>
 
 	<select id="selectSearchCount" resultType="int">
-		SELECT COUNT(*) FROM BOOTABOARD_TB WHERE BTB_TITLE LIKE CONCAT('%',#{keyword},'%') 
+		SELECT COUNT(*) FROM BOOTABOARDMAIN_TB WHERE BTB_TITLE LIKE CONCAT('%',#{keyword},'%') 
 	</select>
 
 	<update id="updateReadCount" parameterType="int">
 		UPDATE
-		BOOTABOARD_TB
+		BOOTABOARDMAIN_TB
 		SET
-		BTB_READ_COUNT=BREAD_COUNT+1
+		BTB_READ_COUNT=BTB_READ_COUNT+1
 		WHERE BTBNO=#{btbno}
 	</update>
 
 	<insert id="insertBoard"
 		parameterType="com.ssafy.happyhouse.model.dto.BootaBoardDto"
-		useGeneratedKeys="true" keyProperty="bno">
+		useGeneratedKeys="true" keyProperty="btbno">
 		INSERT INTO
-		BOOTABOARD_TB(BTB_TITLE, BTB_CONTENT, BTB_READ_COUNT, BTB_WRITE_DATE,LIKE_COUNT)
-		VALUES(#{btb_title},#{btb_content},0,now(),0)
+		BOOTABOARDMAIN_TB(BTB_TITLE, BTB_CONTENT, BTB_READ_COUNT, BTB_WRITE_DATE,LIKE_COUNT,BTB_PW,GUGUNCODE)
+		VALUES(#{btb_title},#{btb_content},0,now(),0,#{btb_pw},#{guguncode})
 	</insert>
 
 	<update id="updateBoard" parameterType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
-		UPDATE BOOTABOARD_TB
+		UPDATE BOOTABOARDMAIN_TB
 		SET BTB_TITLE = #{btb_title},
 		BTB_CONTENT = #{btb_content},
 		BTB_WRITE_DATE = now(),
-		LIKE_COUNT=#{like_count}
+		LIKE_COUNT=#{like_count},
+		BTB_PW=#{btb_pw},
+		GUGUNCODE=#{guguncode}
 		WHERE BTBNO = #{btbno}
 	</update>
 
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="int">
 		DELETE
-		FROM BOOTABOARD_TB
-		WHERE BTBNO = #{btbno}
+		FROM BOOTABOARDMAIN_TB
+		WHERE BTBNO = #{btbno} AND BTB_PW=#{btb_pw}
 	</delete>
 
-	<sql id="sss">
-		BNO, BWRITER, BTITLE, BCONTENT,
-		BREAD_COUNT as 'breadCount',
-		BWRITE_DATE as 'bwriteDate'
-	</sql>
+
 
 </mapper>

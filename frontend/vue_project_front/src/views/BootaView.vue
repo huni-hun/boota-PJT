@@ -2,96 +2,111 @@
   <div class="dashboard">
     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
       <h3></h3>
+
       <v-row justify="end">
+        <!-- 부타 글쓰기  -->
         <v-dialog v-model="dialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-btn
+              class="rounded-pill mr-7"
+              color="indigo"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
               글쓰기
             </v-btn>
           </template>
           <v-card>
             <v-card-title>
-              <span class="text-h5">User Profile</span>
+              <v-img height="80" src="@/assets/bootawrite.png"></v-img>
+              <span class="text-h5">부동산타임 글쓰기 </span>
             </v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="6">
                     <v-text-field
-                      label="Legal first name*"
+                      v-model="btb_title"
+                      id="btb_title"
+                      name="btb_title"
+                      ref="btb_title"
+                      label="제목"
                       required
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      label="Legal middle name"
-                      hint="example of helper text only on focus"
-                    ></v-text-field>
+                  <v-col cols="12" sm="12" md="6"> </v-col>
+                  <v-col cols="12" sm="12" md="12">
+                    <v-textarea
+                      auto-grow
+                      filled
+                      label="내용"
+                      id="btb_content"
+                      name="btb_content"
+                      placeholder="내용을 입력하세요"
+                      v-model="btb_content"
+                    ></v-textarea>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      label="Legal last name*"
-                      hint="example of persistent helper text"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
+                  <!-- <v-col cols="12">
                     <v-text-field label="Email*" required></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
+                  </v-col> -->
+
+                  <v-col rows="3" cols="12" md="6">
                     <v-text-field
                       label="Password*"
                       type="password"
+                      name="btb_pw"
+                      id="btb_pw"
+                      v-model="btb_pw"
                       required
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-select
-                      :items="['0-17', '18-29', '30-54', '54+']"
-                      label="Age*"
-                      required
-                    ></v-select>
-                  </v-col>
+
                   <v-col cols="12" sm="6">
                     <v-autocomplete
                       :items="[
-                        'Skiing',
-                        'Ice hockey',
-                        'Soccer',
-                        'Basketball',
-                        'Hockey',
-                        'Reading',
-                        'Writing',
-                        'Coding',
-                        'Basejump',
+                        '서울',
+                        '수도권',
+                        '지방',
+                        '아파트',
+                        '매매',
+                        '행복주택',
+                        '귀농',
+                        '주식',
+                        '코인',
                       ]"
-                      label="Interests"
+                      label="관심"
                       multiple
                     ></v-autocomplete>
                   </v-col>
                 </v-row>
               </v-container>
-              <small>*indicates required field</small>
+              <small>*삭제시 비밀번호가 필요합니다</small>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialog = false">
-                Close
+                안쓸래요
               </v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">
-                Save
+              <v-btn color="blue darken-1" text @click="updateBoota()">
+                올리기
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
+
+        <!-- 부타 글쓰기 end -->
       </v-row>
     </v-subheader>
+    <house-search-bar></house-search-bar>
     <br />
-    <v-row>
+    <v-row class="ma-5">
       <v-col lg="7" cols="12">
         <v-alert dense text type="success">
-          Login Successfully! Welcome to <strong>Web Burden</strong>
+          <div>
+            <button @click="geofind">우리 동네 인증하기</button>
+            <p>{{ textContent }}</p>
+          </div>
         </v-alert>
 
         <v-row>
@@ -129,66 +144,136 @@
       </v-col>
       <v-col cols="12" lg="5">
         <v-card>
-          <v-card-title>Activities</v-card-title>
+          <v-card-title>우리동네 게시판</v-card-title>
           <v-card-text class="py-0">
             <v-timeline align-top dense>
               <v-timeline-item color="indigo" small>
-                <strong>5 Minuts ago</strong>
-                <div class="text-caption">
-                  You have new order please check this out
-                </div>
+                <strong>자유 게시판</strong>
+                <div class="text-caption">익명으로 자유롭게</div>
               </v-timeline-item>
               <v-timeline-item color="green" small>
-                <strong>35 Minuts ago</strong>
-                <div class="text-caption mb-2">A Product has delivered!</div>
+                <strong>시사 이슈</strong>
+                <div class="text-caption mb-2">이슈</div>
               </v-timeline-item>
 
               <v-timeline-item color="indigo" small>
-                <strong>44 Minuts ago</strong>
-                <div class="text-caption">
-                  You have new order please check this out
-                </div>
+                <strong>정보 게시판</strong>
+                <div class="text-caption">동네 정보 같이 공유해요</div>
               </v-timeline-item>
             </v-timeline>
           </v-card-text>
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
-          <boota-board-view></boota-board-view>
-          <!-- <v-data-table
-            caption="Recent Order list"
-            :headers="headers"
-            :items="desserts"
-            :items-per-page="5"
-            class="elevation-1"
-          >
-            <template>
-              <v-btn color="success" outlined small shaped>View</v-btn>
-            </template>
-          </v-data-table> -->
-        </v-card>
+        <!-- 글 리스트 -->
+        <component :is="whichStep"></component>
+
+        <!-- 글 리스트 -->
+        <router-view></router-view>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import BootaBoardView from "@/components/boota/BootaBoardView.vue";
+import http from "@/util/http-common.js";
+import Vue from "vue";
+import VueGeolocationApi from "vue-geolocation-api";
+import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
+import axios from "axios";
+
+Vue.use(VueGeolocationApi);
+const Kakao = axios.create({
+  baseURL: "https://dapi.kakao.com", // 공통 요청 경로
+  headers: {
+    Authorization: "KakaoAK b004e076e4908b59d3812882c7779d61",
+  },
+});
 export default {
   name: "BootaView",
   data() {
     return {
       dialog: false,
+      btb_title: "",
+      btb_pw: "",
+      btb_content: "",
+      latitude: "",
+      longitude: "",
+      textContent: "",
+      nowloc: "",
+      active: 0,
     };
   },
   methods: {
     onButtonClick(item) {
       console.log("click on " + item.no);
     },
+    updateBoota() {
+      this.dialog = false;
+      console.log(this.btb_pw);
+      http
+        .post("/boota", {
+          btb_title: this.btb_title,
+          btb_content: this.btb_content,
+          btb_pw: this.btb_pw,
+        })
+        .then(({ data }) => {
+          alert("등록이 완료되었습니다!");
+          console.log(data);
+        })
+        .catch((error) => console.log(error));
+    },
+    moveList() {
+      this.$router.push({ path: "/boota" });
+    },
+    geofind() {
+      if (!("geolocation" in navigator)) {
+        this.textContent = "Geolocation is not available.";
+        return;
+      }
+      this.textContent = "Locating...";
+
+      // get position
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          this.latitude = pos.coords.latitude;
+          this.longitude = pos.coords.longitude;
+
+          this.alterGun(this.latitude, this.longitude);
+        },
+        (err) => {
+          this.textContent = err.message;
+        },
+      );
+    },
+    alterGun(lat, lng) {
+      // 현재 위치 위도 경도로 구군 구함
+
+      Kakao.get(
+        "/v2/local/geo/coord2regioncode.json?y=" + lat + "&x=" + lng,
+      ).then(
+        ({ data }) => (this.nowloc = data.documents[0].region_2depth_name),
+      );
+
+      this.textContent = this.nowloc;
+    },
   },
   components: {
-    BootaBoardView,
+    HouseSearchBar,
+    BootaBoardView: () => import("@/components/boota/BootaBoardView.vue"),
+    //다른 게시판 만들고 채우기
+  },
+  computed: {
+    whichStep() {
+      switch (this.actvie) {
+        case 0:
+          return "BootaBoardView";
+        case 1:
+          return "BootaBoardView";
+        default:
+          return "BootaBoardView";
+      }
+    },
   },
 };
 </script>

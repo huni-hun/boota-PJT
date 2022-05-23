@@ -1,29 +1,64 @@
 <template v-slot:default>
   <div>
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left" width="7%">글번호</th>
-            <th class="text-left" width="50%">제목</th>
+    <v-container class="ma-0 pa-0 d-flex justify-center align-center">
+      <v-form ref="form">
+        <v-text-field
+          v-model="keyword"
+          placeholder="검색어를 입력하세요"
+        ></v-text-field>
+      </v-form>
+      <v-btn
+        color="indigo"
+        @click="searchPage()"
+        class="white--text searchBtn mb-12"
+        rounded
+      >
+        <v-icon>mdi-magnify</v-icon></v-btn
+      >
+    </v-container>
+    <v-card class="mx-auto" max-width="90%">
+      <div>
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left" width="7%">글번호</th>
+                <th class="text-left" width="50%">제목</th>
 
-            <th class="text-left" width="15%">작성일시</th>
-            <th class="text-left" width="7%">조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(board, index) in boards" :key="index">
-            <td>{{ board.bno }}</td>
-            <td class="alink">
-              <a href="#" @click="movePage(board.bno)">{{ board.btitle }}</a>
-            </td>
+                <th class="text-left" width="15%">작성일시</th>
+                <th class="text-left" width="7%">조회수</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(board, index) in boards" :key="index">
+                <td>{{ board.btbno }}</td>
+                <td class="alink">
+                  <a href="#" @click="movePage(board.btbno)">{{
+                    board.btb_title
+                  }}</a>
+                </td>
 
-            <td>{{ board.bwrite_date }}</td>
-            <td>{{ board.bread_count }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+                <td>{{ board.btb_write_date }}</td>
+                <td>{{ board.btb_read_count }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </div>
+      <div class="pagination">
+        <template>
+          <div class="text-center">
+            <v-pagination
+              v-model="page"
+              :length="totalPage"
+              :total-visible="7"
+              circle
+              @input="movePageLink(page)"
+            ></v-pagination>
+          </div>
+        </template>
+      </div>
+    </v-card>
   </div>
 </template>
 
@@ -52,14 +87,14 @@ export default {
     });
   },
   methods: {
-    movePage(bno) {
-      this.$router.push({ path: "/qna/detail/" + bno });
+    movePage(btbno) {
+      this.$router.push({ path: "/boota/detail/" + btbno });
     },
-    writePage() {
-      this.$router.push("/qna/write");
-    },
+    // writePage() {
+    //   this.$router.push("/boota/write");
+    // },
     searchPage() {
-      http.get("/board/search?key=" + this.keyword).then(({ data }) => {
+      http.get("/boota/search?key=" + this.keyword).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;
@@ -69,7 +104,7 @@ export default {
       });
     },
     movePageLink(p) {
-      http.get("/board?p=" + p).then(({ data }) => {
+      http.get("/boota?p=" + p).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;
@@ -81,4 +116,24 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: none;
+}
+.alink > a {
+  color: #4caf50;
+}
+.writeBtn {
+  margin: 15px;
+}
+.v-text-field {
+  width: 400px;
+}
+
+.searchBtn {
+  margin-top: 45px;
+  margin-left: 50px;
+}
+</style>

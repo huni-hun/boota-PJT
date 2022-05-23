@@ -8,39 +8,42 @@ public class BootaBoardDto {
 	private int btb_read_count;
 	private String btb_write_date;
 	private int like_count;
-	public int getLike_count() {
-		return like_count;
-	}
-
-	public void setLike_count(int like_count) {
-		this.like_count = like_count;
-	}
+	private String btb_pw;
+	private String guguncode;
+	
 
 	public BootaBoardDto() {}
 
-	
 
 
 	public BootaBoardDto(String btb_title, String btb_content, int btb_read_count, String btb_write_date,
-			int like_count) {
-		super();
+			int like_count, String btb_pw, String guguncode) {
+		
 		this.btb_title = btb_title;
 		this.btb_content = btb_content;
 		this.btb_read_count = btb_read_count;
 		this.btb_write_date = btb_write_date;
 		this.like_count = like_count;
+		this.btb_pw = btb_pw;
+		this.guguncode = guguncode;
 	}
 
+
+
 	public BootaBoardDto(int btbno, String btb_title, String btb_content, int btb_read_count, String btb_write_date,
-			int like_count) {
-		super();
+			int like_count, String btb_pw, String guguncode) {
+		
 		this.btbno = btbno;
 		this.btb_title = btb_title;
 		this.btb_content = btb_content;
 		this.btb_read_count = btb_read_count;
 		this.btb_write_date = btb_write_date;
 		this.like_count = like_count;
+		this.btb_pw = btb_pw;
+		this.guguncode = guguncode;
 	}
+
+
 
 	public int getBtbno() {
 		return btbno;
@@ -81,6 +84,35 @@ public class BootaBoardDto {
 	public void setBtb_write_date(String btb_write_date) {
 		this.btb_write_date = btb_write_date;
 	}
+	public int getLike_count() {
+		return like_count;
+	}
+
+
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+
+	public String getBtb_pw() {
+		return btb_pw;
+	}
+
+
+
+	public void setBtb_pw(String btb_pw) {
+		this.btb_pw = btb_pw;
+	}
+
+	public String getGuguncode() {
+		return guguncode;
+	}
+
+
+	public void setGuguncode(String guguncode) {
+		this.guguncode = guguncode;
+	}
+
+
 
 	@Override
 	public String toString() {

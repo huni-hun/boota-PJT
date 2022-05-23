@@ -4,7 +4,7 @@
       <v-row class="mb-15">
         <v-col lg="6">
           <h1 class="intro-text">집, 구하세요?</h1>
-          <h2 class="intro-textsub">HappyHouse 가 찾아드릴게요!</h2>
+          <h2 class="intro-textsub">HappyHouse 가 도와드릴게요!</h2>
 
           <p class="description">
             페어 4팀 유영진(가짜팀장) 김태훈(진짜팀장)의 프로젝트입니다. 부동산
