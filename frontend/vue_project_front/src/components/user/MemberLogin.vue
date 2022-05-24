@@ -8,8 +8,12 @@
           </div>
 
           <v-img src="@/assets/login.png" contain height="200"></v-img>
+          <v-card-text v-if="naverLogin">
+            <div>{{ naverLogin.email }}</div>
+            <button type="button" @click="logout">로그아웃</button>
+          </v-card-text>
 
-          <v-card-text>
+          <v-card-text v-if="naverLogin == null">
             <v-form>
               <v-text-field
                 label="아이디를 입력하세요"
@@ -42,7 +46,7 @@
                 >Login</v-btn
               >
 
-              <div id="naver_id_login"></div>
+              <div id="naverIdLogin"></div>
 
               <v-card-actions class="text--secondary">
                 <v-checkbox color="#000000" label="Remember me"></v-checkbox>
@@ -68,6 +72,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import axios from "axios";
 const memberStore = "memberStore";
 export default {
   name: "MemberLogin",
@@ -77,18 +82,39 @@ export default {
         user_id: null,
         user_pw: null,
       },
+      naverLogin: null,
     };
   },
   mounted() {
-    const naver_id_login = new window.naver_id_login(
-      "ETE3cgrx1amxAEe0KUxg",
-      "http://localhost:8080/login/naver",
-    );
-    const state = naver_id_login.getUniqState();
-    naver_id_login.setButton("green", 3, 128);
-    naver_id_login.setState(state);
-    // naver_id_login.setDomain("http://127.0.0.1:8080/");
-    naver_id_login.init_naver_id_login();
+    this.naverLogin = new window.naver.LoginWithNaverId({
+      clientId: "ETE3cgrx1amxAEe0KUxg",
+      callbackUrl: "http://localhost:8080/login",
+      isPopup: false,
+      loginButton: {
+        color: "green",
+        type: 3,
+        height: 128,
+      },
+    });
+
+    this.naverLogin.init();
+
+    this.naverLogin.getLoginStatus((status) => {
+      if (status) {
+        console.log(status);
+        console.log(this.naverLogin.user);
+        //필수적으로 받아야 하는 프로필 정보가 있다면 callback 처리 시점에 체크
+        var email = this.naverLogin.user.getEmail();
+        if (email == undefined || email == null) {
+          alert("이메일은 필수 정보입니다. 정보 제공을 동의해주세요.");
+          //사용자 정보 재동의를 위하여 다시 네아로 동의 페이지로 이동함
+          this.naverLogin.reprompt();
+          return;
+        }
+      } else {
+        console.log("callback 처리에 실패하였습니다.");
+      }
+    });
   },
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError"]),
@@ -106,8 +132,20 @@ export default {
         this.$router.push({ name: "home" });
       }
     },
+
     movePage() {
       this.$router.push({ name: "signup" });
+    },
+
+    logout() {
+      const accessToken = this.naverLogin.accessToken.accessToken;
+      const url = `/oauth2.0/token?grant_type=delete&client_id='ETE3cgrx1amxAEe0KUxg'&client_secret='MmUXW1tKC5'&access_token=${accessToken}&service_provider=NAVER`;
+      axios.get(url).then((res) => {
+        console.log(res.data);
+        this.naverLogin = null;
+        sessionStorage.clear();
+        this.$router.push({ name: "home" });
+      });
     },
   },
 };
