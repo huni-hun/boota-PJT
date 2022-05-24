@@ -103,6 +103,7 @@ export default {
       console.log(this.gugunCode);
       if (this.gugunCode) this.getGugunName(this.gugunCode);
       if (this.gugunCode) this.getHouseList(this.gugunCode);
+      this.$emit("gugunCode", this.gugunCode);
     },
   },
 };

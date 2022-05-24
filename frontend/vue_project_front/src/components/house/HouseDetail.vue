@@ -121,6 +121,7 @@ export default {
     //   console.log("뿡");
     // },
     sendEmail() {
+      console.log(this.house.아파트);
       http
         .post("/mail", {
           address: "dugajada032@gmail.com",

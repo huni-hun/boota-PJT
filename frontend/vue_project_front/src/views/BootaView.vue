@@ -47,9 +47,6 @@
                       v-model="btb_content"
                     ></v-textarea>
                   </v-col>
-                  <!-- <v-col cols="12">
-                    <v-text-field label="Email*" required></v-text-field>
-                  </v-col> -->
 
                   <v-col rows="3" cols="12" md="6">
                     <v-text-field
@@ -180,6 +177,7 @@ import http from "@/util/http-common.js";
 import Vue from "vue";
 import VueGeolocationApi from "vue-geolocation-api";
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
+// import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import axios from "axios";
 
 Vue.use(VueGeolocationApi);
@@ -213,12 +211,12 @@ export default {
     },
     updateBoota() {
       this.dialog = false;
-      console.log(this.btb_pw);
       http
         .post("/boota", {
           btb_title: this.btb_title,
           btb_content: this.btb_content,
           btb_pw: this.btb_pw,
+          guguncode: this.nowloc,
         })
         .then(({ data }) => {
           alert("등록이 완료되었습니다!");
@@ -301,8 +299,6 @@ export default {
   watch: {
     checkgugun(val) {
       this.checkloc = val;
-
-      console.log(this.checkloc);
     },
     checkDialog(val) {
       this.userLocauth = val;
