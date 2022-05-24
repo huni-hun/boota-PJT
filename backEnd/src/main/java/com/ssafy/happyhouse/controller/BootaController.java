@@ -39,9 +39,9 @@ public class BootaController {
 
 	@ApiOperation(value = "선택된 페이징 게시글의 정보를 반환한다.", response = List.class)
 	@GetMapping
-	public ResponseEntity<Map<String, Object>> list(@RequestParam(value = "p", defaultValue = "1") int page) {
+	public ResponseEntity<Map<String, Object>> list(@RequestParam(value = "p", defaultValue = "1") int page,  @RequestParam(value = "key", defaultValue = "") String gugun) {
 		logger.debug("list - 호출");
-		return new ResponseEntity<Map<String, Object>>(bservice.makePage(page), HttpStatus.ACCEPTED);
+		return new ResponseEntity<Map<String, Object>>(bservice.makePage(page, gugun), HttpStatus.ACCEPTED);
 	}
 
 	@ApiOperation(value = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BootaBoardDto.class)

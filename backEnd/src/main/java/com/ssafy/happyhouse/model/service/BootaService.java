@@ -18,7 +18,7 @@ public class BootaService {
 	@Autowired
 	private BootaBoardMapper bdao;
 	
-	public Map<String, Object> makePage(int page) {
+	public Map<String, Object> makePage(int page, String gugun) {
 		// 현재페이지, 하단시작페이지, 하단끝페이지, 게시글목록, 총페이지수
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("page", page);
@@ -26,7 +26,7 @@ public class BootaService {
 		int startPage = (page-1)/10*10 + 1;
 		result.put("startPage", startPage);
 		
-		int totalCount = bdao.selectTotalCount();
+		int totalCount = bdao.selectTotalCount(gugun);
 		int totalPage = totalCount/10; // 한 페이지당 게시글 10개
 		if(totalCount%10>0) // 게시글이 56개이면 56/10 = 5페이지인데 한페이지 더 필요함.
 			totalPage++;
@@ -37,7 +37,7 @@ public class BootaService {
 			endPage = totalPage;
 		result.put("endPage", endPage);
 		
-		List<BootaBoardDto> boardList = bdao.selectList((page-1)*10, 10);
+		List<BootaBoardDto> boardList = bdao.selectList((page-1)*10, 10, gugun);
 		result.put("boardList", boardList);
 		
 		return result;

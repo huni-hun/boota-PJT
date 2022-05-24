@@ -11,8 +11,8 @@ import QnaDelete from "@/components/qna/QnaDelete.vue";
 import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
 import BootaBoardDetail from "@/components/boota/BootaBoardDetail.vue";
+
 import MemberLoginView from "@/components/user/MemberLogin.vue";
-import LoginAccess from "@/components/user/LoginAccess.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
 
 import MemberPageView from "@/components/user/MemberPageView.vue";
@@ -74,11 +74,6 @@ const routes = [
     path: "/login",
     name: "login",
     component: MemberLoginView,
-  },
-  {
-    path: "/login/naver",
-    name: "naver",
-    component: LoginAccess,
   },
   {
     path: "/join",
