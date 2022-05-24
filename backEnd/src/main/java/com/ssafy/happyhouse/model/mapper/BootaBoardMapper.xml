@@ -14,8 +14,9 @@
 		resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
 		SELECT
 		*
-		FROM
-		BOOTABOARDMAIN_TB ORDER BY BTBNO DESC LIMIT #{start},#{count}
+		FROM BOOTABOARDMAIN_TB
+		WHERE GUGUNCODE = #{gugun}  
+		ORDER BY BTBNO DESC LIMIT #{start},#{count}
 	</select>
 
 	<select id="searchList"
@@ -24,11 +25,11 @@
 		*
 		FROM BOOTABOARDMAIN_TB
 		WHERE BTB_TITLE LIKE CONCAT('%',#{keyword},'%')
-		ORDER BY BNO DESC LIMIT #{start},#{count}
+		ORDER BY BTBNO DESC LIMIT #{start},#{count}
 	</select>
 
 	<select id="selectTotalCount" resultType="int">
-		SELECT COUNT(*) FROM BOOTABOARDMAIN_TB
+		SELECT COUNT(*) FROM BOOTABOARDMAIN_TB WHERE GUGUNCODE = #{gugun}
 	</select>
 
 	<select id="selectSearchCount" resultType="int">

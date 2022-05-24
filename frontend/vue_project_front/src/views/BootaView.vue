@@ -260,6 +260,7 @@ export default {
         this.userLocauth = true;
         this.textContent = this.nowloc + " 인증되었습니다 ^.^";
         this.types = "success";
+        this.$store.dispatch("getLocal", this.nowloc);
       } else {
         this.textContent =
           this.nowloc + "에 위치해 있습니다. 활동에 제약이 생깁니다";

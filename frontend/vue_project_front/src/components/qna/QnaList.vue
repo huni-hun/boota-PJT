@@ -78,6 +78,7 @@ export default {
   components: {},
   data() {
     return {
+      page: 0,
       boards: [],
       startPage: 0,
       totalPage: 0,

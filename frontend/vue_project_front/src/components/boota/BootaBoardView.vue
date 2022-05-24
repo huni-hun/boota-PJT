@@ -64,6 +64,7 @@
 
 <script>
 import http from "@/util/http-common.js";
+import { mapState } from "vuex";
 
 export default {
   name: "BootaBoardView",
@@ -72,20 +73,26 @@ export default {
   data() {
     return {
       boards: [],
+      page: 0,
       startPage: 0,
       totalPage: 0,
       endPage: 0,
       keyword: "",
     };
   },
-  created() {
-    http.get("/boota/").then(({ data }) => {
-      console.log(data);
-      this.boards = data.boardList;
-      this.startPage = data.startPage;
-      this.totalPage = data.totalPage;
-      this.endPage = data.endPage;
-    });
+  created() {},
+  computed: {
+    ...mapState(["local"]),
+    checkLoc() {
+      console.log(this.local);
+      return this.local;
+    },
+  },
+  watch: {
+    checkLoc(val) {
+      console.log(val);
+      this.makeLoalcBoard(val);
+    },
   },
   methods: {
     movePage(btbno) {
@@ -106,6 +113,15 @@ export default {
     },
     movePageLink(p) {
       http.get("/boota?p=" + p).then(({ data }) => {
+        console.log(data);
+        this.boards = data.boardList;
+        this.startPage = data.startPage;
+        this.totalPage = data.totalPage;
+        this.endPage = data.endPage;
+      });
+    },
+    makeLoalcBoard(key) {
+      http.get("/boota?key=" + key).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;
