@@ -1,29 +1,37 @@
 <template>
   <div>
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left" width="7%">글번호</th>
-            <th class="text-left" width="33%">제목</th>
-            <th class="text-left" width="40%">내용</th>
-            <th class="text-left" width="7%">링크</th>
-            <th class="text-left" width="13%">작성일시</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(news, index) in newsList" :key="index">
-            <td>{{ index }}</td>
-            <td v-html="news.title"></td>
-            <td v-html="news.description"></td>
-            <td class="alink">
-              <a href="">{{ news.link }}</a>
-            </td>
-            <td>{{ news.pubDate }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <v-container>
+      <v-row>
+        <v-col cols="8"
+          ><v-card elevation="5" class="rounded-xl">
+            <v-simple-table dark class="pt-3 pb-7 mb-10 rounded-xl">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <!-- <th class="text-left" width="7%">글번호</th> -->
+                    <th class="text-center" width="33%">제목</th>
+                    <th class="text-center" width="40%">내용</th>
+                    <th class="text-center" width="7%">링크</th>
+                    <th class="text-center" width="13%">게재일시</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(news, index) in newsList" :key="index">
+                    <!-- <td>{{ index }}</td> -->
+                    <td class="font-weight-bold" v-html="news.title"></td>
+                    <td class="descrip" v-html="news.description"></td>
+                    <td class="text-center">
+                      <a class="alink" :href="news.link">이동</a>
+                    </td>
+                    <td class="text-center">{{ news.pubDate | dateFormat }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -42,7 +50,29 @@ export default {
       console.log(this.newsList);
     });
   },
+  filters: {
+    dateFormat(value) {
+      return value.substring(16, 22) + " " + value.substring(0, 11);
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+a:link {
+  text-decoration: none;
+  color: #f0f0f0;
+}
+
+.alink:link {
+  text-decoration: none;
+  color: #f0f0f0;
+}
+.alink:visited {
+  color: #616161;
+  text-decoration: none;
+}
+.descrip {
+  color: #cfd8dc;
+}
+</style>

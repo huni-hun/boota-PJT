@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view></router-view>
-    <h2 class="text-center"><b>House Service</b></h2>
+    <h2 class="text-center"><b>Map</b></h2>
     <v-container class="fill-height" fluid>
       <house-search-bar></house-search-bar>
     </v-container>

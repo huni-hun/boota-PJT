@@ -7,8 +7,8 @@
   >
     <v-img height="100" src="@/assets/bootawrite.png"></v-img>
 
-    <v-card-title
-      ><p class="qtext"></p>
+    <v-card-title>
+      <!-- <p class="qtext"></p> -->
       {{ board.btb_title }}</v-card-title
     >
 
@@ -26,7 +26,36 @@
 
     <v-divider class="mx-4"></v-divider>
 
-    <v-card-title><p class="atext"></p></v-card-title>
+    <!-- <v-card-title><p class="atext"></p></v-card-title> -->
+    <v-card-text class="d-flex justify-space-around mb-6">
+      <v-btn color="#eceff1"
+        ><router-link :to="'/boota/modify/' + board.btbno" class="btn corbtn"
+          >수정</router-link
+        >
+      </v-btn>
+      <v-btn color="#455A64">
+        <router-link :to="'/qna/delete/' + board.btbno" class="btn delbtn"
+          >삭제</router-link
+        ></v-btn
+      >
+      <v-btn color="indigo">
+        <router-link to="/qna/list" class="btn listbtn">목록</router-link>
+      </v-btn>
+      <v-btn>
+        <router-link :to="'/qna/commentWrite/' + board.btbno" class="btn"
+          >댓글달기</router-link
+        >
+      </v-btn>
+    </v-card-text>
+    <v-card-text class="d-flex justify-center mb-6">
+      <v-btn class="mr-7" color="#eceff1" disabled
+        >{{ board.like_count }}
+      </v-btn>
+      <v-icon class="thumb" @click="likePost(board.btbno)">
+        mdi-thumb-up</v-icon
+      >
+    </v-card-text>
+    <v-divider class="mx-4"></v-divider>
     <v-card-text v-if="comments.length">
       <v-simple-table>
         <template v-slot:default>
@@ -48,27 +77,6 @@
       </v-simple-table>
     </v-card-text>
     <v-card-text v-else>댓글이 한 개도 없네요</v-card-text>
-
-    <v-card-text class="d-flex justify-space-around mb-6">
-      <v-btn color="#eceff1"
-        ><router-link :to="'/boota/modify/' + board.btbno" class="btn corbtn"
-          >수정</router-link
-        >
-      </v-btn>
-      <v-btn color="#455A64">
-        <router-link :to="'/qna/delete/' + board.btbno" class="btn delbtn"
-          >삭제</router-link
-        ></v-btn
-      >
-      <v-btn color="indigo">
-        <router-link to="/qna/list" class="btn listbtn">목록</router-link>
-      </v-btn>
-      <v-btn>
-        <router-link :to="'/qna/commentWrite/' + board.bno" class="btn"
-          >답변하기</router-link
-        >
-      </v-btn>
-    </v-card-text>
   </v-card>
 </template>
 
@@ -101,6 +109,11 @@ export default {
     //   this.comments = data;
     // });
   },
+  methods: {
+    likePost(btbno) {
+      console.log(btbno);
+    },
+  },
 };
 </script>
 
@@ -127,5 +140,10 @@ export default {
   font-size: 30px;
   font-weight: bold;
   color: #eb5b3a;
+}
+
+.thumb {
+  font-size: 35px;
+  color: #ef306a;
 }
 </style>

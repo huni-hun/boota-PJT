@@ -124,9 +124,12 @@ export default {
       console.log(this.house.아파트);
       http
         .post("/mail", {
-          address: "dugajada032@gmail.com",
-          title: "제목",
-          message: "내용",
+          address: "dugajada032@gmail.com", //user 이메일 주소로 바꾸기
+          title: "해피하우스에서 매물 거래 정보를 보내 드립니다.",
+          message: ` 안녕하세요 매물 거래 정보 보내드립니다 ^.^ 
+          아파트명 : ${this.house.아파트},
+          위치 : ${this.house.법정동},
+          거래금액 : ${this.house.거래금액 * 10000}`,
         })
         .then(({ data }) => {
           alert("이메일이 전송되었습니다!");

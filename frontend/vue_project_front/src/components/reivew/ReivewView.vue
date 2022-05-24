@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="4">
-        <v-card height="250px">
+        <v-card overflow-y-auto height="250px">
           <v-card-title primary-title class="d-flex justify-center mb-1">
             <div class="star-rating">
               <input
