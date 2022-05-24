@@ -122,6 +122,7 @@ export default {
     // },
     sendEmail() {
       console.log(this.house.아파트);
+
       http
         .post("/mail", {
           address: "dugajada032@gmail.com", //user 이메일 주소로 바꾸기

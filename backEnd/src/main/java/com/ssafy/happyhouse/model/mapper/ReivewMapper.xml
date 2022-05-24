@@ -8,6 +8,15 @@
 		REIVEW_TB WHERE HOUSE_NUM=#{house_num}
 	</select>
 	
+	<select id="selectHouse" resultType="com.ssafy.happyhouse.model.dto.ReivewDto">
+		SELECT 
+		HOUSE_NUM, AVG(REIVEW_RATING) AS REIVEW_RATING 
+		FROM 
+		REIVEW_TB GROUP BY HOUSE_NUM 
+		ORDER BY 
+		REIVEW_RATING DESC LIMIT 0,1
+	</select>
+	
 	<insert id="insertReivew" parameterType="com.ssafy.happyhouse.model.dto.ReivewDto">
 		INSERT INTO
 		REIVEW_TB(HOUSE_NUM, REIVEW_TITLE, REIVEW_CONTENT, REIVEW_RATING)

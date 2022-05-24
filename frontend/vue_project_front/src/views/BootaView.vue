@@ -110,9 +110,21 @@
           <v-col lg="6" cols="12">
             <v-card elevation="2" class="rounded-lg" height="300px">
               <v-card-text class="d-flex justify-space-between align-center">
-                <div>
+                <div v-if="houseOne">
                   <strong>Hot 매물</strong> <br />
-                  <span>지금 가장 인기있는 매물입니다</span>
+                  <div>
+                    <span>지금 가장 인기있는 매물입니다</span>
+                    <h2>건축년도 : {{ houseOne.건축년도 }}</h2>
+                    <h2>
+                      소재지 : {{ houseOne.중개사소재지 }} {{ houseOne.법정동 }}
+                    </h2>
+                    <h2>아파트 : {{ houseOne.아파트 }}</h2>
+                    <h2>거래금액 : {{ houseOne.거래금액 }}</h2>
+                    <h2>평점 : {{ hotHouse.reivew_rating }}</h2>
+                  </div>
+                </div>
+                <div v-if="!houseOne">
+                  <h2>지역 내 인기매물이 없습니다.</h2>
                 </div>
                 <v-avatar size="60" style="border: 3px solid #444">
                   <span style="color: white">+</span>
@@ -125,9 +137,18 @@
           <v-col lg="6" cols="12">
             <v-card elevation="2" class="rounded-lg" height="300px">
               <v-card-text class="d-flex justify-space-between align-center">
-                <div>
+                <div v-if="BoardOne">
                   <strong>Hot 게시글</strong> <br />
-                  <span>지금 가장 핫한 게시글입니다</span>
+                  <div>
+                    <span>지금 가장 핫한 게시글입니다</span>
+                    <h2>제목 : {{ BoardOne.btb_title }}</h2>
+                    <h2>좋아요 : {{ BoardOne.like_count }}</h2>
+                    <h2>조회수 : {{ BoardOne.btb_read_count }}</h2>
+                    <h2>등록일 : {{ BoardOne.btb_write_date }}</h2>
+                  </div>
+                </div>
+                <div v-if="!BoardOne">
+                  <h2>지역 내 인기게시글이 없습니다.</h2>
                 </div>
                 <v-avatar size="60" style="border: 3px solid #444">
                   <span style="color: white">+</span>
@@ -179,6 +200,7 @@ import VueGeolocationApi from "vue-geolocation-api";
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 // import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import axios from "axios";
+import { mapState } from "vuex";
 
 Vue.use(VueGeolocationApi);
 const Kakao = axios.create({
@@ -203,6 +225,10 @@ export default {
       active: 0,
       userLocauth: false,
       types: "info",
+      houseOne: null,
+      house: [],
+      reivew: "",
+      BoardOne: null,
     };
   },
   methods: {
@@ -261,10 +287,23 @@ export default {
         this.textContent = this.nowloc + " 인증되었습니다 ^.^";
         this.types = "success";
         this.$store.dispatch("getLocal", this.nowloc);
+        this.$store.dispatch("getHotHouse");
+        this.$store.dispatch("getHotBoard");
       } else {
         this.textContent =
           this.nowloc + "에 위치해 있습니다. 활동에 제약이 생깁니다";
         this.userLocauth = false;
+      }
+    },
+
+    hotHousegetter() {
+      for (var i = 0; i < 10; i++) {
+        this.house = this.houses[i];
+        if (this.house.일련번호 == this.hotHouse.house_num) {
+          this.houseOne = this.house;
+          console.log(this.houseOne);
+          return;
+        }
       }
     },
 
@@ -283,6 +322,7 @@ export default {
     //다른 게시판 만들고 채우기
   },
   computed: {
+    ...mapState(["houses", "hotHouse", "hotBoard"]),
     whichStep() {
       switch (this.active) {
         case 0:
@@ -296,6 +336,12 @@ export default {
     checkgugun() {
       return this.$store.state.map_gugunName;
     },
+    checkHotHouse() {
+      return this.hotHouse;
+    },
+    checkHotBoard() {
+      return this.hotBoard;
+    },
   },
   watch: {
     checkgugun(val) {
@@ -303,6 +349,12 @@ export default {
     },
     checkDialog(val) {
       this.userLocauth = val;
+    },
+    checkHotHouse() {
+      this.hotHousegetter();
+    },
+    checkHotBoard(val) {
+      this.BoardOne = val;
     },
   },
 };

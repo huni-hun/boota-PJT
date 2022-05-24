@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.model.dto.BootaBoardDto;
+import com.ssafy.happyhouse.model.dto.ReivewDto;
 import com.ssafy.happyhouse.model.mapper.BootaBoardMapper;
 
 @MapperScan(basePackages = "com.ssafy.happyhouse")
@@ -80,6 +81,19 @@ public class BootaService {
 		System.out.println("111");
 		
 		return map;
+	}
+	
+	public Map<String, Object> getHotBoard() {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		BootaBoardDto hotBoard = bdao.selectHotBoard();
+		
+		result.put("board", hotBoard);
+		
+		return result;
+	}
+	
+	public boolean updateLike(int btbno) {
+		return bdao.updateLike(btbno) == 1;
 	}
 	
 	public boolean writeBoard(BootaBoardDto board) {
