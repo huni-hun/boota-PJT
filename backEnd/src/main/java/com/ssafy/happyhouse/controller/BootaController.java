@@ -79,6 +79,17 @@ public class BootaController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	@ApiOperation(value = "게시글의 좋아요를 갱신한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PutMapping("/like/{btbno}")
+	public ResponseEntity<String> updateLike(@PathVariable int btbno) {
+		logger.debug("updateLike - 호출");
+
+		if (bservice.updateLike(btbno)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
 
 	@ApiOperation(value = "글번호에 해당하는 게시글의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("{btbno}")
@@ -89,5 +100,11 @@ public class BootaController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
-
+	
+	@ApiOperation(value = "좋아요 계산 후 좋아요가 가장 높은 게시물 반환.", response = String.class)
+	@GetMapping("/hot")
+	public ResponseEntity<Map<String, Object>> getHotBoard() {
+		logger.debug("hotBoard - 호출");
+		return new ResponseEntity<Map<String, Object>>(bservice.getHotBoard(), HttpStatus.OK);
+	}
 }

@@ -26,6 +26,15 @@ public class ReivewService {
 		
 		return result;
 	}
+
+	public Map<String, Object> getHotHouse() {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ReivewDto hotHouse = rdao.selectHouse();
+		
+		result.put("reivew", hotHouse); // 현재 읽는 게시글내용
+		
+		return result;
+	}
 	
 	public boolean writeReivew(ReivewDto reivew) {
 		return rdao.insertReivew(reivew) == 1;

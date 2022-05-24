@@ -13,14 +13,19 @@ export default new Vuex.Store({
     guguns: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
+    ///
     map_sidoName: "",
     map_gugunName: "",
     map_dongName: "",
     gugun_code: "",
+    ///
     foodcommer: [],
     playcommer: [],
     studycommer: [],
+    ///
     local: "",
+    hotHouse: null,
+    hotBoard: null,
   },
   getters: {},
   mutations: {
@@ -72,8 +77,15 @@ export default new Vuex.Store({
 
     /////////////////////////////// boota ////////////////////
     SET_LOCAL(state, loc) {
-      console.log(loc);
       state.local = loc;
+    },
+    SET_HOT_HOUSE(state, house) {
+      console.log(house.reivew);
+      state.hotHouse = house.reivew;
+    },
+    SET_HOT_BOARD(state, like) {
+      console.log(like.board);
+      state.hotBoard = like.board;
     },
   },
   actions: {
@@ -232,9 +244,30 @@ export default new Vuex.Store({
         });
     },
 
-    ///////////////////
+    /////////////////// boota /////////////
     getLocal({ commit }, local) {
       commit("SET_LOCAL", local);
+    },
+
+    getHotHouse({ commit }) {
+      http
+        .get(`/reivew/hot`)
+        .then(({ data }) => {
+          commit("SET_HOT_HOUSE", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getHotBoard({ commit }) {
+      http
+        .get(`/boota/hot`)
+        .then(({ data }) => {
+          commit("SET_HOT_BOARD", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   modules: { memberStore },

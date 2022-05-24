@@ -21,7 +21,9 @@
 
       <div class="black--text">
         {{ board.btb_content }}
+        {{ board.like_count }}
       </div>
+      <button @click="updateLike">좋아요</button>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -56,15 +58,15 @@
         >
       </v-btn>
       <v-btn color="#455A64">
-        <router-link :to="'/qna/delete/' + board.btbno" class="btn delbtn"
+        <router-link :to="'/boota/delete/' + board.btbno" class="btn delbtn"
           >삭제</router-link
         ></v-btn
       >
       <v-btn color="indigo">
-        <router-link to="/qna/list" class="btn listbtn">목록</router-link>
+        <router-link to="/boota/list" class="btn listbtn">목록</router-link>
       </v-btn>
       <v-btn>
-        <router-link :to="'/qna/commentWrite/' + board.bno" class="btn"
+        <router-link :to="'/boota/commentWrite/' + board.btbno" class="btn"
           >답변하기</router-link
         >
       </v-btn>
@@ -80,10 +82,12 @@ export default {
     return {
       board: {},
       comments: [],
+      btbnoTemp: 0,
     };
   },
   created() {
     let btbno = this.$route.params.btbno;
+    this.btbnoTemp = btbno;
     console.log(btbno);
 
     http
@@ -100,6 +104,34 @@ export default {
     //   console.log(data);
     //   this.comments = data;
     // });
+  },
+  methods: {
+    updateLike() {
+      let btbno = this.btbnoTemp;
+
+      http
+        .put("/boota/like/" + btbno)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.setBoard();
+    },
+    setBoard() {
+      let btbno = this.btbnoTemp;
+
+      http
+        .get("/boota/" + btbno)
+        .then(({ data }) => {
+          console.log(data.board);
+          this.board = data.board;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

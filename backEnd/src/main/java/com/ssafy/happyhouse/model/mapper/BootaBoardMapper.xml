@@ -10,6 +10,11 @@
 		BOOTABOARDMAIN_TB WHERE BTBNO=#{btbno}
 	</select>
 
+	<select id="selectHotBoard" resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
+		SELECT BTB_TITLE, BTB_READ_COUNT, BTB_WRITE_DATE, MAX(LIKE_COUNT) AS LIKE_COUNT
+		FROM BOOTABOARDMAIN_TB
+	</select>
+	
 	<select id="selectList"
 		resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
 		SELECT
@@ -41,6 +46,14 @@
 		BOOTABOARDMAIN_TB
 		SET
 		BTB_READ_COUNT=BTB_READ_COUNT+1
+		WHERE BTBNO=#{btbno}
+	</update>
+
+	<update id="updateLike" parameterType="int">
+		UPDATE
+		BOOTABOARDMAIN_TB
+		SET
+		LIKE_COUNT=LIKE_COUNT+1
 		WHERE BTBNO=#{btbno}
 	</update>
 

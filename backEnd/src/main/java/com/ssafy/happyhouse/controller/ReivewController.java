@@ -49,4 +49,13 @@ public class ReivewController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	@ApiOperation(value = "리뷰 점수 계산 후 점수가 가장 높은 아파트매물 반환. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@GetMapping("/hot")
+	public ResponseEntity<Map<String, Object>> getHotHouse() {
+		logger.debug("hotReivew - 호출");
+
+		return new ResponseEntity<Map<String, Object>>(rservice.getHotHouse(), HttpStatus.OK);
+
+	}
 }

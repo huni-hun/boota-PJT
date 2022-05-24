@@ -22,7 +22,7 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                label="Enter your name"
+                label="Enter your ID"
                 name="name"
                 v-model="myId"
                 prepend-inner-icon="mdi-account"
