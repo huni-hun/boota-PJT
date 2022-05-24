@@ -8,12 +8,21 @@
           </div>
 
           <v-img src="@/assets/login.png" contain height="200"></v-img>
-          <v-card-text v-if="naverLogin">
-            <div>{{ naverLogin.email }}</div>
+
+          <v-card-text v-if="kakaoCheck">
+            <h2>{{ kakao_account }}</h2>
+            <h2>{{ nickname }}</h2>
+            <h2>{{ email }}</h2>
             <button type="button" @click="logout">로그아웃</button>
           </v-card-text>
 
-          <v-card-text v-if="naverLogin == null">
+          <v-card-text v-if="naverCheck">
+            <h2>{{ naverLogin.user.email }}</h2>
+            <h2>{{ naverLogin.user.name }}</h2>
+            <button type="button" @click="kakaoLogout">카카오 로그아웃</button>
+          </v-card-text>
+
+          <v-card-text v-if="check">
             <v-form>
               <v-text-field
                 label="아이디를 입력하세요"
@@ -47,6 +56,13 @@
               >
 
               <div id="naverIdLogin"></div>
+
+              <a id="custom-login-btn" @click="kakaoLogin()">
+                <img
+                  src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"
+                />
+              </a>
+              <br />
 
               <v-card-actions class="text--secondary">
                 <v-checkbox color="#000000" label="Remember me"></v-checkbox>
@@ -83,6 +99,10 @@ export default {
         user_pw: null,
       },
       naverLogin: null,
+      sampleData: "",
+      check: true,
+      naverCheck: false,
+      kakaoCheck: false,
     };
   },
   mounted() {
@@ -93,7 +113,7 @@ export default {
       loginButton: {
         color: "green",
         type: 3,
-        height: 128,
+        height: 50,
       },
     });
 
@@ -111,6 +131,8 @@ export default {
           this.naverLogin.reprompt();
           return;
         }
+        this.check = false;
+        this.check2 = true;
       } else {
         console.log("callback 처리에 실패하였습니다.");
       }
@@ -138,13 +160,46 @@ export default {
     },
 
     logout() {
+      this.naverLogin.logout();
+      alert("네이버 로그아웃");
+      this.$router.push({ name: "home" });
       const accessToken = this.naverLogin.accessToken.accessToken;
-      const url = `/oauth2.0/token?grant_type=delete&client_id='ETE3cgrx1amxAEe0KUxg'&client_secret='MmUXW1tKC5'&access_token=${accessToken}&service_provider=NAVER`;
+      const url = `/oauth2.0/token?grant_type=delete&client_id=ETE3cgrx1amxAEe0KUxg&client_secret=MmUXW1tKC5&access_token=${accessToken}&service_provider=NAVER`;
       axios.get(url).then((res) => {
         console.log(res.data);
-        this.naverLogin = null;
-        sessionStorage.clear();
-        this.$router.push({ name: "home" });
+      });
+    },
+
+    kakaoLogin() {
+      window.Kakao.Auth.login({
+        scope: "",
+        success: this.getKakaoAccount,
+      });
+    },
+    getKakaoAccount() {
+      window.Kakao.API.request({
+        url: "/v2/user/me",
+        success: (res) => {
+          const kakao_account = res.kakao_account;
+          const nickname = kakao_account.profile.nickname;
+          const email = kakao_account.email;
+          console.log(res);
+          console.log("nickname : ", nickname);
+          console.log("email : ", email);
+          //로그인 처리 구현
+          alert("로그인성공!");
+          this.kakaoCheck = true;
+          this.check = false;
+        },
+        fail: (error) => {
+          console.log(error);
+        },
+      });
+    },
+    kakaoLogout() {
+      window.Kakao.Auth.logout((response) => {
+        //로그아웃
+        console.log(response);
       });
     },
   },

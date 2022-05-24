@@ -26,8 +26,10 @@
       </v-list-item>
 
       <v-list-item>
-        <v-list-item-action></v-list-item-action>
-
+        <!-- <v-list-item-action></v-list-item-action> -->
+        <v-list-item-icon>
+          <v-icon color="indigo"> mdi-currency-usd </v-icon>
+        </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title
             >{{
@@ -71,7 +73,8 @@
 
 <script>
 import { mapState } from "vuex";
-import emailjs from "emailjs-com";
+// import emailjs from "emailjs-com";
+import http from "@/util/http-common.js";
 
 export default {
   data() {
@@ -91,31 +94,47 @@ export default {
     },
   },
   methods: {
+    // sendEmail() {
+    //   var templateParams = {
+    //     name: "{{ house.아파트 }}",
+    //     notes: "Check this out!",
+    //   };
+    //   const YOUR_SERVICE_ID = "service_f6k5c7w";
+    //   const YOUR_TEMPLATE_ID = "template_nl5mzsl";
+
+    //   emailjs
+    //     .send(
+    //       YOUR_SERVICE_ID,
+    //       YOUR_TEMPLATE_ID,
+    //       templateParams,
+    //       "U0TENfbFJ1ofsHvRm",
+    //     )
+    //     .then(
+    //       function (response) {
+    //         console.log("SUCCESS!", response.status, response.text);
+    //       },
+    //       function (error) {
+    //         console.log("FAILED...", error);
+    //       },
+    //     );
+
+    //   console.log("뿡");
+    // },
     sendEmail() {
-      var templateParams = {
-        name: "{{ house.아파트 }}",
-        notes: "Check this out!",
-      };
-      const YOUR_SERVICE_ID = "service_f6k5c7w";
-      const YOUR_TEMPLATE_ID = "template_nl5mzsl";
-
-      emailjs
-        .send(
-          YOUR_SERVICE_ID,
-          YOUR_TEMPLATE_ID,
-          templateParams,
-          "U0TENfbFJ1ofsHvRm",
-        )
-        .then(
-          function (response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function (error) {
-            console.log("FAILED...", error);
-          },
-        );
-
-      console.log("뿡");
+      http
+        .post("/mail", {
+          address: "dugajada032@gmail.com",
+          title: "제목",
+          message: "내용",
+        })
+        .then(({ data }) => {
+          alert("이메일이 전송되었습니다!");
+          console.log(data);
+        })
+        .catch((error) => {
+          alert("이메일이 전송되었습니다!");
+          console.log(error);
+        });
     },
   },
 };

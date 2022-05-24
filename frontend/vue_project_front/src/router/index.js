@@ -14,6 +14,7 @@ import BootaBoardDetail from "@/components/boota/BootaBoardDetail.vue";
 
 import MemberLoginView from "@/components/user/MemberLogin.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
+
 import MemberPageView from "@/components/user/MemberPageView.vue";
 import MemberModify from "@/components/user/MemberModify.vue";
 
