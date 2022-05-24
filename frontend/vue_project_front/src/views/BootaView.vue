@@ -6,13 +6,13 @@
       <v-row justify="end">
         <!-- 부타 글쓰기  -->
         <v-dialog v-model="dialog" persistent max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ attrs }">
             <v-btn
               class="rounded-pill mr-7"
               color="indigo"
               dark
               v-bind="attrs"
-              v-on="on"
+              @click="checkUserloc()"
             >
               글쓰기
             </v-btn>
@@ -102,7 +102,7 @@
     <br />
     <v-row class="ma-5">
       <v-col lg="7" cols="12">
-        <v-alert dense text type="success">
+        <v-alert dense text :type="types">
           <div>
             <button @click="geofind">우리 동네 인증하기</button>
             <p>{{ textContent }}</p>
@@ -201,7 +201,10 @@ export default {
       longitude: "",
       textContent: "",
       nowloc: "",
+      checkloc: "",
       active: 0,
+      userLocauth: false,
+      types: "info",
     };
   },
   methods: {
@@ -255,7 +258,24 @@ export default {
         ({ data }) => (this.nowloc = data.documents[0].region_2depth_name),
       );
 
-      this.textContent = this.nowloc;
+      if (this.nowloc == this.checkgugun) {
+        this.userLocauth = true;
+        this.textContent = this.nowloc + " 인증되었습니다 ^.^";
+        this.types = "success";
+      } else {
+        this.textContent =
+          this.nowloc + "에 위치해 있습니다. 활동에 제약이 생깁니다";
+        this.userLocauth = false;
+      }
+    },
+
+    checkUserloc() {
+      if (!this.userLocauth) {
+        alert("동네 정보가 불일치 합니다 위치를 확인해주세요");
+        this.dialog = false;
+      } else {
+        this.dialog = true;
+      }
     },
   },
   components: {
@@ -265,7 +285,7 @@ export default {
   },
   computed: {
     whichStep() {
-      switch (this.actvie) {
+      switch (this.active) {
         case 0:
           return "BootaBoardView";
         case 1:
@@ -273,6 +293,19 @@ export default {
         default:
           return "BootaBoardView";
       }
+    },
+    checkgugun() {
+      return this.$store.state.map_gugunName;
+    },
+  },
+  watch: {
+    checkgugun(val) {
+      this.checkloc = val;
+
+      console.log(this.checkloc);
+    },
+    checkDialog(val) {
+      this.userLocauth = val;
     },
   },
 };

@@ -2,11 +2,10 @@
   <v-app id="inspire">
     <hero-view></hero-view>
     <about-view></about-view>
-<<<<<<< HEAD
+
     <naver-view></naver-view>
-=======
+
     <router-view></router-view>
->>>>>>> 5133515400e1e151bccef3a1e91598a9e683bd56
   </v-app>
 </template>
 

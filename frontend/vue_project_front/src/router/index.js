@@ -14,15 +14,10 @@ import BootaBoardDetail from "@/components/boota/BootaBoardDetail.vue";
 import MemberLoginView from "@/components/user/MemberLogin.vue";
 import LoginAccess from "@/components/user/LoginAccess.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
-<<<<<<< HEAD
+
 import MemberPageView from "@/components/user/MemberPageView.vue";
 import MemberModify from "@/components/user/MemberModify.vue";
 
-=======
-
-import MemberPageView from "@/components/user/MemberPageView.vue";
-
->>>>>>> 5133515400e1e151bccef3a1e91598a9e683bd56
 Vue.use(VueRouter);
 
 const routes = [
@@ -96,14 +91,11 @@ const routes = [
     component: MemberPageView,
   },
   {
-<<<<<<< HEAD
     path: "/modify",
     name: "modify",
     component: MemberModify,
   },
   {
-=======
->>>>>>> 5133515400e1e151bccef3a1e91598a9e683bd56
     path: "/boota",
     name: "boota",
     component: BootaView,
@@ -136,14 +128,11 @@ const routes = [
         component: QnaCommentWrite,
       },
     ],
-<<<<<<< HEAD
-=======
   },
   {
     path: "/boota/detail/:btbno",
     name: "detail",
     component: BootaBoardDetail,
->>>>>>> 5133515400e1e151bccef3a1e91598a9e683bd56
   },
 ];
 
