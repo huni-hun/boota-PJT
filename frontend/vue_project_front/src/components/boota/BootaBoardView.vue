@@ -68,6 +68,7 @@ import http from "@/util/http-common.js";
 export default {
   name: "BootaBoardView",
   components: {},
+  props: ["nowloc"],
   data() {
     return {
       boards: [],
@@ -78,7 +79,7 @@ export default {
     };
   },
   created() {
-    http.get("/boota").then(({ data }) => {
+    http.get("/boota/").then(({ data }) => {
       console.log(data);
       this.boards = data.boardList;
       this.startPage = data.startPage;

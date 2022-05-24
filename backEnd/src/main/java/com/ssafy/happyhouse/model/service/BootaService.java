@@ -94,11 +94,3 @@ public class BootaService {
 		return bdao.deleteBoard(btbno,btb_pw) == 1;
 	}
 }
-
-
-
-
-
-
-
-
