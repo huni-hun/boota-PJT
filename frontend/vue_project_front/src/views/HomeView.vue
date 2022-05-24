@@ -2,9 +2,9 @@
   <v-app id="inspire">
     <hero-view></hero-view>
     <about-view></about-view>
-
-    <naver-view></naver-view>
     <weather-view></weather-view>
+    <naver-view></naver-view>
+
     <router-view></router-view>
   </v-app>
 </template>
