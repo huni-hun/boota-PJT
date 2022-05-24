@@ -1,16 +1,17 @@
 <template v-slot:default>
   <div>
-    <v-container class="ma-0 pa-0 d-flex justify-center align-center">
+    <v-container class="ma-0 pa-0 d-flex align-center">
       <v-form ref="form">
         <v-text-field
+          class="tinput"
           v-model="keyword"
-          placeholder="검색어를 입력하세요"
+          placeholder="검색하기"
         ></v-text-field>
       </v-form>
       <v-btn
         color="indigo"
         @click="searchPage()"
-        class="white--text searchBtn mb-12"
+        class="white--text searchBtn ml-4 mb-13"
         rounded
       >
         <v-icon>mdi-magnify</v-icon></v-btn
@@ -152,5 +153,14 @@ a {
 .searchBtn {
   margin-top: 45px;
   margin-left: 50px;
+}
+
+.container {
+  position: relative;
+
+  left: 83%;
+}
+.tinput {
+  width: 120px;
 }
 </style>

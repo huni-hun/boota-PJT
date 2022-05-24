@@ -3,9 +3,9 @@
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
         <v-card elevation="0">
-          <div class="text-center">
+          <!-- <div class="text-center">
             <h1 class="mb-2">Login</h1>
-          </div>
+          </div> -->
 
           <v-img src="@/assets/login.png" contain height="200"></v-img>
 
@@ -29,7 +29,7 @@
                 name="email"
                 prepend-inner-icon="mdi-account"
                 type="email"
-                class="rounded-0"
+                class="rounded-xl"
                 outlined
                 v-model="user.user_id"
                 @keyup.enter="confirm"
@@ -39,15 +39,15 @@
                 name="password"
                 prepend-inner-icon="mdi-lock"
                 type="password"
-                suffix="| Forgot?"
-                class="rounded-0"
+                suffix="| 잊으셨나요?"
+                class="rounded-xl"
                 outlined
                 v-model="user.user_pw"
                 @keyup.enter="confirm"
               ></v-text-field>
               <v-btn
-                class="rounded-0"
-                color="#000000"
+                class="rounded-xl mb-10"
+                color="rounded-xl"
                 x-large
                 block
                 dark
@@ -55,14 +55,21 @@
                 >Login</v-btn
               >
 
-              <div id="naverIdLogin"></div>
-
-              <a id="custom-login-btn" @click="kakaoLogin()">
-                <img
-                  src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"
-                />
-              </a>
-              <br />
+              <v-row>
+                <v-col class="d-flex justify-center mt-7">
+                  <div id="naverIdLogin"></div>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col class="d-flex justify-center">
+                  <a id="custom-login-btn" @click="kakaoLogin()">
+                    <img
+                      class="kakaoLogin"
+                      src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"
+                    />
+                  </a>
+                </v-col>
+              </v-row>
 
               <v-card-actions class="text--secondary">
                 <v-checkbox color="#000000" label="Remember me"></v-checkbox>
@@ -206,4 +213,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.kakaoLogin {
+  width: 217px;
+}
+</style>

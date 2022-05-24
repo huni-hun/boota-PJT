@@ -1,19 +1,7 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col lg="6">
-        <img src="@/assets/happy.png" alt="" />
-      </v-col>
-      <v-col lg="6">
-        <v-subheader class="text-h4">About us</v-subheader>
-        <p>여기 설명</p>
-        <v-list>
-          <v-list-item></v-list-item>
-          <v-list-item></v-list-item>
-          <v-list-item></v-list-item>
-        </v-list>
-      </v-col>
-    </v-row>
+  <v-container class="container pl-16 ma-15">
+    <h1 class="text-center headtext"><b>오늘의 정보</b></h1>
+    <router-view></router-view>
   </v-container>
 </template>
 
@@ -23,4 +11,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+</style>

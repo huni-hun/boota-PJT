@@ -19,7 +19,7 @@ public interface BootaBoardMapper {
 	public int selectTotalCount(String gugun);
 	public int selectSearchCount(@Param("keyword")String keyword);
 	public int updateReadCount(int btbno);
-	public int updateLikeCount(int btbno);
+//	public int updateLikeCount(int btbno);
 	public int insertBoard(BootaBoardDto board);
 	public int updateBoard(BootaBoardDto board);
 	public int updateLike(int btbno);

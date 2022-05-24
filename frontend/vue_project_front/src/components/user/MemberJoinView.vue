@@ -3,9 +3,6 @@
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
         <v-card elevation="0">
-          <div class="text-center">
-            <h1 class="mb-2">Register</h1>
-          </div>
           <a
             href="https://edu-fedorae.netlify.app"
             name="Fedorae Education"
@@ -22,55 +19,55 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                label="Enter your ID"
+                label="아이디를 입력하세요"
                 name="name"
                 v-model="myId"
                 prepend-inner-icon="mdi-account"
                 type="text"
-                class="rounded-0"
+                class="rounded-xl"
                 outlined
               ></v-text-field>
               <v-text-field
-                label="Enter your email"
+                label="이메일을 입력하세요"
                 name="email"
                 v-model="myEmail"
                 prepend-inner-icon="mdi-email"
                 type="email"
-                class="rounded-0"
+                class="rounded-xl"
                 outlined
               ></v-text-field>
               <v-text-field
-                label="Enter your password"
+                label="비밀번호를 입력하세요"
                 name="password"
                 v-model="myPw"
                 prepend-inner-icon="mdi-lock"
                 type="password"
-                class="rounded-0"
+                class="rounded-xl"
                 outlined
               ></v-text-field>
               <v-text-field
-                label="Re-enter password"
+                label="비밀번호를 재입력하세요"
                 name="password"
                 v-model="rePw"
                 prepend-inner-icon="mdi-lock-outline"
                 type="password"
-                class="rounded-0"
+                class="rounded-xl"
                 outlined
               ></v-text-field>
               <v-btn
                 @click="joinMyData"
-                class="rounded-0"
-                color="#000000"
+                class="rounded-xl"
+                color="rounded-xl"
                 x-large
                 block
                 dark
-                >Register</v-btn
+                >회원가입하기</v-btn
               >
               <v-card-actions class="text--secondary">
                 <v-spacer></v-spacer>
                 <!-- <router-link :to="{ name: 'SignUp' }">Sign Up</router-link> -->
-                Already have an account?
-                <a href="#" class="pl-2" style="color: #000000">Sign In</a>
+                계정이 이미 있으신가요?
+                <a href="#" class="pl-2" style="color: #5c6bc0">로그인</a>
               </v-card-actions>
             </v-form>
           </v-card-text>

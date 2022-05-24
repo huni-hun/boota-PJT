@@ -101,23 +101,23 @@ public class BootaController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
-<<<<<<< HEAD
-	@ApiOperation(value = "글번호에 해당하는 게시글의 좋아요수를 올린다. ", response = String.class)
-	@PutMapping("/like/{btbno}")
-	public ResponseEntity<String> updateLikeCount(@PathVariable int btbno) {
-		logger.debug("updateLikeCount - 호출");
-		if (bservice.updateLikeCount(btbno)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-	}
+//
+//	@ApiOperation(value = "글번호에 해당하는 게시글의 좋아요수를 올린다. ", response = String.class)
+//	@PutMapping("/like/{btbno}")
+//	public ResponseEntity<String> updateLikeCount(@PathVariable int btbno) {
+//		logger.debug("updateLikeCount - 호출");
+//		if (bservice.updateLikeCount(btbno)) {
+//			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+//		}
+//		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+//	}
+//
 
-=======
 	@ApiOperation(value = "좋아요 계산 후 좋아요가 가장 높은 게시물 반환.", response = String.class)
 	@GetMapping("/hot")
 	public ResponseEntity<Map<String, Object>> getHotBoard() {
 		logger.debug("hotBoard - 호출");
 		return new ResponseEntity<Map<String, Object>>(bservice.getHotBoard(), HttpStatus.OK);
 	}
->>>>>>> 2d4231d08dd7834cc28c5fb6e7796bc75f555a80
+
 }

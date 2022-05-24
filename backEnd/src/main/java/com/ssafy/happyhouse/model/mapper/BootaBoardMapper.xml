@@ -49,14 +49,14 @@
 		WHERE BTBNO=#{btbno}
 	</update>
 	<!--  좋아요   -->
-	<update id="updateLikeCount" parameterType="int">
+	<!--<update id="updateLikeCount" parameterType="int">
 		UPDATE
 		BOOTABOARDMAIN_TB
 		SET
 		LIKE_COUNT=LIKE_COUNT+1
 		WHERE BTBNO=#{btbno}
 	</update>
-
+-->
 	<update id="updateLike" parameterType="int">
 		UPDATE
 		BOOTABOARDMAIN_TB

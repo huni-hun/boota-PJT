@@ -19,7 +19,7 @@
                   <tr v-for="(news, index) in newsList" :key="index">
                     <!-- <td>{{ index }}</td> -->
                     <td class="font-weight-bold" v-html="news.title"></td>
-                    <td class="descrip" v-html="news.description"></td>
+                    <td class="descrip pa-2" v-html="news.description"></td>
                     <td class="text-center">
                       <a class="alink" :href="news.link">이동</a>
                     </td>

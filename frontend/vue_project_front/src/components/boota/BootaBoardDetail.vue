@@ -79,30 +79,6 @@
       </v-simple-table>
     </v-card-text>
     <v-card-text v-else>댓글이 한 개도 없네요</v-card-text>
-<<<<<<< HEAD
-=======
-
-    <v-card-text class="d-flex justify-space-around mb-6">
-      <v-btn color="#eceff1"
-        ><router-link :to="'/boota/modify/' + board.btbno" class="btn corbtn"
-          >수정</router-link
-        >
-      </v-btn>
-      <v-btn color="#455A64">
-        <router-link :to="'/boota/delete/' + board.btbno" class="btn delbtn"
-          >삭제</router-link
-        ></v-btn
-      >
-      <v-btn color="indigo">
-        <router-link to="/boota/list" class="btn listbtn">목록</router-link>
-      </v-btn>
-      <v-btn>
-        <router-link :to="'/boota/commentWrite/' + board.btbno" class="btn"
-          >답변하기</router-link
-        >
-      </v-btn>
-    </v-card-text>
->>>>>>> 2d4231d08dd7834cc28c5fb6e7796bc75f555a80
   </v-card>
 </template>
 
@@ -138,13 +114,6 @@ export default {
     // });
   },
   methods: {
-<<<<<<< HEAD
-    likePost(btbno) {
-      console.log(btbno);
-      http
-        .put("/boota/like/" + btbno)
-        .then(({ data }) => {
-=======
     updateLike() {
       let btbno = this.btbnoTemp;
 
@@ -164,7 +133,6 @@ export default {
       http
         .get("/boota/" + btbno)
         .then(({ data }) => {
->>>>>>> 2d4231d08dd7834cc28c5fb6e7796bc75f555a80
           console.log(data.board);
           this.board = data.board;
         })

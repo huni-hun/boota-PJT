@@ -1,5 +1,9 @@
 <template>
   <div class="dashboard">
+    <div class="container">
+      <h2 class="text-center headtext"><b>부동산 타임</b></h2>
+      <router-view></router-view>
+    </div>
     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
       <h3></h3>
 
@@ -95,11 +99,13 @@
         <!-- 부타 글쓰기 end -->
       </v-row>
     </v-subheader>
-    <house-search-bar></house-search-bar>
+    <v-container class="fill-height" fluid>
+      <house-search-bar></house-search-bar>
+    </v-container>
     <br />
     <v-row class="ma-5">
       <v-col lg="7" cols="12">
-        <v-alert dense text :type="types">
+        <v-alert border="right" :type="types" elevation="3" outlined>
           <div>
             <button @click="geofind">우리 동네 인증하기</button>
             <p>{{ textContent }}</p>
@@ -111,24 +117,34 @@
             <v-card elevation="2" class="rounded-lg" height="300px">
               <v-card-text class="d-flex justify-space-between align-center">
                 <div v-if="houseOne">
-                  <strong>Hot 매물</strong> <br />
+                  <strong>Hot 매물 🔥 </strong> <br />
+                  <span>지금 가장 인기있는 매물입니다</span>
                   <div>
-                    <span>지금 가장 인기있는 매물입니다</span>
-                    <h2>건축년도 : {{ houseOne.건축년도 }}</h2>
-                    <h2>
+                    <p class="text-h6 text--primary mt-4 font-weight-bold">
+                      {{ houseOne.아파트 }}
+                    </p>
+
+                    <div>건축년도 : {{ houseOne.건축년도 }}</div>
+                    <div>
                       소재지 : {{ houseOne.중개사소재지 }} {{ houseOne.법정동 }}
-                    </h2>
-                    <h2>아파트 : {{ houseOne.아파트 }}</h2>
-                    <h2>거래금액 : {{ houseOne.거래금액 }}</h2>
-                    <h2>평점 : {{ hotHouse.reivew_rating }}</h2>
+                    </div>
+
+                    <div>거래금액 : {{ houseOne.거래금액 }},000원</div>
+                    <div>평점 : {{ hotHouse.reivew_rating }}</div>
                   </div>
                 </div>
-                <div v-if="!houseOne">
-                  <h2>지역 내 인기매물이 없습니다.</h2>
+                <div v-if="!houseOne" class="d-flex justify-center">
+                  <v-row>
+                    <v-col cols="12">
+                      <h2 class="ma-5">지역 내 인기매물이 없습니다.</h2>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12">
+                      <img src="@/assets/noboard2.png" alt="" />
+                    </v-col>
+                  </v-row>
                 </div>
-                <v-avatar size="60" style="border: 3px solid #444">
-                  <span style="color: white">+</span>
-                </v-avatar>
               </v-card-text>
               <v-card-actions class="d-flex justify-space-between">
               </v-card-actions>
@@ -138,21 +154,30 @@
             <v-card elevation="2" class="rounded-lg" height="300px">
               <v-card-text class="d-flex justify-space-between align-center">
                 <div v-if="BoardOne">
-                  <strong>Hot 게시글</strong> <br />
+                  <strong>Hot 게시글 🔥</strong> <br />
+                  <span>지금 가장 핫한 게시글입니다</span>
                   <div>
-                    <span>지금 가장 핫한 게시글입니다</span>
-                    <h2>제목 : {{ BoardOne.btb_title }}</h2>
-                    <h2>좋아요 : {{ BoardOne.like_count }}</h2>
-                    <h2>조회수 : {{ BoardOne.btb_read_count }}</h2>
-                    <h2>등록일 : {{ BoardOne.btb_write_date }}</h2>
+                    <p class="text-h6 text--primary mt-4 font-weight-bold">
+                      {{ BoardOne.btb_title }}
+                    </p>
+                    <div>좋아요 : {{ BoardOne.like_count }}</div>
+                    <div>조회수 : {{ BoardOne.btb_read_count }}</div>
+                    <div>등록일 : {{ BoardOne.btb_write_date }}</div>
                   </div>
                 </div>
-                <div v-if="!BoardOne">
-                  <h2>지역 내 인기게시글이 없습니다.</h2>
+
+                <div v-if="!BoardOne" class="d-flex justify-center">
+                  <v-row>
+                    <v-col cols="12">
+                      <h2 class="mt-5 ml-4">지역 내 인기게시글이 없습니다.</h2>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12">
+                      <img src="@/assets/noboard2.png" alt="" />
+                    </v-col>
+                  </v-row>
                 </div>
-                <v-avatar size="60" style="border: 3px solid #444">
-                  <span style="color: white">+</span>
-                </v-avatar>
               </v-card-text>
               <v-card-actions class="d-flex justify-space-between">
               </v-card-actions>
@@ -290,8 +315,7 @@ export default {
         this.$store.dispatch("getHotHouse");
         this.$store.dispatch("getHotBoard");
       } else {
-        this.textContent =
-          this.nowloc + "에 위치해 있습니다. 활동에 제약이 생깁니다";
+        this.textContent = "위치가 불일치합니다. 활동에 제약이 생깁니다 ㅜ.ㅜ";
         this.userLocauth = false;
       }
     },
@@ -366,5 +390,13 @@ export default {
   top: -33px;
   text-align: center;
   padding-top: 12px;
+}
+
+.container {
+  max-width: 50%;
+}
+
+.headtext {
+  font-size: 50px;
 }
 </style>

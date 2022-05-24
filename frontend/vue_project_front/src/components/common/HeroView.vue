@@ -3,7 +3,10 @@
     <v-container class="pt-5">
       <v-row class="mb-15">
         <v-col lg="6">
-          <h1 class="intro-text">집, 구하세요?</h1>
+          <h1 class="intro-text">
+            <span class="intro-btext">집,</span>
+            구하세요?
+          </h1>
           <h2 class="intro-textsub">HappyHouse 가 도와드릴게요!</h2>
 
           <p class="description">
@@ -11,19 +14,21 @@
             정보도 볼수잇구요, 뉴스도 볼수있어요 짱임 익명게시판도 있어요 진짜
             짱임
           </p>
-          <v-btn color="indigo" class="white--text mr-10" rounded>
-            매물보러가기</v-btn
+          <v-btn color="#4657FF" class="white--text mr-10" rounded>
+            매물찾기</v-btn
           >
-          <v-btn color="indigo" class="white--text" rounded>
-            <v-icon>mdi-play-circle</v-icon></v-btn
+          <v-btn color="#4657FF" @click="downBtn" class="white--text" rounded>
+            오늘의 정보 보기
+            <v-icon class="ml-1">mdi-arrow-down-thin</v-icon>
+            click!</v-btn
           ></v-col
         >
         <v-col lg="6"> <img width="100%" src="@/assets/main.png" /> </v-col>
       </v-row>
     </v-container>
-    <v-carousel hide-delimiters cycle>
+    <v-carousel hide-delimiters cycle id="downBtn">
       <v-carousel-item
-        gradient="to top right, rgba(100,115,201,.33),rgba(25,32,72,.7)"
+        gradient="to top , rgba(00,115,201,.10),rgba(25,32,72,.5)"
         v-for="(item, i) in items"
         :key="i"
         :src="item.src"
@@ -48,28 +53,43 @@ export default {
     return {
       items: [
         {
-          src: require("@/assets/map.png"),
+          src: require("@/assets/homecar2.png"),
           title: "매물 찾기",
           sub: "주변 상권까지 한눈에",
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+          src: require("@/assets/homecar2.png"),
           title: "Q&A",
-          sub: "머라하직여기ㅡㄴ",
+          sub: "궁금증  해소하기",
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+          src: require("@/assets/homecar3.png"),
           title: "익명으로 솔직하게",
-          sub: "부동산 타임에서 부동산에 대한 솔직한 이야기를 나눠보세요",
+          sub: "  부동산 타임에서 부동산에 대한 이야기를 나눠보세요",
         },
       ],
     };
+  },
+  methods: {
+    downBtn() {
+      console.log("이동");
+      var location = document.querySelector("#downBtn").offsetTop;
+      //document.getElementById("downBtn").scrollIntoView(true);
+
+      window.scrollTo({ top: location, behavior: "smooth" });
+    },
   },
   name: "HeroView",
 };
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 .link {
   text-decoration: none;
   color: #707070;
@@ -79,6 +99,11 @@ export default {
   font-size: 60px;
   font-weight: bold;
   color: #444;
+}
+.intro-btext {
+  color: #4657ff;
+  font-size: 70px;
+  font-weight: bolder;
 }
 .intro-textsub {
   font-size: 60px;
