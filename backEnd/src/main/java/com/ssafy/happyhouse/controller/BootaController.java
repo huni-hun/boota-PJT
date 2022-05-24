@@ -89,5 +89,15 @@ public class BootaController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	@ApiOperation(value = "글번호에 해당하는 게시글의 좋아요수를 올린다. ", response = String.class)
+	@PutMapping("/like/{btbno}")
+	public ResponseEntity<String> updateLikeCount(@PathVariable int btbno) {
+		logger.debug("updateLikeCount - 호출");
+		if (bservice.updateLikeCount(btbno)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
 
 }

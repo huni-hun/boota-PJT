@@ -93,4 +93,8 @@ public class BootaService {
 	public boolean deleteBoard(int btbno,int btb_pw) {
 		return bdao.deleteBoard(btbno,btb_pw) == 1;
 	}
+	
+	public boolean updateLikeCount(int btbno) {
+		return bdao.updateLikeCount(btbno) == 1;
+	}
 }

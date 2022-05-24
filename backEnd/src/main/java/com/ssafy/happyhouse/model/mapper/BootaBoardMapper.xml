@@ -43,6 +43,14 @@
 		BTB_READ_COUNT=BTB_READ_COUNT+1
 		WHERE BTBNO=#{btbno}
 	</update>
+	<!--  좋아요   -->
+	<update id="updateLikeCount" parameterType="int">
+		UPDATE
+		BOOTABOARDMAIN_TB
+		SET
+		LIKE_COUNT=LIKE_COUNT+1
+		WHERE BTBNO=#{btbno}
+	</update>
 
 	<insert id="insertBoard"
 		parameterType="com.ssafy.happyhouse.model.dto.BootaBoardDto"

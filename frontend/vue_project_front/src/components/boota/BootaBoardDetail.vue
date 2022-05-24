@@ -112,6 +112,15 @@ export default {
   methods: {
     likePost(btbno) {
       console.log(btbno);
+      http
+        .put("/boota/like/" + btbno)
+        .then(({ data }) => {
+          console.log(data.board);
+          this.board = data.board;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
