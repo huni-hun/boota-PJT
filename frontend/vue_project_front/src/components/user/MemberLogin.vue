@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center" dense>
-      <v-col cols="12" sm="8" md="4" lg="4">
+      <v-col cols="12" sm="6" md="3" lg="3">
         <v-card elevation="0">
           <!-- <div class="text-center">
             <h1 class="mb-2">Login</h1>
@@ -46,7 +46,7 @@
                 @keyup.enter="confirm"
               ></v-text-field>
               <v-btn
-                class="rounded-xl mb-10"
+                class="rounded-xl mt-7 mb-10"
                 color="rounded-xl"
                 x-large
                 block

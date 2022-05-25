@@ -106,7 +106,7 @@
       <v-col lg="7" cols="12">
         <v-alert border="right" :type="types" elevation="3" outlined>
           <div>
-            <button @click="geofind">우리 동네 인증하기</button>
+            <button @click="getAuth">우리 동네 인증하기</button>
             <p>{{ textContent }}</p>
           </div>
         </v-alert>
@@ -222,7 +222,6 @@ import http from "@/util/http-common.js";
 import Vue from "vue";
 import VueGeolocationApi from "vue-geolocation-api";
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
-// import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import axios from "axios";
 import { mapState } from "vuex";
 
@@ -243,7 +242,7 @@ export default {
       btb_content: "",
       latitude: "",
       longitude: "",
-      textContent: "",
+      textContent: "원하시는 동네를 먼저 선택해 주세요",
       nowloc: "",
       checkloc: "",
       active: 0,
@@ -255,7 +254,69 @@ export default {
       BoardOne: null,
     };
   },
+  created() {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        this.latitude = pos.coords.latitude;
+        this.longitude = pos.coords.longitude;
+
+        console.log("created", this.latitude, this.longitude);
+        this.alterGun(this.latitude, this.longitude);
+      },
+      (err) => {
+        this.textContent = err.message;
+      },
+    );
+  },
+
   methods: {
+    getAuth() {
+      // 우리 동네 인증하기 클릭시
+      console.log("시작", this.userLocauth);
+      console.log("체크", this.checkgugun);
+      if (this.nowloc.length && this.nowloc == this.checkgugun) {
+        console.log("인가", this.userLocauth);
+        this.userLocauth = true;
+      } else {
+        console.log("악", this.userLocauth);
+        this.userLocauth = false;
+      }
+
+      console.log(this.userLocauth);
+      if (this.userLocauth) {
+        console.log("도어", this.userLocauth);
+
+        this.textContent = this.nowloc + " 인증되었습니다 ^.^";
+        this.types = "success";
+        this.$store.dispatch("getLocal", this.nowloc);
+        this.$store.dispatch("getHotHouse");
+        this.$store.dispatch("getHotBoard");
+      } else {
+        this.types = "info";
+        this.textContent = "위치가 불일치합니다. 활동에 제약이 생깁니다 ㅜ.ㅜ";
+      }
+    },
+    async alterGun(lat, lng) {
+      // 현재 위치 위도 경도로 구군 구함
+
+      await Kakao.get(
+        "/v2/local/geo/coord2regioncode.json?y=" + lat + "&x=" + lng,
+      ).then(({ data }) => {
+        this.nowloc = data.documents[0].region_2depth_name;
+        console.log(this.nowloc);
+      });
+    },
+
+    checkUserloc() {
+      // 부동산 타임 글쓰기
+      if (!this.userLocauth) {
+        alert("동네 정보가 불일치 합니다 위치를 확인해주세요");
+        this.dialog = false;
+      } else {
+        this.dialog = true;
+      }
+    },
+
     onButtonClick(item) {
       console.log("click on " + item.no);
     },
@@ -277,47 +338,6 @@ export default {
     moveList() {
       this.$router.push({ path: "/boota" });
     },
-    geofind() {
-      if (!("geolocation" in navigator)) {
-        this.textContent = "Geolocation is not available.";
-        return;
-      }
-      this.textContent = "Locating...";
-
-      // get position
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          this.latitude = pos.coords.latitude;
-          this.longitude = pos.coords.longitude;
-
-          this.alterGun(this.latitude, this.longitude);
-        },
-        (err) => {
-          this.textContent = err.message;
-        },
-      );
-    },
-    alterGun(lat, lng) {
-      // 현재 위치 위도 경도로 구군 구함
-
-      Kakao.get(
-        "/v2/local/geo/coord2regioncode.json?y=" + lat + "&x=" + lng,
-      ).then(
-        ({ data }) => (this.nowloc = data.documents[0].region_2depth_name),
-      );
-
-      if (this.nowloc == this.checkgugun) {
-        this.userLocauth = true;
-        this.textContent = this.nowloc + " 인증되었습니다 ^.^";
-        this.types = "success";
-        this.$store.dispatch("getLocal", this.nowloc);
-        this.$store.dispatch("getHotHouse");
-        this.$store.dispatch("getHotBoard");
-      } else {
-        this.textContent = "위치가 불일치합니다. 활동에 제약이 생깁니다 ㅜ.ㅜ";
-        this.userLocauth = false;
-      }
-    },
 
     hotHousegetter() {
       for (var i = 0; i < 10; i++) {
@@ -327,15 +347,6 @@ export default {
           console.log(this.houseOne);
           return;
         }
-      }
-    },
-
-    checkUserloc() {
-      if (!this.userLocauth) {
-        alert("동네 정보가 불일치 합니다 위치를 확인해주세요");
-        this.dialog = false;
-      } else {
-        this.dialog = true;
       }
     },
   },
