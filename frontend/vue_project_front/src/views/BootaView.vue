@@ -292,7 +292,7 @@ export default {
         this.$store.dispatch("getHotHouse");
         this.$store.dispatch("getHotBoard");
       } else {
-        this.types = "info";
+        this.types = "error";
         this.textContent = "위치가 불일치합니다. 활동에 제약이 생깁니다 ㅜ.ㅜ";
       }
     },

@@ -53,7 +53,7 @@ export default {
     return {
       items: [
         {
-          src: require("@/assets/homecar2.png"),
+          src: require("@/assets/homecar1.png"),
           title: "매물 찾기",
           sub: "주변 상권까지 한눈에",
         },
