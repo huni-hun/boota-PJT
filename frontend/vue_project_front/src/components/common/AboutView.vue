@@ -1,6 +1,6 @@
 <template>
-  <v-container class="container pl-16 ma-15">
-    <h1 class="text-center headtext"><b>오늘의 정보</b></h1>
+  <v-container class="container pl-16 ma-16 ml-10">
+    <h1 class="text-start headtext ml-16"><b>오늘의 정보</b></h1>
     <router-view></router-view>
   </v-container>
 </template>
