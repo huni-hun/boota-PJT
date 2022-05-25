@@ -124,7 +124,8 @@ export default {
       });
     },
     movePageLink(p) {
-      http.get("/boota?p=" + p).then(({ data }) => {
+      console.log(p);
+      http.get("/boota?p=" + p + "&key=" + this.local).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;
@@ -133,7 +134,7 @@ export default {
       });
     },
     makeLocalBoard(key) {
-      http.get("/boota?key=" + key).then(({ data }) => {
+      http.get("/boota?key=" + key + this.local).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;
