@@ -274,20 +274,15 @@ export default {
   methods: {
     getAuth() {
       // 우리 동네 인증하기 클릭시
-      console.log("시작", this.userLocauth);
-      console.log("체크", this.checkgugun);
+
       if (this.nowloc.length && this.nowloc == this.checkgugun) {
-        console.log("인가", this.userLocauth);
         this.userLocauth = true;
       } else {
-        console.log("악", this.userLocauth);
         this.userLocauth = false;
       }
 
       console.log(this.userLocauth);
       if (this.userLocauth) {
-        console.log("도어", this.userLocauth);
-
         this.textContent = this.nowloc + " 인증되었습니다 ^.^";
         this.types = "success";
         this.$store.dispatch("getLocal", this.nowloc);
