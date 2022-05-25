@@ -263,6 +263,12 @@ export default {
         this.textContent = err.message;
       },
     );
+    if (this.hotBoard) {
+      this.$store.dispatch("getHotBoard");
+    }
+    if (this.hotHouse) {
+      this.$store.dispatch("getHotHouse");
+    }
   },
 
   methods: {
@@ -350,14 +356,6 @@ export default {
     HouseSearchBar,
     BootaBoardView: () => import("@/components/boota/BootaBoardView.vue"),
     //다른 게시판 만들고 채우기
-  },
-  created() {
-    if (this.hotBoard) {
-      this.$store.dispatch("getHotBoard");
-    }
-    if (this.hotHouse) {
-      this.$store.dispatch("getHotHouse");
-    }
   },
   computed: {
     ...mapState(["houses", "hotHouse", "hotBoard"]),

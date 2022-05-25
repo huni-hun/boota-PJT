@@ -24,9 +24,9 @@
             <thead>
               <tr>
                 <th class="text-left" width="7%">글번호</th>
-                <th class="text-left" width="50%">제목</th>
-
+                <th class="text-left" width="35%">제목</th>
                 <th class="text-left" width="15%">작성일시</th>
+                <th class="text-left" width="15%">좋아요</th>
                 <th class="text-left" width="7%">조회수</th>
               </tr>
             </thead>
@@ -38,8 +38,8 @@
                     board.btb_title
                   }}</a>
                 </td>
-
                 <td>{{ board.btb_write_date }}</td>
+                <td>{{ board.like_count }}</td>
                 <td>{{ board.btb_read_count }}</td>
               </tr>
             </tbody>
