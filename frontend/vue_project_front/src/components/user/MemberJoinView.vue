@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center" dense>
-      <v-col cols="12" sm="8" md="4" lg="4">
+      <v-col cols="12" sm="6" md="3" lg="3">
         <v-card elevation="0">
           <a
             href="https://edu-fedorae.netlify.app"
@@ -56,7 +56,7 @@
               ></v-text-field>
               <v-btn
                 @click="joinMyData"
-                class="rounded-xl"
+                class="rounded-xl mt-5"
                 color="rounded-xl"
                 x-large
                 block

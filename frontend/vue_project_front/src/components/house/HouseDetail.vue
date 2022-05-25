@@ -76,16 +76,28 @@ import { mapState } from "vuex";
 // import emailjs from "emailjs-com";
 import http from "@/util/http-common.js";
 
+const memberStore = "memberStore";
+
 export default {
   data() {
-    return {};
+    return {
+      myEmail: "",
+    };
   },
   name: "HouseDetail",
   computed: {
     ...mapState(["house"]),
+    ...mapState(memberStore, ["userInfo"]),
     // house() {
     //   return this.$store.state.house;
     // },
+  },
+  created() {
+    console.log(this.userInfo);
+    http.get("/member/" + this.userInfo).then(({ data }) => {
+      console.log(data);
+      this.myEmail = data.Member.user_email;
+    });
   },
   filters: {
     price(value) {
@@ -93,6 +105,7 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
+
   methods: {
     // sendEmail() {
     //   var templateParams = {
@@ -121,16 +134,18 @@ export default {
     //   console.log("뿡");
     // },
     sendEmail() {
-      console.log(this.house.아파트);
+      console.log(this.myEmail);
 
       http
         .post("/mail", {
-          address: "dugajada032@gmail.com", //user 이메일 주소로 바꾸기
+          address: this.myEmail, //user 이메일 주소로 바꾸기
           title: "해피하우스에서 매물 거래 정보를 보내 드립니다.",
-          message: ` 안녕하세요 매물 거래 정보 보내드립니다 ^.^ 
+          message: ` 
+          안녕하세요 ${this.useInfo}님!
+          매물 거래 정보 보내드립니다 ^.^
           아파트명 : ${this.house.아파트},
           위치 : ${this.house.법정동},
-          거래금액 : ${this.house.거래금액 * 10000}`,
+          거래금액 : ${this.house.거래금액}0,000원`,
         })
         .then(({ data }) => {
           alert("이메일이 전송되었습니다!");

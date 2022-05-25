@@ -2,6 +2,16 @@
   <!-- 카카오맵 Vue -->
   <div>
     <div id="map" style="margin-top: 20px; width: 100%; height: 600px"></div>
+    <div class="searchbox">
+      <div>
+        <input type="text" value="이태원 맛집" @keyup.enter="searchPlace" />
+      </div>
+    </div>
+    <div class="results">
+      <div class="place" v-for="rs in search.results" :key="rs.id">
+        <h4>{{ rs.place_name }}</h4>
+      </div>
+    </div>
     <div hidden>
       {{ aptlist }}
     </div>
@@ -17,6 +27,11 @@ export default {
       aptlist: [],
       si: "",
       gugun: "",
+      search: {
+        keyword: null,
+        pgn: null,
+        results: [],
+      },
     };
   },
 
@@ -54,10 +69,10 @@ export default {
     initMap() {
       this.container = document.getElementById("map");
       var options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 즁심죄표
+        level: 3, //지도의 레벨
       };
-      let map = new kakao.maps.Map(this.container, options);
+      let map = new kakao.maps.Map(this.container, options); // 지도 생성 및 객체 리턴
       //마커추가하려면 객체를 아래와 같이 하나 만든다.
       var marker = new kakao.maps.Marker({
         position: map.getCenter(),
@@ -140,6 +155,18 @@ export default {
           }
         });
       });
+    },
+    searchPlace(e) {
+      const keyword = e.target.value.trim();
+      if (keyword.length === 0) {
+        return;
+      }
+      // const ps = new kakao.maps.services.Places();
+      // ps.keywordSearch(keyword, (data, status, pgn) => {
+      //   this.search.keyword = keyword;
+      //   this.search.pgn = pgn;
+      //   this.search.results = results;
+      // });
     },
   },
 };

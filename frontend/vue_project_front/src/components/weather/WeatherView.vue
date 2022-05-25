@@ -2,12 +2,12 @@
   <div>
     <v-container>
       <v-row>
-        <v-col cols="8"></v-col>
-        <v-col>
+        <v-col cols="7"></v-col>
+        <v-col cols="5">
           <v-card
             elevation="5"
             class="mx-auto rounded-xl mb-10"
-            max-width="400"
+            max-width="550"
           >
             <v-card-text>
               <div>오늘 기상 정보</div>
@@ -27,10 +27,10 @@
 
             <v-card-text>
               <v-row align="center">
-                <v-col class="text-h2" cols="9">
+                <v-col class="text-h2" cols="8">
                   {{ (weatherData.main.feels_like - 273) | tempFormat }} &deg;C
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="4">
                   <v-img
                     :src="weatherData.weather[0].icon | imgFormat"
                     alt="Sunny image"
