@@ -88,7 +88,7 @@
 	<delete id="deleteBoard" parameterType="int">
 		DELETE
 		FROM BOOTABOARDMAIN_TB
-		WHERE BTBNO = #{btbno} AND BTB_PW=#{btb_pw}
+		WHERE BTBNO = #{btbno}
 	</delete>
 
 

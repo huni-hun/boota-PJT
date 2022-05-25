@@ -51,6 +51,17 @@ public class BootaCommentController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	@ApiOperation(value = "게시글의 좋아요를 갱신한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PutMapping("/like/{comment_no}")
+	public ResponseEntity<String> updateLike(@PathVariable int comment_no) {
+		logger.debug("updateLike - 호출");
+
+		if (commentService.updateLike(comment_no)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
 
 	@ApiOperation(value = "글번호가 comment_no에 해당하는 도서평을 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping

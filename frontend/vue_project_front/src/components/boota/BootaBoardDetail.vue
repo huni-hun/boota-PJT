@@ -21,9 +21,7 @@
 
       <div class="black--text">
         {{ board.btb_content }}
-        {{ board.like_count }}
       </div>
-      <button @click="updateLike">좋아요</button>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -36,15 +34,15 @@
         >
       </v-btn>
       <v-btn color="#455A64">
-        <router-link :to="'/qna/delete/' + board.btbno" class="btn delbtn"
+        <router-link :to="'/boota/delete/' + board.btbno" class="btn delbtn"
           >삭제</router-link
         ></v-btn
       >
       <v-btn color="indigo">
-        <router-link to="/qna/list" class="btn listbtn">목록</router-link>
+        <router-link to="/boota" class="btn listbtn">목록</router-link>
       </v-btn>
       <v-btn>
-        <router-link :to="'/qna/commentWrite/' + board.btbno" class="btn"
+        <router-link :to="'/boota/commentWrite/' + board.btbno" class="btn"
           >댓글달기</router-link
         >
       </v-btn>
@@ -53,9 +51,7 @@
       <v-btn class="mr-7" color="#eceff1" disabled
         >{{ board.like_count }}
       </v-btn>
-      <v-icon class="thumb" @click="likePost(board.btbno)">
-        mdi-thumb-up</v-icon
-      >
+      <v-icon class="thumb" @click="updateLike"> mdi-thumb-up</v-icon>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <v-card-text v-if="comments.length">
@@ -63,16 +59,22 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th class="text-left" width="7%">작성자</th>
+              <th class="text-left" width="10%">작성자</th>
               <th class="text-left" width="50%">답변</th>
-              <th class="text-left" width="20%">작성일</th>
+              <th class="text-left" width="20%">좋아요</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(comment, index) in comments" :key="index">
-              <td>{{ comment.user_name }}</td>
+              <td>익명{{ index }}</td>
               <td>{{ comment.ccontent }}</td>
-              <td>{{ comment.cwrite_date }}</td>
+              <td>{{ comment.like_count }}</td>
+              <v-icon
+                class="thumb"
+                @click="updateCommentLike(comment.comment_no)"
+              >
+                mdi-thumb-up</v-icon
+              >
             </tr>
           </tbody>
         </template>
@@ -89,7 +91,7 @@ export default {
   data: function () {
     return {
       board: {},
-      comments: [],
+      comments: {},
       btbnoTemp: 0,
     };
   },
@@ -108,10 +110,15 @@ export default {
         console.log(error);
       });
 
-    // http.get("/comment/" + bno).then(({ data }) => {
-    //   console.log(data);
-    //   this.comments = data;
-    // });
+    http
+      .get("boota/comment/" + btbno)
+      .then(({ data }) => {
+        console.log(data);
+        this.comments = data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     updateLike() {
@@ -133,8 +140,33 @@ export default {
       http
         .get("/boota/" + btbno)
         .then(({ data }) => {
-          console.log(data.board);
           this.board = data.board;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateCommentLike(val) {
+      let comment_no = val;
+      console.log(comment_no);
+
+      http
+        .put("/boota/comment/like/" + comment_no)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.setComment();
+    },
+    setComment() {
+      let btbno = this.btbnoTemp;
+
+      http
+        .get("boota/comment/" + btbno)
+        .then(({ data }) => {
+          this.comments = data;
         })
         .catch((error) => {
           console.log(error);

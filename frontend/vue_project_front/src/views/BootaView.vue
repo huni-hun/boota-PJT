@@ -2,7 +2,6 @@
   <div class="dashboard">
     <div class="container">
       <h2 class="text-center headtext"><b>부동산 타임</b></h2>
-      <router-view></router-view>
     </div>
     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
       <h3></h3>
@@ -209,9 +208,6 @@
       <v-col>
         <!-- 글 리스트 -->
         <component :is="whichStep"></component>
-
-        <!-- 글 리스트 -->
-        <router-view></router-view>
       </v-col>
     </v-row>
   </div>
@@ -267,6 +263,12 @@ export default {
         this.textContent = err.message;
       },
     );
+    if (this.hotBoard) {
+      this.$store.dispatch("getHotBoard");
+    }
+    if (this.hotHouse) {
+      this.$store.dispatch("getHotHouse");
+    }
   },
 
   methods: {

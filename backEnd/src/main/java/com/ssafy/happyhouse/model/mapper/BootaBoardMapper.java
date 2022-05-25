@@ -23,5 +23,5 @@ public interface BootaBoardMapper {
 	public int insertBoard(BootaBoardDto board);
 	public int updateBoard(BootaBoardDto board);
 	public int updateLike(int btbno);
-	public int deleteBoard(int btbno,int btb_pw);
+	public int deleteBoard(int btbno);
 }

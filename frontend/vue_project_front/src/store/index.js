@@ -180,6 +180,7 @@ export default new Vuex.Store({
         key: payload.gugunCode,
         type: "json",
         indsLclsCd: payload.LCD,
+        // numOfRows: 1000,
         // indsMclsCd: MCD,
         // indsSclsCd: "Q12A01",
       };

@@ -24,9 +24,9 @@
             <thead>
               <tr>
                 <th class="text-left" width="7%">글번호</th>
-                <th class="text-left" width="50%">제목</th>
-
+                <th class="text-left" width="35%">제목</th>
                 <th class="text-left" width="15%">작성일시</th>
+                <th class="text-left" width="15%">좋아요</th>
                 <th class="text-left" width="7%">조회수</th>
               </tr>
             </thead>
@@ -38,8 +38,8 @@
                     board.btb_title
                   }}</a>
                 </td>
-
                 <td>{{ board.btb_write_date }}</td>
+                <td>{{ board.like_count }}</td>
                 <td>{{ board.btb_read_count }}</td>
               </tr>
             </tbody>
@@ -81,7 +81,17 @@ export default {
       keyword: "",
     };
   },
-  created() {},
+  created() {
+    if (this.local) {
+      http.get("/boota?key=" + this.local).then(({ data }) => {
+        console.log(data);
+        this.boards = data.boardList;
+        this.startPage = data.startPage;
+        this.totalPage = data.totalPage;
+        this.endPage = data.endPage;
+      });
+    }
+  },
   computed: {
     ...mapState(["local"]),
     checkLoc() {
@@ -92,7 +102,8 @@ export default {
   watch: {
     checkLoc(val) {
       console.log(val);
-      this.makeLoalcBoard(val);
+      this.loc = val;
+      this.makeLocalBoard(val);
     },
   },
   methods: {
@@ -121,7 +132,7 @@ export default {
         this.endPage = data.endPage;
       });
     },
-    makeLoalcBoard(key) {
+    makeLocalBoard(key) {
       http.get("/boota?key=" + key).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
