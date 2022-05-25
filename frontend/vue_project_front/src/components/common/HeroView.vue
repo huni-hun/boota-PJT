@@ -14,7 +14,12 @@
             정보도 볼수잇구요, 뉴스도 볼수있어요 짱임 익명게시판도 있어요 진짜
             짱임
           </p>
-          <v-btn color="#4657FF" class="white--text mr-10" rounded>
+          <v-btn
+            @click="movePage"
+            color="#4657FF"
+            class="white--text mr-10"
+            rounded
+          >
             매물찾기</v-btn
           >
           <v-btn color="#4657FF" @click="downBtn" class="white--text" rounded>
@@ -77,6 +82,9 @@ export default {
       //document.getElementById("downBtn").scrollIntoView(true);
 
       window.scrollTo({ top: location, behavior: "smooth" });
+    },
+    movePage() {
+      this.$router.push({ path: "/house" });
     },
   },
   name: "HeroView",
