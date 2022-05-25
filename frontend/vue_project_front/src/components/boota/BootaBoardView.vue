@@ -81,7 +81,17 @@ export default {
       keyword: "",
     };
   },
-  created() {},
+  created() {
+    if (this.local) {
+      http.get("/boota?key=" + this.local).then(({ data }) => {
+        console.log(data);
+        this.boards = data.boardList;
+        this.startPage = data.startPage;
+        this.totalPage = data.totalPage;
+        this.endPage = data.endPage;
+      });
+    }
+  },
   computed: {
     ...mapState(["local"]),
     checkLoc() {
@@ -92,7 +102,8 @@ export default {
   watch: {
     checkLoc(val) {
       console.log(val);
-      this.makeLoalcBoard(val);
+      this.loc = val;
+      this.makeLocalBoard(val);
     },
   },
   methods: {
@@ -121,7 +132,7 @@ export default {
         this.endPage = data.endPage;
       });
     },
-    makeLoalcBoard(key) {
+    makeLocalBoard(key) {
       http.get("/boota?key=" + key).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;

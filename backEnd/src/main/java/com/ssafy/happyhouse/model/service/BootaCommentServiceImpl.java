@@ -12,10 +12,14 @@ public class BootaCommentServiceImpl implements BootaCommentService {
 	private com.ssafy.happyhouse.model.mapper.BootaCommentMapper commentMapper;
 	
 	@Override
-	public List<com.ssafy.happyhouse.model.dto.BootaCommentDto> list(int bno) {
-		return commentMapper.list(bno);
+	public List<com.ssafy.happyhouse.model.dto.BootaCommentDto> list(int btbno) {
+		return commentMapper.list(btbno);
 	}
 
+	public boolean updateLike(int commentNo) {
+		return commentMapper.updateLike(commentNo) == 1;
+	}
+	
 	@Override
 	public boolean create(com.ssafy.happyhouse.model.dto.BootaCommentDto commentDto) {
 		return commentMapper.create(commentDto) == 1;

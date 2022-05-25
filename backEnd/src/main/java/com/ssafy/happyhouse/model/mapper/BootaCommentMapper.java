@@ -7,5 +7,6 @@ public interface BootaCommentMapper {
 	int create(com.ssafy.happyhouse.model.dto.BootaCommentDto commentDto);
 	int modify(com.ssafy.happyhouse.model.dto.BootaCommentDto commentDto);
 	int delete(int commentNo);
+	int updateLike(int commentNo);
 	
 }

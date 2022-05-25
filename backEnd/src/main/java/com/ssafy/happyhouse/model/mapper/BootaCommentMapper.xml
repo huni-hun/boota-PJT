@@ -6,19 +6,27 @@
 
 	<!-- bno에 해당하는 댓글 조회 -->
 	<select id="list" resultType="com.ssafy.happyhouse.model.dto.BootaCommentDto">
-		select comment_no, user_name, ccontent, cwrite_date, btbno
-		from comment_tb
+		select comment_no, like_count, ccontent, btbno
+		from bootacomment_tb
 		where btbno = #{btbno}
-		order by cwrite_date desc
+		order by like_count desc
 	</select>
+
+	<update id="updateLike" parameterType="int">
+		UPDATE
+		BOOTACOMMENT_TB
+		SET
+		LIKE_COUNT=LIKE_COUNT+1
+		WHERE COMMENT_NO=#{commentNo}
+	</update>
 
 	<!-- 댓글 정보 등록 -->
 	<insert id="create" parameterType="com.ssafy.happyhouse.model.dto.BootaCommentDto"
 	useGeneratedKeys="true" keyProperty="comment_no">
-		insert into comment_tb(
-			user_name, ccontent, cwrite_date, btbno
+		insert into bootacomment_tb(
+			ccontent, like_count, btbno
 		) values (
-			#{user_name}, #{ccontent}, now(), #{btbno}
+			#{ccontent}, 0, #{btbno}
 		)
 	</insert>
 	

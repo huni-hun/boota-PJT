@@ -1,39 +1,29 @@
 package com.ssafy.happyhouse.model.dto;
 
-import io.swagger.annotations.ApiModel;
-
-@ApiModel(value = "CommentDto : qna에 작성하는 댓글")
 public class BootaCommentDto {
 
 	private int comment_no;
-	private String user_name;
+	private int like_count;
 	private String ccontent;
-	private String cwrite_date;
 	private int btbno;
-
+	
 	public int getComment_no() {
 		return comment_no;
 	}
 	public void setComment_no(int comment_no) {
 		this.comment_no = comment_no;
 	}
-	public String getUser_name() {
-		return user_name;
+	public int getLike_count() {
+		return like_count;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
 	}
 	public String getCcontent() {
 		return ccontent;
 	}
 	public void setCcontent(String ccontent) {
 		this.ccontent = ccontent;
-	}
-	public String getCwrite_date() {
-		return cwrite_date;
-	}
-	public void setCwrite_date(String cwrite_date) {
-		this.cwrite_date = cwrite_date;
 	}
 	public int getBtbno() {
 		return btbno;
@@ -42,11 +32,6 @@ public class BootaCommentDto {
 		this.btbno = btbno;
 	}
 
-
-	@Override
-	public String toString() {
-		return "CommentDto [comment_no=" + comment_no + ", user_name=" + user_name + ", ccontent=" + ccontent
-				+ ", cwrite_date=" + cwrite_date + ", bno=" + btbno + "]";
-	}
+	
 	
 }

@@ -11,6 +11,9 @@ import QnaDelete from "@/components/qna/QnaDelete.vue";
 import QnaCommentWrite from "@/components/qna/CommentWrite.vue";
 
 import BootaBoardDetail from "@/components/boota/BootaBoardDetail.vue";
+import BootaModify from "@/components/boota/BootaModify.vue";
+import BootaDelete from "@/components/boota/BootaDelete.vue";
+import BootaCommentWrite from "@/components/boota/BootaCommentWrite.vue";
 
 import MemberLoginView from "@/components/user/MemberLogin.vue";
 import MemberJoinView from "@/components/user/MemberJoinView.vue";
@@ -94,40 +97,26 @@ const routes = [
     path: "/boota",
     name: "boota",
     component: BootaView,
-    children: [
-      {
-        path: "list",
-        name: "list",
-        component: QnaList,
-      },
-      {
-        path: "write",
-        name: "write",
-        component: QnaWrite,
-      },
-
-      {
-        path: "modify/:btbno",
-        name: "modify",
-        component: QnaModify,
-      },
-      {
-        path: "delete/:btbno",
-        name: "delete",
-        component: QnaDelete,
-      },
-
-      {
-        path: "commentWrite/:btbno",
-        name: "commentWrite",
-        component: QnaCommentWrite,
-      },
-    ],
   },
   {
     path: "/boota/detail/:btbno",
     name: "detail",
     component: BootaBoardDetail,
+  },
+  {
+    path: "/boota/modify/:btbno",
+    name: "modify",
+    component: BootaModify,
+  },
+  {
+    path: "/boota/delete/:btbno",
+    name: "delete",
+    component: BootaDelete,
+  },
+  {
+    path: "/boota/commentWrite/:btbno",
+    name: "commentWrite",
+    component: BootaCommentWrite,
   },
 ];
 
