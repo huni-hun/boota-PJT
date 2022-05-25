@@ -1,30 +1,35 @@
 <template>
   <div>
-    <v-simple-table>
-      <template v-slot:default>
-        <tr>
-          <td>아이디</td>
-          <td>{{ userInfo }}</td>
-        </tr>
-        <tr>
-          <td>비밀번호</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>이메일</td>
-          <td>{{ myEmail }}</td>
-        </tr>
-        <tr>
-          <td>관심지역</td>
-          <td>{{ myDong }}</td>
-        </tr>
-      </template>
-    </v-simple-table>
+    <v-card class="mx-auto rounded-xl" elevation="5" max-width="434" tile>
+      <v-img height="100%" src="@/assets/userPage.png"></v-img>
+      <v-col>
+        <v-avatar size="100" style="position: absolute; top: 130px">
+          <v-img src="@/assets/user.png"></v-img>
+        </v-avatar>
+      </v-col>
+      <v-card-text>
+        <div class="titletext">{{ userInfo }} 님 반갑습니다</div>
+        <div class="subtitletext">해피하우스 사용자</div>
+      </v-card-text>
+      <v-card-text>
+        <div>email : {{ myEmail }}</div>
 
-    <v-btn color="#eceff1"
-      ><router-link :to="'/modify'" class="btn corbtn">수정</router-link>
-    </v-btn>
-    <v-btn @click="deleteMyData">삭제</v-btn>
+        <div>관심 지역 : {{ myDong }}</div>
+
+        <div>관심 주제 : 매매, 수도권</div>
+      </v-card-text>
+      <v-card-actions class="d-flex justify-end mb-10">
+        <v-btn class="mb-5 mr-2 rounded-xl" color="#eceff1"
+          ><router-link :to="'/modify'" class="btn corbtn">수정</router-link>
+        </v-btn>
+        <v-btn
+          class="mb-5 mr-3 rounded-xl"
+          color="#B71C1C"
+          @click="deleteMyData"
+          >탈퇴하기</v-btn
+        >
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -70,4 +75,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.titletext {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.subtitletext {
+  margin-top: 10px;
+}
+</style>
