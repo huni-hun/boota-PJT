@@ -134,7 +134,7 @@ export default {
       });
     },
     makeLocalBoard(key) {
-      http.get("/boota?key=" + key + this.local).then(({ data }) => {
+      http.get("/boota?key=" + key).then(({ data }) => {
         console.log(data);
         this.boards = data.boardList;
         this.startPage = data.startPage;

@@ -6,12 +6,14 @@
       <house-search-bar></house-search-bar>
     </v-container>
 
-    <v-row :align="align" style="height: 700px">
-      <v-col cols="3" style="margin: 20px 20px"><house-list /></v-col>
+    <v-row style="height: 600px">
+      <v-col cols="3" class="ml-10 mr-2"><house-list /></v-col>
       <v-col cols="8"><KakaoMap /></v-col>
     </v-row>
-    <v-row :align="align" style="height: 1000px">
-      <v-col cols="3" style="margin: 0px 20px"><house-detail /></v-col>
+    <v-row style="height: 1000px">
+      <v-col class="ml-7" cols="3" style="margin: 0px 20px"
+        ><house-detail
+      /></v-col>
       <v-col cols="8"
         ><reivew-view style="margin-bottom: 40px" /> <commercial-view
       /></v-col>
