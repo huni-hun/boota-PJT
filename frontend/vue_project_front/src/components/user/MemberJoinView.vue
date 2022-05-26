@@ -67,7 +67,7 @@
                 <v-spacer></v-spacer>
                 <!-- <router-link :to="{ name: 'SignUp' }">Sign Up</router-link> -->
                 계정이 이미 있으신가요?
-                <a href="#" class="pl-2" style="color: #5c6bc0">로그인</a>
+                <router-link :to="{ name: 'login' }">로그인</router-link>
               </v-card-actions>
             </v-form>
           </v-card-text>
