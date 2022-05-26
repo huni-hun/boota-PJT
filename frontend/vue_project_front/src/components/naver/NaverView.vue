@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="8"
-          ><v-card elevation="5" class="rounded-xl">
+          ><v-card elevation="5" class="rounded-xl my-16">
             <v-simple-table dark class="pt-3 pb-7 mb-10 rounded-xl">
               <template v-slot:default>
                 <thead>
@@ -32,6 +32,12 @@
             </v-simple-table>
           </v-card>
         </v-col>
+        <v-col class="d-flex align-center justify-center mb-6">
+          <h1>
+            <v-row class="d-flex justify-center"> 실시간 </v-row>
+            <v-row> 부동산 뉴스 🧐 </v-row>
+          </h1></v-col
+        >
       </v-row>
     </v-container>
   </div>

@@ -2,7 +2,11 @@
   <div>
     <v-container>
       <v-row>
-        <v-col cols="7"></v-col>
+        <v-col
+          class="cardsubText d-flex align-center justify-center mb-6"
+          cols="7"
+          ><h1>현재 날씨 🌐</h1></v-col
+        >
         <v-col cols="5">
           <v-card
             elevation="5"
