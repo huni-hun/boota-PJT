@@ -52,7 +52,7 @@
                 @keyup.enter="confirm"
               ></v-text-field>
               <v-btn
-                class="rounded-xl mt-7 mb-10"
+                class="rounded-xl mt-16 mb-16"
                 color="rounded-xl"
                 x-large
                 block
@@ -62,12 +62,11 @@
               >
 
               <v-row>
-                <v-col class="d-flex justify-center mt-7">
+                <v-col cols="6" class="d-flex justify-center mt-1">
                   <div id="naverIdLogin"></div>
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="d-flex justify-center">
+
+                <v-col cols="6" class="d-flex justify-center mb-7">
                   <a id="custom-login-btn" @click="kakaoLogin()">
                     <img
                       class="kakaoLogin"
@@ -87,9 +86,10 @@
             </v-form>
           </v-card-text>
           <v-card-actions class="ml-6 mr-6 text-center">
-            <p>
-              By continuing, you agree to Fedorae Education's
-              <a href="#" class="pl-2" style="color: #000000">Policy</a> and
+            <p style="color: #90a4ae">
+              계속 진행할 경우, 당사의 개인정보 처리방침에 동의하는 것으로
+              간주합니다.
+              <a href="#" class="pl-2" style="color: #000000">Policy </a> and
               <a href="#" class="pl-2" style="color: #000000">Terms of Use</a>
             </p>
           </v-card-actions>

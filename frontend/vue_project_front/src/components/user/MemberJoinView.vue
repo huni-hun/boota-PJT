@@ -72,8 +72,9 @@
             </v-form>
           </v-card-text>
           <v-card-actions class="ml-6 mr-6 text-center">
-            <p>
-              By continuing, you agree to Fedorae Education's
+            <p style="color: #90a4ae">
+              계속 진행할 경우, 당사의 개인정보 처리방침에 동의하는 것으로
+              간주합니다.
               <a href="#" class="pl-2" style="color: #000000">Policy</a> and
               <a href="#" class="pl-2" style="color: #000000">Terms of Use</a>
             </p>
