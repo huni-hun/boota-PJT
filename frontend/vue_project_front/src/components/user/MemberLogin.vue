@@ -25,7 +25,7 @@
               </div>
             </v-card-text>
 
-            <v-button type="button" @click="logout">로그아웃</v-button>
+            <v-btn type="button" @click="logout">로그아웃</v-btn>
           </v-card-text>
 
           <v-card-text v-if="check">

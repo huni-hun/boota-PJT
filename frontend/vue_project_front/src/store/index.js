@@ -206,6 +206,7 @@ export default new Vuex.Store({
         key: payload.gugunCode,
         type: "json",
         indsLclsCd: payload.LCD,
+        numOfRows: 1000,
         // indsMclsCd: MCD,
         // indsSclsCd: "Q12A01",
       };
@@ -231,6 +232,7 @@ export default new Vuex.Store({
         key: payload.gugunCode,
         type: "json",
         indsLclsCd: payload.LCD,
+        numOfRows: 1000,
         // indsMclsCd: MCD,
         // indsSclsCd: "Q12A01",
       };
@@ -264,6 +266,7 @@ export default new Vuex.Store({
       http
         .get(`/boota/hot`)
         .then(({ data }) => {
+          console.log(data);
           commit("SET_HOT_BOARD", data);
         })
         .catch((error) => {
