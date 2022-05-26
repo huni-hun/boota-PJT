@@ -13,13 +13,19 @@
             <h2>{{ kakao_account }}</h2>
             <h2>{{ nickname }}</h2>
             <h2>{{ email }}</h2>
-            <button type="button" @click="logout">로그아웃</button>
           </v-card-text>
 
           <v-card-text v-if="naverCheck">
-            <h2>{{ naverLogin.user.email }}</h2>
-            <h2>{{ naverLogin.user.name }}</h2>
-            <button type="button" @click="kakaoLogout">카카오 로그아웃</button>
+            <v-card-text>
+              <div class="titletext">
+                {{ naverLogin.user.name }} 님 반갑습니다
+              </div>
+              <div class="subtitletext">
+                네이버 이메일 : {{ naverLogin.user.email }}
+              </div>
+            </v-card-text>
+
+            <v-btn type="button" @click="logout">로그아웃</v-btn>
           </v-card-text>
 
           <v-card-text v-if="check">
@@ -139,7 +145,7 @@ export default {
           return;
         }
         this.check = false;
-        this.check2 = true;
+        this.naverCheck = true;
       } else {
         console.log("callback 처리에 실패하였습니다.");
       }
