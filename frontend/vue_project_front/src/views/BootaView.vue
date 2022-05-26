@@ -101,7 +101,7 @@
       <!-- 부타 글쓰기 end -->
     </v-row>
     <br />
-    <v-row class="ma-5">
+    <v-row class="ma-5" max-width="90%">
       <v-col lg="7" cols="12">
         <v-alert border="right" :type="types" elevation="3" outlined>
           <div>
@@ -160,7 +160,7 @@
                     </p>
                     <div>좋아요 : {{ BoardOne.like_count }}</div>
                     <div>조회수 : {{ BoardOne.btb_read_count }}</div>
-                    <div>내용 : {{ BoardOne.btb_content }}</div>
+
                     <div>등록일 : {{ BoardOne.btb_write_date }}</div>
                   </div>
                 </div>
