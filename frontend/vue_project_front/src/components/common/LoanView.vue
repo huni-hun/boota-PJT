@@ -1,14 +1,16 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="mb-16">
       <v-row>
-        <v-col cols="6"></v-col>
-        <v-col cols="6">
+        <v-col class="d-flex align-center justify-center mb-16" cols="7">
+          <h1>대출 상품 정보 🤑</h1>
+        </v-col>
+        <v-col cols="5">
           <v-card
             elevation="5"
-            max-width="500"
+            max-width="600"
             max-height="800"
-            class="mx-auto rounded-xl mb-12"
+            class="mx-auto rounded-xl mt-5 mb-16"
           >
             <v-card-text>
               <div>서민 금융 정보</div>
