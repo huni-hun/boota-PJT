@@ -11,7 +11,7 @@
 	</select>
 
 	<select id="selectHotBoard" resultType="com.ssafy.happyhouse.model.dto.BootaBoardDto">
-		SELECT BTB_TITLE, BTB_READ_COUNT, BTB_WRITE_DATE, LIKE_COUNT
+		SELECT BTB_TITLE, BTB_READ_COUNT, BTB_WRITE_DATE, LIKE_COUNT, BTB_CONTENT, BTBNO
 		FROM BOOTABOARDMAIN_TB
 		ORDER BY LIKE_COUNT DESC LIMIT 0,1
 	</select>

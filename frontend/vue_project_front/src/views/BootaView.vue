@@ -155,12 +155,15 @@
                   <strong>Hot 게시글 🔥</strong> <br />
                   <span>지금 가장 핫한 게시글입니다</span>
                   <div>
-                    <p class="text-h6 text--primary mt-4 font-weight-bold">
-                      {{ BoardOne.btb_title }}
+                    <p
+                      @click="movePage(BoardOne.btbno)"
+                      class="text-h6 text--primary mt-4 font-weight-bold"
+                    >
+                      <v-btn>{{ BoardOne.btb_title }}</v-btn>
                     </p>
                     <div>좋아요 : {{ BoardOne.like_count }}</div>
                     <div>조회수 : {{ BoardOne.btb_read_count }}</div>
-
+                    <div>내용 : {{ BoardOne.btb_content }}</div>
                     <div>등록일 : {{ BoardOne.btb_write_date }}</div>
                   </div>
                 </div>
@@ -276,6 +279,9 @@ export default {
   },
 
   methods: {
+    movePage(btbno) {
+      this.$router.push({ path: "/boota/detail/" + btbno });
+    },
     getAuth() {
       // 우리 동네 인증하기 클릭시
 
